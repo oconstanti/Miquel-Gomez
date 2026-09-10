@@ -181,20 +181,71 @@ a{ color: inherit; }
   position: fixed;
   inset: 0;
   overflow: hidden;
+  perspective: 2600px;
+  perspective-origin: 50% 50%;
 }
 
 .libro{
-  display: flex;
+  position: relative;
   height: 100%;
-  will-change: transform;
-  transition: transform .78s cubic-bezier(.22,.75,.25,1);
+  transform-style: preserve-3d;
 }
 
+/* Cada capítol és un full del llibre, apilat sobre l'anterior.
+   El full no retalla res: qui retalla és la cara, perquè `overflow:hidden`
+   aplanaria el 3D i el revers no es podria veure. */
 .hoja{
-  position: relative;
-  flex: 0 0 100%;
-  height: 100%;
+  position: absolute;
+  inset: 0;
+  visibility: hidden;
+  transform-style: preserve-3d;
+}
+.hoja--presente{ visibility: visible; }
+
+.hoja__cara{
+  position: absolute;
+  inset: 0;
   overflow: hidden;
+  backface-visibility: hidden;
+}
+/* La cara de davant és el full que es gira en passar pàgina: se'n va sencera,
+   amb la fotografia i tot, i a sota ja hi ha la pàgina següent. */
+.hoja__cara--frente{
+  z-index: 2;
+  transform-origin: left center;
+}
+.hoja--girando .hoja__cara--frente,
+.hoja__cara--girando{ box-shadow: 0 0 90px rgba(0,0,0,.8); }
+
+/* El full que gira: frontissa al cantell esquerre, com el llom d'un llibre */
+.hoja--girando{
+  z-index: 30;
+  transform-origin: left center;
+}
+.hoja--girando .hoja__reverso{ box-shadow: 0 0 90px rgba(0,0,0,.8); }
+
+
+/* El revers del full */
+.hoja__reverso{
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  transform: rotateY(180deg);
+  backface-visibility: hidden;
+  background:
+    linear-gradient(to left, rgba(24,15,9,.92), rgba(12,8,5,.98)),
+    radial-gradient(120% 90% at 80% 40%, rgba(211,160,106,.14), transparent 60%);
+}
+
+/* L'ombra: el full que gira s'enfosqueix en apartar-se de la llum, i la
+   pàgina de sota rep l'ombra del full que li passa per damunt */
+.hoja__sombra{
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(to right, rgba(0,0,0,.88), rgba(0,0,0,.3) 55%, rgba(0,0,0,.06));
 }
 
 /* Fondo de cada capítulo */
@@ -241,8 +292,8 @@ a{ color: inherit; }
     linear-gradient(to bottom, rgba(8,5,3,.4), rgba(8,5,3,.4));
 }
 
-/* Grano */
-.hoja::after{
+/* Gra */
+.hoja__cara::after{
   content: "";
   position: absolute;
   inset: 0;
@@ -294,7 +345,7 @@ a{ color: inherit; }
   margin: 0 auto;
 }
 
-/* Ventana de páginas: el texto se reparte en columnas del ancho del panel */
+/* Finestra de pàgines: el text es reparteix en columnes de l'ample del panell */
 .hojas{
   height: 100%;
   overflow: hidden;

@@ -16,6 +16,16 @@ El text no està tallat a mà: el navegador el reparteix en pàgines segons la m
 pantalla, com un lector de llibres electrònics. En una pantalla petita el mateix capítol
 ocupa més pàgines; el comptador de baix sempre diu on ets.
 
+**El full gira de veritat.** Cada pàgina és una cara en tres dimensions amb frontissa al
+cantell esquerre, com el llom d'un llibre: en passar pàgina, el full se'n va girant —amb la
+seva fotografia i tot— mentre s'enfosqueix, i a sota ja hi ha la pàgina següent esperant,
+que rep l'ombra del full en passar. Perquè el text de la pàgina que marxa no es vegi
+transparent sobre el de la que arriba, cada capítol té dues cares completes apilades: la de
+dalt gira i la de sota ja duu la pàgina següent composada. Canviar de capítol gira el full
+sencer; passar pàgina dins d'un capítol gira només la cara de sobre, i com que les dues
+cares duen la mateixa fotografia, la imatge sembla quieta i només giren les paraules.
+Amb `prefers-reduced-motion` no gira res: els canvis són instantanis.
+
 ## Contingut
 
 | Capítol | Títol | Què hi ha |
@@ -60,7 +70,8 @@ python3 -m http.server 8000
 - Sobre cada fons hi ha un vel degradat perquè el text es llegeixi sempre, tinguin la
   lluminositat que tinguin les fotografies.
 - Al mòbil el text passa a ocupar tota l'amplada i les fletxes baixen a la barra inferior.
-- Respecta `prefers-reduced-motion`.
+- Els girs duren 900 ms (capítol) i 720 ms (pàgina); es canvien a `GIRO_CAPITULO` i
+  `GIRO_PAGINA`, a dalt de `assets/js/libro.js`.
 
 ## Publicació
 

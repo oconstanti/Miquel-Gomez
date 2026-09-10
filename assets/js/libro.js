@@ -1,7 +1,7 @@
 /* ─────────────────────────────────────────────
    El traductor literario · Miquel Gómez Besòs
-   Lector horizontal: capítulos de izquierda a derecha,
-   páginas compuestas con columnas
+   Lector horizontal: los capítulos y las páginas
+   se pasan girando, como las hojas de un libro
    ───────────────────────────────────────────── */
 
 (function () {
@@ -9,121 +9,318 @@
 
   var quieto = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  var GIRO_CAPITULO = quieto ? 1 : 900;   // ms
+  var GIRO_PAGINA   = quieto ? 1 : 720;   // ms
+  var SALTO = 40;                          // separación entre páginas, en px
+
   var escenario = document.getElementById("escenario");
-  var libro     = document.getElementById("libro");
-  var hojas     = Array.prototype.slice.call(document.querySelectorAll(".hoja"));
   var rotulo    = document.getElementById("rotuloActual");
   var folio     = document.getElementById("folio");
   var cinta     = document.getElementById("cinta");
   var atras     = document.getElementById("paginaAnterior");
   var adelante  = document.getElementById("paginaSiguiente");
 
-  var SALTO = 40;          // separación entre páginas de un mismo capítulo, en px
-  var paginas = [];        // [{ hoja: índice, pagina: nº dentro del capítulo }]
-  var actual = 0;          // posición dentro de paginas[]
-  var anchoEscenario = 0;
+  var hojas   = Array.prototype.slice.call(document.querySelectorAll(".hoja"));
+  var pliegos = [];      // un objeto por capítulo
+  var paginas = [];      // [{ hoja, pagina }] de todo el libro
+  var actual  = 0;
+  var giro    = null;    // giro en curso
+
+  /* ── Preparar cada capítulo ─────────────────────────────────── */
+
+  var EASE = "cubic-bezier(.42,.02,.22,1)";
+
+  hojas.forEach(function (hoja, i) {
+    /* Tot el contingut passa a dins d'una cara: és ella qui retalla, perquè
+       si retallés el full es perdria el 3D. */
+    var cara = document.createElement("div");
+    cara.className = "hoja__cara hoja__cara--frente";
+    while (hoja.firstChild) cara.appendChild(hoja.firstChild);
+    hoja.appendChild(cara);
+
+    var sombra = document.createElement("div");
+    sombra.className = "hoja__sombra";
+    sombra.setAttribute("aria-hidden", "true");
+    cara.appendChild(sombra);
+
+    var pliego = {
+      hoja: hoja,
+      cara: cara,
+      sombra: sombra,
+      flujo: cara.querySelector(".flujo"),
+      caraFondo: null,
+      sombraFondo: null,
+      flujoFondo: null,
+      paso: 0,
+      total: 1
+    };
+
+    /* Els capítols amb text porten una segona cara a sota, amb la mateixa
+       fotografia i la pàgina següent: així el full que gira és opac i no
+       es veuen els dos textos alhora. */
+    if (pliego.flujo) {
+      var fondo = cara.cloneNode(true);
+      fondo.className = "hoja__cara hoja__cara--fondo";
+      fondo.setAttribute("aria-hidden", "true");
+      hoja.insertBefore(fondo, cara);
+      pliego.caraFondo = fondo;
+      pliego.sombraFondo = fondo.querySelector(".hoja__sombra");
+      pliego.flujoFondo = fondo.querySelector(".flujo");
+    }
+
+    var reverso = document.createElement("div");
+    reverso.className = "hoja__reverso";
+    reverso.setAttribute("aria-hidden", "true");
+    hoja.appendChild(reverso);
+
+    pliegos.push(pliego);
+  });
+
+  document.documentElement.style.setProperty("--giro-capitulo", GIRO_CAPITULO + "ms");
+  document.documentElement.style.setProperty("--giro-pagina", GIRO_PAGINA + "ms");
 
   /* ── Medir y repaginar ──────────────────────────────────────── */
 
   function medir() {
-    anchoEscenario = escenario.clientWidth;
     var antes = paginas[actual] || { hoja: 0, pagina: 0 };
     paginas = [];
 
-    hojas.forEach(function (hoja, i) {
-      var flujo = hoja.querySelector(".flujo");
-      var total = 1;
-
-      if (flujo) {
-        var ventana = flujo.parentNode;
+    pliegos.forEach(function (pliego, i) {
+      if (pliego.flujo) {
+        var ventana = pliego.flujo.parentNode;
         var ancho = ventana.clientWidth;
         var alto = ventana.clientHeight;
 
-        flujo.style.width = ancho + "px";
-        flujo.style.height = alto + "px";
-        flujo.style.columnWidth = ancho + "px";
-        flujo.style.columnGap = SALTO + "px";
+        [pliego.flujo, pliego.flujoFondo].forEach(function (flujo) {
+          if (!flujo) return;
+          flujo.style.width = ancho + "px";
+          flujo.style.height = alto + "px";
+          flujo.style.columnWidth = ancho + "px";
+          flujo.style.columnGap = SALTO + "px";
+        });
 
-        var extension = Math.max(flujo.scrollWidth, ancho);
-        total = Math.max(1, Math.round((extension + SALTO) / (ancho + SALTO)));
-        hoja.dataset.paso = ancho + SALTO;
+        var extension = Math.max(pliego.flujo.scrollWidth, ancho);
+        pliego.paso = ancho + SALTO;
+        pliego.total = Math.max(1, Math.round((extension + SALTO) / pliego.paso));
       }
 
-      hoja.dataset.paginas = total;
-      for (var p = 0; p < total; p++) paginas.push({ hoja: i, pagina: p });
+      pliego.hoja.dataset.paginas = pliego.total;
+      for (var p = 0; p < pliego.total; p++) paginas.push({ hoja: i, pagina: p });
     });
 
-    // Recuperar, en lo posible, el sitio donde estábamos
-    var recuperado = paginas.findIndex(function (pg) {
-      return pg.hoja === antes.hoja && pg.pagina === antes.pagina;
-    });
-    if (recuperado < 0) {
-      recuperado = paginas.findIndex(function (pg) { return pg.hoja === antes.hoja; });
-    }
+    var recuperado = buscarPagina(antes.hoja, antes.pagina);
+    if (recuperado < 0) recuperado = buscarPagina(antes.hoja, 0);
     actual = recuperado < 0 ? 0 : recuperado;
 
-    pintar(true);
+    asentar();
   }
 
-  /* ── Pintar la posición actual ──────────────────────────────── */
+  function buscarPagina(hoja, pagina) {
+    for (var i = 0; i < paginas.length; i++) {
+      if (paginas[i].hoja === hoja && (pagina === undefined || paginas[i].pagina === pagina)) return i;
+    }
+    return -1;
+  }
 
-  function pintar(sinTransicion) {
+  /* Col·loca una cara en la pàgina que li toca */
+  function colocar(pliego, flujo, pagina) {
+    if (!flujo) return;
+    flujo.style.transform = "translateX(" + (-Math.max(0, pagina) * pliego.paso) + "px)";
+  }
+
+  function animar(el, ms, valor) {
+    el.style.transition = "transform " + ms + "ms " + EASE;
+    el.style.transform = valor;
+  }
+
+  function fijar(el, valor) {
+    el.style.transition = "none";
+    el.style.transform = valor;
+  }
+
+  function oscurecer(sombra, ms, valor) {
+    if (!sombra) return;
+    sombra.style.transition = "opacity " + ms + "ms ease-in";
+    sombra.style.opacity = valor;
+  }
+
+  /* L'ombra que el full deixa caure sobre la pàgina de sota en passar */
+  function barrer(sombra, ms) {
+    if (!sombra) return;
+    sombra.style.transition = "none";
+    sombra.style.opacity = ".85";
+    void sombra.offsetWidth;
+    sombra.style.transition = "opacity " + ms + "ms ease-out";
+    sombra.style.opacity = "0";
+  }
+
+  function despejar(el) {
+    if (!el) return;
+    el.style.transition = "none";
+    el.style.transform = "";
+    el.style.opacity = "";
+    el.classList.remove("hoja__cara--girando");
+  }
+
+  /* Deixa el llibre quiet a la posició actual, sense animació */
+  function asentar() {
     var punto = paginas[actual];
     if (!punto) return;
 
-    if (sinTransicion) libro.style.transition = "none";
-    libro.style.transform = "translateX(" + (-punto.hoja * anchoEscenario) + "px)";
-    if (sinTransicion) {
-      void libro.offsetWidth;
-      libro.style.transition = "";
-    }
-
     hojas.forEach(function (hoja, i) {
-      var flujo = hoja.querySelector(".flujo");
-      var lienzo = hoja.querySelector(".hoja__lienzo");
-      var pagina = i === punto.hoja ? punto.pagina : leerPagina(i);
-      if (flujo) {
-        var paso = parseFloat(hoja.dataset.paso || 0);
-        flujo.style.transform = "translateX(" + (-pagina * paso) + "px)";
-      }
-      if (lienzo && !quieto) {
-        lienzo.style.transform = "translateX(" + (-pagina * 14) + "px)";
-      }
-      hoja.setAttribute("aria-hidden", i === punto.hoja ? "false" : "true");
+      var visible = i === punto.hoja;
+      hoja.classList.toggle("hoja--presente", visible);
+      hoja.classList.remove("hoja--girando");
+      hoja.style.transition = "none";
+      hoja.style.transform = "";
+      hoja.setAttribute("aria-hidden", visible ? "false" : "true");
+      despejar(pliegos[i].cara);
+      despejar(pliegos[i].caraFondo);
+      if (pliegos[i].sombra) { pliegos[i].sombra.style.transition = "none"; pliegos[i].sombra.style.opacity = ""; }
+      if (pliegos[i].sombraFondo) { pliegos[i].sombraFondo.style.transition = "none"; pliegos[i].sombraFondo.style.opacity = ""; }
     });
 
-    guardarPagina(punto.hoja, punto.pagina);
+    var pliego = pliegos[punto.hoja];
+    colocar(pliego, pliego.flujo, punto.pagina);
+    colocar(pliego, pliego.flujoFondo, punto.pagina + 1);
 
+    cromo();
+  }
+
+  function cromo() {
+    var punto = paginas[actual];
+    if (!punto) return;
     rotulo.textContent = hojas[punto.hoja].getAttribute("data-rotulo");
     folio.textContent = (actual + 1) + " / " + paginas.length;
     cinta.style.width = (paginas.length > 1 ? (actual / (paginas.length - 1)) * 100 : 100) + "%";
-
     atras.disabled = actual === 0;
     adelante.disabled = actual === paginas.length - 1;
   }
 
-  var memoria = {};
-  function guardarPagina(hoja, pagina) { memoria[hoja] = pagina; }
-  function leerPagina(hoja) { return memoria[hoja] || 0; }
-
-  /* ── Movimiento ─────────────────────────────────────────────── */
+  /* ── Pasar página ───────────────────────────────────────────── */
 
   function irA(indice) {
     var destino = Math.max(0, Math.min(paginas.length - 1, indice));
     if (destino === actual) return;
+
+    if (giro) rematar();
+
+    var desde = paginas[actual];
+    var hasta = paginas[destino];
+    var sentido = destino > actual ? 1 : -1;
     actual = destino;
-    pintar(false);
+
+    if (desde.hoja === hasta.hoja) girarPagina(desde, hasta, sentido);
+    else girarCapitulo(desde, hasta, sentido);
+
+    cromo();
   }
 
   function pasar(sentido) { irA(actual + sentido); }
 
-  function irACapitulo(id) {
-    var i = hojas.findIndex(function (h) { return h.id === id; });
-    if (i < 0) return;
-    memoria[i] = 0;
-    var destino = paginas.findIndex(function (pg) { return pg.hoja === i; });
-    if (destino >= 0) irA(destino);
+  /* Un empujón para que el navegador tome la posición de salida
+     antes de empezar a animar */
+  function reflujo(el) { void el.offsetWidth; }
+
+  function programar(fin, duracion) {
+    giro = { fin: fin, temporizador: setTimeout(function () { giro = null; fin(); }, duracion + 40) };
   }
+
+  function rematar() {
+    if (!giro) return;
+    clearTimeout(giro.temporizador);
+    var fin = giro.fin;
+    giro = null;
+    fin();
+  }
+
+  /* Passar pàgina dins d'un capítol: la cara de dalt gira i se'n va sencera,
+     amb la fotografia, i a sota ja hi ha la pàgina següent */
+  function girarPagina(desde, hasta, sentido) {
+    var pliego = pliegos[desde.hoja];
+
+    if (!pliego.flujo || !pliego.caraFondo || quieto) {
+      colocar(pliego, pliego.flujo, hasta.pagina);
+      colocar(pliego, pliego.flujoFondo, hasta.pagina + 1);
+      return;
+    }
+
+    pliego.cara.classList.add("hoja__cara--girando");
+
+    if (sentido > 0) {
+      colocar(pliego, pliego.flujoFondo, hasta.pagina);
+      colocar(pliego, pliego.flujo, desde.pagina);
+      fijar(pliego.cara, "");
+      void pliego.cara.offsetWidth;
+      animar(pliego.cara, GIRO_PAGINA, "rotateY(-118deg)");
+      oscurecer(pliego.sombra, GIRO_PAGINA, "1");
+      barrer(pliego.sombraFondo, GIRO_PAGINA);
+    } else {
+      colocar(pliego, pliego.flujoFondo, desde.pagina);
+      colocar(pliego, pliego.flujo, hasta.pagina);
+      fijar(pliego.cara, "rotateY(-118deg)");
+      pliego.sombra.style.transition = "none";
+      pliego.sombra.style.opacity = "1";
+      void pliego.cara.offsetWidth;
+      animar(pliego.cara, GIRO_PAGINA, "");
+      oscurecer(pliego.sombra, GIRO_PAGINA, "0");
+    }
+
+    programar(function () {
+      despejar(pliego.cara);
+      pliego.sombra.style.transition = "none";
+      pliego.sombra.style.opacity = "";
+      colocar(pliego, pliego.flujo, hasta.pagina);
+      colocar(pliego, pliego.flujoFondo, hasta.pagina + 1);
+    }, GIRO_PAGINA);
+  }
+
+  /* Canviar de capítol: gira el full sencer, amb la seva fotografia */
+  function girarCapitulo(desde, hasta, sentido) {
+    var viejo = pliegos[desde.hoja];
+    var nuevo = pliegos[hasta.hoja];
+
+    despejar(nuevo.cara);
+    despejar(nuevo.caraFondo);
+    colocar(nuevo, nuevo.flujo, hasta.pagina);
+    colocar(nuevo, nuevo.flujoFondo, hasta.pagina + 1);
+    nuevo.hoja.classList.add("hoja--presente");
+    nuevo.hoja.setAttribute("aria-hidden", "false");
+    viejo.hoja.setAttribute("aria-hidden", "true");
+
+    if (quieto) { asentar(); return; }
+
+    var girada = sentido > 0 ? viejo : nuevo;
+    girada.hoja.classList.add("hoja--girando");
+
+    if (sentido > 0) {
+      fijar(girada.hoja, "");
+      void girada.hoja.offsetWidth;
+      animar(girada.hoja, GIRO_CAPITULO, "rotateY(-125deg)");
+      oscurecer(girada.sombra, GIRO_CAPITULO, "1");
+    } else {
+      fijar(girada.hoja, "rotateY(-125deg)");
+      girada.sombra.style.transition = "none";
+      girada.sombra.style.opacity = "1";
+      void girada.hoja.offsetWidth;
+      animar(girada.hoja, GIRO_CAPITULO, "");
+      oscurecer(girada.sombra, GIRO_CAPITULO, "0");
+    }
+
+    programar(function () { asentar(); }, GIRO_CAPITULO);
+  }
+
+  function irACapitulo(id) {
+    for (var i = 0; i < hojas.length; i++) {
+      if (hojas[i].id === id) {
+        var destino = buscarPagina(i);
+        if (destino >= 0) irA(destino);
+        return;
+      }
+    }
+  }
+
+  /* ── Mandos ─────────────────────────────────────────────────── */
 
   atras.addEventListener("click", function () { pasar(-1); });
   adelante.addEventListener("click", function () { pasar(1); });
@@ -141,11 +338,10 @@
     }
   });
 
-  /* Rueda del ratón y trackpad */
   var acumulado = 0, ultimoPaso = 0;
   escenario.addEventListener("wheel", function (e) {
     var ahora = Date.now();
-    if (ahora - ultimoPaso < 620) return;
+    if (ahora - ultimoPaso < GIRO_PAGINA + 120) return;
     acumulado += Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
     if (Math.abs(acumulado) > 55) {
       pasar(acumulado > 0 ? 1 : -1);
@@ -154,7 +350,6 @@
     }
   }, { passive: true });
 
-  /* Deslizar con el dedo */
   var inicioX = null, inicioY = null;
   escenario.addEventListener("pointerdown", function (e) {
     if (e.pointerType === "mouse") return;
@@ -168,12 +363,10 @@
     if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) pasar(dx < 0 ? 1 : -1);
   });
 
-  /* Botones internos que llevan a un capítulo */
   Array.prototype.forEach.call(document.querySelectorAll("[data-ir]"), function (boton) {
     boton.addEventListener("click", function () { irACapitulo(boton.getAttribute("data-ir")); });
   });
 
-  /* El foco del teclado no debe arrastrar el escenario */
   escenario.addEventListener("scroll", function () {
     escenario.scrollLeft = 0;
     escenario.scrollTop = 0;
@@ -228,13 +421,26 @@
 
   /* Busca un archivo probando las extensiones habituales, para que dé igual
      cómo se haya guardado la imagen al subirla. */
+  var buscadas = {};
+
   function buscarImagen(base, alEncontrar) {
+    var apunte = buscadas[base];
+
+    if (apunte && apunte.ruta) { alEncontrar(apunte.ruta); return; }
+    if (apunte) { apunte.esperando.push(alEncontrar); return; }
+
+    apunte = buscadas[base] = { ruta: null, esperando: [alEncontrar] };
+
     var i = 0;
     (function intentar() {
       if (i >= EXTENSIONES.length) return;
       var ruta = base + EXTENSIONES[i++];
       var prueba = new Image();
-      prueba.onload = function () { alEncontrar(ruta); };
+      prueba.onload = function () {
+        apunte.ruta = ruta;
+        apunte.esperando.forEach(function (aviso) { aviso(ruta); });
+        apunte.esperando = [];
+      };
       prueba.onerror = intentar;
       prueba.src = ruta;
     })();
@@ -246,9 +452,12 @@
   hojas.forEach(function (hoja) {
     var nombre = hoja.getAttribute("data-fondo");
     if (!nombre) return;
-    var lienzo = hoja.querySelector(".hoja__lienzo");
+    /* Les dues cares del full duen la mateixa fotografia */
+    var lienzos = hoja.querySelectorAll(".hoja__lienzo");
     buscarImagen("assets/img/fondos/" + nombre, function (ruta) {
-      lienzo.style.backgroundImage = "url('" + ruta + "')";
+      Array.prototype.forEach.call(lienzos, function (lienzo) {
+        lienzo.style.backgroundImage = "url('" + ruta + "')";
+      });
       hoja.classList.add("hoja--con-fondo");
     });
   });
@@ -307,7 +516,7 @@
   var esperando;
   window.addEventListener("resize", function () {
     clearTimeout(esperando);
-    esperando = setTimeout(medir, 180);
+    esperando = setTimeout(function () { rematar(); medir(); }, 180);
   });
 
   if (location.hash) irACapitulo(location.hash.slice(1));
