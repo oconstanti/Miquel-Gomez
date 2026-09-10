@@ -1,27 +1,49 @@
 # On deixar les imatges
 
-Totes les imatges van dins de `assets/img/`. **No cal tocar el codi**: la pàgina busca
-cada fitxer pel seu nom exacte i, si el troba, el mostra sola. Si no hi és, ensenya una
-alternativa provisional (una coberta composta amb tipografia, o cap imatge).
+Totes van dins de `assets/img/`. **No cal tocar codi**: la pàgina busca cada fitxer pel
+seu nom exacte i, si el troba, el posa. Si no hi és, ensenya una alternativa provisional.
 
-Formats recomanats: **JPG** per a fotografies i **PNG** si necessites fons transparent.
-Mida raonable: entre 800 i 1600 px d'amplada, i per sota d'1 MB per fitxer.
+Format: **JPG** per a fotografies. Per als fons, entre 1920 i 2560 px d'amplada i per sota
+d'uns 500 KB cadascun (són pantalla completa i han de carregar ràpid).
 
 ---
 
-## 1. La coberta del llibre (portada de la web)
+## 1. Els fons dels capítols ← **això és el que falta**
 
-| Carpeta | Nom exacte del fitxer | Proporció |
+Carpeta: `assets/img/fondos/`. Apaïsades, 16:9 o més amples.
+
+| Pàgina | Nom exacte del fitxer | Quina imatge |
 |---|---|---|
-| `assets/img/portada/` | `portada-libro.jpg` | vertical, 2:3 (p. ex. 1000 × 1500 px) |
+| Frontispici i el llindar | `portada.jpg` | ⬜ falta |
+| Capítol 1 · Tierra yerma | `capitulo-1.jpg` | la terra vermella clivellada |
+| Capítol 2 · Una vida | `capitulo-2.jpg` | l'escriptori amb els papers i el portàtil |
+| Capítol 3 · David contra Goliat | `capitulo-3.jpg` | la figura amb capa al desert |
+| Capítol 4 · La traducción consciente | `capitulo-4.jpg` | la biblioteca amb els llibres encesos |
+| Capítol 5 · El camino | `capitulo-5.jpg` | ⬜ falta |
+| Capítol 6 · El mensaje en la botella | `capitulo-6.jpg` | ⬜ falta |
 
-Ara mateix hi ha un dibuix provisional (`portada-libro.svg`) que imita la coberta de
-l'exemple. En el moment que hi deixis `portada-libro.jpg`, el substitueix
-automàticament.
+**Important:** els pantallazos que m'has passat pel xat no em serveixen com a fons, perquè
+duen el text a sobre i estan retallats. Necessito els fitxers originals. Si tens el PDF
+d'on surten, passa'l i n'extrec les imatges a plena resolució.
 
-## 2. Les cobertes dels llibres traduïts (capítol 5)
+Mentre no hi siguin, cada capítol ensenya un degradat fosc en el mateix to que la imatge
+que hi ha d'anar, així que la web ja es pot veure i ensenyar.
 
-Carpeta: `assets/img/libros/`. Proporció vertical 2:3.
+**Com han d'estar composades:** el text ocupa mig costat de la pantalla (capítols senars a
+l'esquerra, parells a la dreta) i el fons es veu sencer. Va bé que el motiu principal de la
+foto quedi al costat contrari al del text, com als teus exemples.
+
+## 2. La coberta del llibre (frontispici)
+
+| Carpeta | Nom exacte | Proporció |
+|---|---|---|
+| `assets/img/portada/` | `portada-libro.jpg` | vertical 2:3 (p. ex. 1000 × 1500 px) |
+
+Ara hi ha un dibuix provisional (`portada-libro.svg`) que imita el de la teva maqueta.
+
+## 3. Les cobertes dels llibres traduïts (capítol 5)
+
+Carpeta: `assets/img/libros/`. Verticals, 2:3.
 
 | Llibre | Nom del fitxer | Estat |
 |---|---|---|
@@ -33,49 +55,25 @@ Carpeta: `assets/img/libros/`. Proporció vertical 2:3.
 | La agencia de detectives Inklings | `la-agencia-de-detectives-inklings.jpg` | ⬜ falta |
 | Jaque mate | `jaque-mate.jpg` | ⬜ falta |
 
-Les quatre que ja hi són surten del document de Word. Mentre en falti alguna, al seu
-lloc apareix una coberta provisional amb el títol i l'autor compostos amb la tipografia
-de la web (no queda cap forat lleig).
+Mentre en falti alguna, al seu lloc surt una coberta composta amb el títol i l'autor.
 
-**Per afegir un llibre nou:** copia un bloc `<li class="libro">` dins de
-`<ul class="estanteria">` a `index.html`, canvia el títol, l'autor, l'editorial i el nom
-del fitxer de la imatge.
+**Per afegir un llibre nou:** copia un bloc `<div class="libro-ficha">` dins de
+`<div class="estanteria">` a `index.html` i canvia el títol, l'autor, l'editorial i el nom
+del fitxer.
 
-## 3. El retrat d'en Miquel (capítol 2)
+## 4. El retrat d'en Miquel (capítol 2)
 
 | Carpeta | Nom exacte | Proporció |
 |---|---|---|
-| `assets/img/retrato/` | `miquel-gomez.jpg` | vertical o quadrada (p. ex. 800 × 1000 px) |
+| `assets/img/retrato/` | `miquel-gomez.jpg` | vertical (p. ex. 800 × 1000 px) |
 
-Si no hi ha fitxer, el capítol simplement no mostra cap retrat.
-
-## 4. Il·lustracions de capítol (opcionals)
-
-Carpeta: `assets/img/capitulos/`. Apareixen com una làmina ampla just sota el títol del
-capítol. Proporció apaïsada, per exemple 1600 × 900 px.
-
-| Capítol | Nom del fitxer |
-|---|---|
-| 1 · Tierra yerma | `capitulo-1.jpg` |
-| 2 · Una vida | `capitulo-2.jpg` |
-| 3 · David contra Goliat | `capitulo-3.jpg` |
-| 4 · La traducción consciente | `capitulo-4.jpg` |
-| 5 · El camino | `capitulo-5.jpg` |
-| 6 · El mensaje en la botella | `capitulo-6.jpg` |
-
-De moment només el capítol 1 té la ranura preparada a `index.html`. Per activar-la en un
-altre capítol, copia-hi aquest bloc just després de `</header>`:
-
-```html
-<figure class="lamina" hidden>
-  <img data-preferida="assets/img/capitulos/capitulo-3.jpg" alt="Ilustración del capítulo tres" loading="lazy">
-</figure>
-```
+Si no hi ha fitxer, el capítol no mostra cap retrat.
 
 ---
 
 ## Drets d'imatge
 
 Les cobertes dels llibres són de les editorials (Random House, Newton Compton). Mostrar-les
-en el web d'un traductor per acreditar la seva feina és habitual, però val la pena que en
-Miquel ho confirmi amb les editorials si vol quedar-se tranquil.
+al web d'un traductor per acreditar la seva feina és habitual, però val la pena que en
+Miquel ho confirmi amb les editorials. Amb els fons, si són generats o de banc d'imatges,
+cal comprovar que la llicència permeti l'ús en un web.
