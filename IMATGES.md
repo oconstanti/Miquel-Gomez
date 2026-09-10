@@ -12,22 +12,24 @@ d'uns 500 KB cadascun (són pantalla completa i han de carregar ràpid).
 
 Carpeta: `assets/img/fondos/`. Apaïsades, 16:9 o més amples.
 
-| Pàgina | Nom exacte del fitxer | Quina imatge |
+| Pàgina | Nom del fitxer | Estat |
 |---|---|---|
-| Frontispici i el llindar | `portada.jpg` | ⬜ falta |
-| Capítol 1 · Tierra yerma | `capitulo-1.jpg` | la terra vermella clivellada |
-| Capítol 2 · Una vida | `capitulo-2.jpg` | l'escriptori amb els papers i el portàtil |
-| Capítol 3 · David contra Goliat | `capitulo-3.jpg` | la figura amb capa al desert |
-| Capítol 4 · La traducción consciente | `capitulo-4.jpg` | la biblioteca amb els llibres encesos |
-| Capítol 5 · El camino | `capitulo-5.jpg` | ⬜ falta |
-| Capítol 6 · El mensaje en la botella | `capitulo-6.jpg` | ⬜ falta |
+| Frontispici i el llindar | `portada.jpeg` | ✅ ja hi és |
+| Capítol 1 · Tierra yerma | `capitulo-1.jpeg` | ✅ ja hi és |
+| Capítol 2 · Una vida | `capitulo-2.jpeg` | ✅ ja hi és |
+| Capítol 3 · David contra Goliat | `capitulo-3.jpeg` | ✅ ja hi és |
+| Capítol 4 · La traducción consciente | `capitulo-4.jpeg` | ✅ ja hi és |
+| Capítol 5 · El camino | `capitulo-5` | ⬜ **falta** |
+| Capítol 6 · El mensaje en la botella | `capitulo-6.jpeg` | ✅ ja hi és |
 
-**Important:** els pantallazos que m'has passat pel xat no em serveixen com a fons, perquè
-duen el text a sobre i estan retallats. Necessito els fitxers originals. Si tens el PDF
-d'on surten, passa'l i n'extrec les imatges a plena resolució.
+L'extensió és igual: la pàgina prova `.jpg`, `.jpeg`, `.png` i `.webp`, així que el fitxer
+es pot deixar tal com surti de l'ordinador.
 
-Mentre no hi siguin, cada capítol ensenya un degradat fosc en el mateix to que la imatge
-que hi ha d'anar, així que la web ja es pot veure i ensenyar.
+`portada.jpeg` fa dues feines alhora: és la il·lustració de la coberta del llibre (amb el
+títol composat a sobre amb la tipografia de la web) i, desenfocada i fosca, el fons del
+frontispici.
+
+Mentre falti `capitulo-5`, aquell capítol ensenya un degradat fosc en el to que li toca.
 
 **Com han d'estar composades:** el text ocupa mig costat de la pantalla (capítols senars a
 l'esquerra, parells a la dreta) i el fons es veu sencer. Va bé que el motiu principal de la

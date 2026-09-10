@@ -224,36 +224,66 @@
 
   /* ── Imágenes ───────────────────────────────────────────────── */
 
-  /* Fondos: si existe assets/img/fondos/<nombre>.jpg, sustituye al provisional */
+  var EXTENSIONES = [".jpg", ".jpeg", ".png", ".webp", ".JPG", ".JPEG", ".PNG"];
+
+  /* Busca un archivo probando las extensiones habituales, para que dé igual
+     cómo se haya guardado la imagen al subirla. */
+  function buscarImagen(base, alEncontrar) {
+    var i = 0;
+    (function intentar() {
+      if (i >= EXTENSIONES.length) return;
+      var ruta = base + EXTENSIONES[i++];
+      var prueba = new Image();
+      prueba.onload = function () { alEncontrar(ruta); };
+      prueba.onerror = intentar;
+      prueba.src = ruta;
+    })();
+  }
+
+  function sinExtension(ruta) { return ruta.replace(/\.[a-z0-9]+$/i, ""); }
+
+  /* Fondos de capítulo */
   hojas.forEach(function (hoja) {
     var nombre = hoja.getAttribute("data-fondo");
     if (!nombre) return;
     var lienzo = hoja.querySelector(".hoja__lienzo");
-    var ruta = "assets/img/fondos/" + nombre + ".jpg";
-    var prueba = new Image();
-    prueba.onload = function () {
+    buscarImagen("assets/img/fondos/" + nombre, function (ruta) {
       lienzo.style.backgroundImage = "url('" + ruta + "')";
       hoja.classList.add("hoja--con-fondo");
-    };
-    prueba.src = ruta;
+    });
   });
 
-  /* Retrato, portada y demás imágenes opcionales */
+  /* La cubierta: si existe una cubierta ya terminada se usa tal cual; si no,
+     se compone sobre la ilustración con la tipografía de la web. */
+  var portada = document.getElementById("portada");
+  if (portada) {
+    var imagenPortada = portada.querySelector(".portada__imagen");
+    buscarImagen("assets/img/portada/portada-libro", function (ruta) {
+      imagenPortada.src = ruta;
+      portada.classList.add("portada--acabada");
+    });
+    buscarImagen("assets/img/fondos/portada", function (ruta) {
+      if (!portada.classList.contains("portada--acabada")) imagenPortada.src = ruta;
+    });
+  }
+
+  /* Retrato y demás imágenes opcionales */
   Array.prototype.forEach.call(document.querySelectorAll("[data-preferida]"), function (img) {
-    var ruta = img.getAttribute("data-preferida");
-    var prueba = new Image();
-    prueba.onload = function () {
+    buscarImagen(sinExtension(img.getAttribute("data-preferida")), function (ruta) {
       img.src = ruta;
       var figura = img.closest("figure");
       if (figura && figura.hidden) { figura.hidden = false; medir(); }
-    };
-    prueba.src = ruta;
+    });
   });
 
-  /* Cubiertas que todavía no existen: se ve la suplente compuesta con letras */
+  /* Cubiertas de libro que todavía no existen: se ve la suplente compuesta con letras */
   Array.prototype.forEach.call(document.querySelectorAll(".libro-ficha__portada img"), function (img) {
-    function fallar() { img.hidden = true; }
-    img.addEventListener("error", fallar);
+    var base = sinExtension(img.getAttribute("src"));
+    function fallar() {
+      img.hidden = true;
+      buscarImagen(base, function (ruta) { img.src = ruta; img.hidden = false; });
+    }
+    img.addEventListener("error", fallar, { once: true });
     if (img.complete && img.naturalWidth === 0) fallar();
   });
 

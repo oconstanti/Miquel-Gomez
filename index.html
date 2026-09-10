@@ -31,16 +31,22 @@
   <div class="libro" id="libro">
 
     <!-- ─── Frontispicio ─── -->
-    <section class="hoja hoja--fija" id="frontispicio" data-rotulo="Frontispicio" data-fondo="portada">
+    <section class="hoja hoja--fija hoja--difuminada" id="frontispicio" data-rotulo="Frontispicio" data-fondo="portada">
       <div class="hoja__lienzo" aria-hidden="true"></div>
       <div class="hoja__velo hoja__velo--centro" aria-hidden="true"></div>
       <div class="hoja__panel hoja__panel--doble">
 
-        <figure class="portada">
-          <img class="portada__imagen"
-               src="assets/img/portada/portada-libro.svg"
-               data-preferida="assets/img/portada/portada-libro.jpg"
-               alt="Cubierta del libro El traductor literario. Un hombre entre dos mundos.">
+        <figure class="portada" id="portada">
+          <div class="portada__marco">
+            <img class="portada__imagen"
+                 src="assets/img/portada/portada-libro.svg"
+                 alt="Cubierta del libro El traductor literario. Un hombre entre dos mundos.">
+            <div class="portada__rotulo">
+              <p class="portada__titulo">El<br>traductor<br><em>literario</em></p>
+              <span class="portada__filete" aria-hidden="true"></span>
+              <p class="portada__lema">Un hombre entre dos mundos</p>
+            </div>
+          </div>
         </figure>
 
         <div class="entrada">

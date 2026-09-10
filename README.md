@@ -69,8 +69,6 @@ carpeta arrel), Netlify o Vercel arrossegant-hi la carpeta.
 
 ## Pendents
 
-- **Els fons dels capítols** (vegeu `IMATGES.md`): calen els fitxers originals, no els
-  pantallazos. Si hi ha el PDF, se'n poden extreure.
-- La coberta definitiva del llibre.
-- Tres cobertes que falten i les dades de *Jaque mate* (autor i editorial).
+- Falta el fons del capítol 5 (`assets/img/fondos/capitulo-5.*`).
+- Tres cobertes de llibre que falten i les dades de *Jaque mate* (autor i editorial).
 - Confirmar el correu de contacte: al document hi consta `durkapulo@gmail.com`.
