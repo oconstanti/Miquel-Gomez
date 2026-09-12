@@ -311,12 +311,11 @@ a{ color: inherit; }
   right: var(--margen);
   width: var(--columna);
   z-index: 2;
-  text-align: right;
+  text-align: left;
 }
 .hoja--izquierda .hoja__panel{
   right: auto;
   left: var(--margen);
-  text-align: left;
 }
 .hoja--amplia .hoja__panel{
   left: var(--margen);
@@ -413,10 +412,9 @@ a{ color: inherit; }
 
 .retrato{
   break-inside: avoid;
-  margin: 1.4rem 0 1.6rem auto;
+  margin: 1.4rem auto 1.6rem 0;
   width: min(11rem, 55%);
 }
-.hoja--izquierda .retrato{ margin-left: 0; margin-right: auto; }
 .retrato img{
   width: 100%;
   border-radius: 1px;
@@ -752,7 +750,6 @@ a{ color: inherit; }
     left: var(--margen);
     right: var(--margen);
     width: auto;
-    text-align: left;
   }
   .hoja__velo,
   .hoja--izquierda .hoja__velo{
@@ -783,7 +780,6 @@ a{ color: inherit; }
   .paso[disabled]{ transform: none; }
   .pista{ display: none; }
   .libro-ficha{ width: 44%; margin: 0 .5rem 1.6rem; }
-  .retrato, .hoja--izquierda .retrato{ margin-left: 0; margin-right: auto; }
 }
 
 @media (max-height: 560px){

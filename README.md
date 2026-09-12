@@ -64,7 +64,7 @@ python3 -m http.server 8000
 - **Tipografies:** Playfair Display (títols) i EB Garamond (text), de Google Fonts.
 - **Colors:** nit `#0e0906`, llum `#f3ece1`, ambre `#d3a06a`.
 - Els capítols alternen el costat del text (senars a l'esquerra, parells a la dreta), com
-  les pàgines parelles i senars d'un llibre, i el text s'alinea al cantell exterior.
+  les pàgines parelles i senars d'un llibre. El text sempre s'alinea a l'esquerra.
 - Al capítol 3 la veu de la IA es compon en un gris fred, perquè es distingeixi de la del
   traductor sense dir-ho.
 - Sobre cada fons hi ha un vel degradat perquè el text es llegeixi sempre, tinguin la

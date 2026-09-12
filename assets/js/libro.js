@@ -62,6 +62,11 @@
       var fondo = cara.cloneNode(true);
       fondo.className = "hoja__cara hoja__cara--fondo";
       fondo.setAttribute("aria-hidden", "true");
+      /* la còpia no pot repetir els identificadors de l'original */
+      fondo.removeAttribute("id");
+      Array.prototype.forEach.call(fondo.querySelectorAll("[id]"), function (el) {
+        el.removeAttribute("id");
+      });
       hoja.insertBefore(fondo, cara);
       pliego.caraFondo = fondo;
       pliego.sombraFondo = fondo.querySelector(".hoja__sombra");
@@ -500,11 +505,10 @@
 
   var usuario = "durkapulo";
   var dominio = "gmail.com";
-  var enlace = document.getElementById("correo");
-  if (enlace) {
+  Array.prototype.forEach.call(document.querySelectorAll(".correo"), function (enlace) {
     enlace.href = "mailto:" + usuario + "@" + dominio;
     enlace.textContent = usuario + "@" + dominio;
-  }
+  });
 
   /* ── Arranque ───────────────────────────────────────────────── */
 
