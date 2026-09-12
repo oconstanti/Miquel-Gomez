@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/estilo.css?v=20260912b">
+<link rel="stylesheet" href="assets/css/estilo.css?v=20260912c">
 <script>document.documentElement.className = 'con-js';</script>
 </head>
 <body>
@@ -26,305 +26,17 @@
   </button>
 </header>
 
-<!-- ══════════ EL LIBRO ══════════ -->
+<!-- El libro abierto: las páginas las compone el guion a partir de la fuente -->
 <div class="escenario" id="escenario">
-  <div class="libro" id="libro">
-
-    <!-- ─── Frontispicio ─── -->
-    <section class="hoja hoja--fija hoja--difuminada" id="frontispicio" data-rotulo="Frontispicio" data-fondo="portada">
-      <div class="hoja__lienzo" aria-hidden="true"></div>
-      <div class="hoja__velo hoja__velo--centro" aria-hidden="true"></div>
-      <div class="hoja__panel hoja__panel--doble">
-
-        <figure class="portada" id="portada">
-          <div class="portada__marco">
-            <img class="portada__imagen"
-                 src="assets/img/portada/portada-libro.svg"
-                 alt="Cubierta del libro El traductor literario. Un hombre entre dos mundos.">
-            <div class="portada__rotulo">
-              <p class="portada__titulo">El<br>traductor<br><em>literario</em></p>
-              <span class="portada__filete" aria-hidden="true"></span>
-              <p class="portada__lema">Un hombre entre dos mundos</p>
-            </div>
-          </div>
-        </figure>
-
-        <div class="entrada">
-          <h1 class="entrada__titular">¿Qué significa traducir un&nbsp;libro?</h1>
-          <p class="capitular">Una historia sobre libros, lenguas y el extraño oficio de construir puentes entre mundos.</p>
-          <p>Si buscas acercarte a la traducción literaria desde una perspectiva diferente, cruza el umbral.</p>
-          <p class="susurro">Porque todos somos el resultado de nuestra historia y elegimos, con cada decisión, nuestro futuro.</p>
-          <button class="umbral" data-ir="capitulo-1">Cruzar el umbral</button>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ─── Eslogan ─── -->
-    <section class="hoja hoja--fija hoja--eslogan" id="umbral" data-rotulo="El umbral" data-fondo="portada">
-      <div class="hoja__lienzo" aria-hidden="true"></div>
-      <div class="hoja__velo hoja__velo--pleno" aria-hidden="true"></div>
-      <div class="hoja__panel hoja__panel--centro">
-        <p class="eslogan">La traducción literaria:<br><em>un umbral entre dos mundos</em></p>
-      </div>
-    </section>
-
-    <!-- ─── Capítulo 1 ─── -->
-    <section class="hoja hoja--izquierda" id="capitulo-1" data-rotulo="I · Tierra yerma" data-fondo="capitulo-1">
-      <div class="hoja__lienzo" aria-hidden="true"></div>
-      <div class="hoja__velo" aria-hidden="true"></div>
-      <div class="hoja__panel">
-        <div class="hojas"><div class="flujo">
-
-          <header class="portadilla">
-            <p class="portadilla__numero">Capítulo 1</p>
-            <h2 class="portadilla__titulo">Tierra yerma</h2>
-          </header>
-
-          <p>Un libro no es solo una historia, es un mundo. Un mundo con paisajes, aromas, sonidos y silencios. Un mundo de héroes y villanos, de emociones, de contrastes, de aventuras y de sueños que solo existen entre sus páginas.</p>
-          <p>El autor extiende la mano.</p>
-          <p>Invita al lector a cruzar el umbral y le dice:</p>
-          <p class="dialogo">—Ven. Acompáñame. Mira.</p>
-          <p>Sin embargo, en ocasiones, entre el autor y el lector, se abre una distancia inmensa.</p>
-          <p class="aparte">Un abismo.</p>
-          <p>El lector contempla ese vacío y se detiene en el borde. Al otro lado está el mundo que desea conocer y, frente a él, una frontera invisible que no sabe atravesar.</p>
-          <p>Entonces, aparece el traductor. El puente.</p>
-          <p>Ahora es el traductor quien tiende la mano.</p>
-          <p class="dialogo">—Ven —dice—. Déjame que te acompañe. Ya no estarás solo.</p>
-
-        </div></div>
-      </div>
-    </section>
-
-    <!-- ─── Capítulo 2 ─── -->
-    <section class="hoja" id="capitulo-2" data-rotulo="II · Una vida" data-fondo="capitulo-2">
-      <div class="hoja__lienzo" aria-hidden="true"></div>
-      <div class="hoja__velo" aria-hidden="true"></div>
-      <div class="hoja__panel">
-        <div class="hojas"><div class="flujo">
-
-          <header class="portadilla">
-            <p class="portadilla__numero">Capítulo 2</p>
-            <h2 class="portadilla__titulo">Una vida</h2>
-          </header>
-
-          <p>El traductor observa su vida, el tiempo transcurrido desde aquel lunes 26 de julio en la ciudad de Barcelona, su primer día de existencia, hasta ese momento.</p>
-          <p>Ya desde niño le obsesionaban las palabras. Sonidos que describían el mundo a su alrededor sin ninguna lógica aparente.</p>
-          <figure class="retrato" hidden>
-            <img data-preferida="assets/img/retrato/miquel-gomez.jpg" alt="Retrato de Miquel Gómez Besòs" loading="lazy">
-            <figcaption>Miquel Gómez Besòs</figcaption>
-          </figure>
-          <p>Todos los veranos, la familia del traductor viajaba al lugar de origen de sus padres, uno de los grandes destinos de turismo de playa del país. Allí, entre paseos, merenderos y helados de pistacho, se le empezó a despertar la curiosidad.</p>
-          <p>Observaba ciertos carteles colocados en los comercios de las zonas más transitadas: pequeñas banderas acompañadas de mensajes que no comprendía. <em lang="fr">On parle français.</em> <em lang="de">Man spricht Deutsch.</em> Aquellas combinaciones de letras no significaban nada para él y, sin embargo, lo atraían como un enigma.</p>
-          <p>Veía a aquellas personas —familias como la suya, cargadas con sombrillas y tumbonas— caminar por la playa con la piel enrojecida por el sol, hablando en lenguas desconocidas. Las escuchaba y se preguntaba qué historias ocultaban aquellos sonidos, qué mundos existían detrás de aquellas palabras que él no podía entender.</p>
-          <p class="aparte">Sin saberlo, había comenzado la búsqueda.</p>
-          <p>Cuando tuvo edad suficiente, el traductor decidió seguir el rastro de aquel misterio. Emprendió entonces un largo viaje por distintos países: Alemania, Portugal, Francia, Italia, Irlanda…, estudiando las lenguas y las culturas; un camino que ya nunca abandonaría.</p>
-          <p>Y tras años de estudio, supo lo que tenía que hacer.</p>
-
-        </div></div>
-      </div>
-    </section>
-
-    <!-- ─── Capítulo 3 ─── -->
-    <section class="hoja hoja--izquierda" id="capitulo-3" data-rotulo="III · David contra Goliat" data-fondo="capitulo-3">
-      <div class="hoja__lienzo" aria-hidden="true"></div>
-      <div class="hoja__velo" aria-hidden="true"></div>
-      <div class="hoja__panel">
-        <div class="hojas"><div class="flujo">
-
-          <header class="portadilla">
-            <p class="portadilla__numero">Capítulo 3</p>
-            <h2 class="portadilla__titulo">David contra Goliat</h2>
-            <p class="portadilla__subtitulo">El traductor frente a la IA</p>
-          </header>
-
-          <p>El traductor fija la mirada en la pantalla y, por un momento, siente como si la IA le mirara desde detrás de los píxeles.</p>
-          <p class="dialogo">—Así que crees que puedes traducir mejor que yo —dice el traductor.</p>
-          <p class="dialogo maquina">—Puedo imitar cualquier estilo —le responde la IA con tono arrogante—. Puedo escribir como Shakespeare, Cervantes, Brecht, Tolstói…</p>
-          <p class="dialogo">—Imitar no es sentir —responde el traductor calmadamente—. Mira, la traducción literaria no consiste solo en cambiar las palabras de un idioma por las de otro. Un libro no son sus palabras, sino lo que transmiten. El traductor es una página en blanco que se llena con palabras para transmitir ese mismo sentido.</p>
-          <p class="aparte">La IA guarda silencio.</p>
-          <p class="dialogo">—Tú ordenas datos, reconoces patrones y reproduces estructuras —continúa el traductor—, pero la literatura no vive solo en el significado. Vive también en las ambigüedades, en las referencias ocultas, en aquello que el autor calla, pero que el lector entiende. La melancolía, la música, la alegría.</p>
-          <p class="aparte">El cursor parpadea unos segundos.</p>
-          <p class="dialogo">—Por eso traducir es, en cierto modo, volver a escribir. El traductor interpreta matices. Tú puedes imitar un estilo y, aun así, no haber entendido nada.</p>
-
-        </div></div>
-      </div>
-    </section>
-
-    <!-- ─── Capítulo 4 ─── -->
-    <section class="hoja" id="capitulo-4" data-rotulo="IV · La traducción consciente" data-fondo="capitulo-4">
-      <div class="hoja__lienzo" aria-hidden="true"></div>
-      <div class="hoja__velo" aria-hidden="true"></div>
-      <div class="hoja__panel">
-        <div class="hojas"><div class="flujo">
-
-          <header class="portadilla">
-            <p class="portadilla__numero">Capítulo 4</p>
-            <h2 class="portadilla__titulo">La traducción consciente</h2>
-          </header>
-
-          <p>La pantalla ilumina la habitación con una luz fría y silenciosa. El único sonido es el del ventilador del portátil.</p>
-          <p class="dialogo maquina">—¿A qué esperas?</p>
-          <p>Y, sin embargo, el traductor no escribe.</p>
-          <p>Se queda mirando la pantalla, cierra los ojos y evoca, recuerda cuando todavía no era más que un aprendiz en busca de la verdad.</p>
-          <p class="dialogo">—Maestro —pregunta el traductor—, ¿qué es traducir?</p>
-          <p>El maestro deja el libro que sostiene entre las manos.</p>
-          <p class="dialogo">—Si un autor escribe <em>lluvia</em> —le dice—, ¿debes traducir la palabra o la lluvia?</p>
-          <p>El aprendiz guarda silencio.</p>
-          <p class="dialogo">—La lluvia y la palabra <em>lluvia</em> no siempre son la misma cosa, algunas lluvias son tristeza, otras nacen de la memoria, hay lluvias que anuncian un final y otras sirven de telón de fondo para un beso. Si solo traduces la palabra, quizá te olvides de lo que se oculta detrás de ella.</p>
-          <p>El traductor sonríe. Los recuerdos continúan invadiéndole la mente.</p>
-          <p class="dialogo">—Maestro, ¿cómo sé si una traducción es buena?</p>
-          <p class="dialogo">—La respuesta correcta la obtendrás si planteas la pregunta adecuada —le responde el maestro—. Cuando el lector llegue al final, ¿habrá vivido una aventura o se habrá perdido en las palabras?</p>
-          <p>El aprendiz mira al maestro, pensativo.</p>
-          <p class="dialogo">—Traducir no es escribir una palabra por otra —continúa el maestro—. Es escucharlas, entender qué dicen, saber por qué existen.</p>
-          <p>El traductor vuelve a abrir los ojos. El ordenador sigue ahí, esperándole.</p>
-          <p class="dialogo">—¿Entonces, cuál es el secreto? —le pregunta a su maestro.</p>
-          <p class="dialogo">—Traducir cada palabra como si de ella dependiera todo el libro, tomando conciencia de que ninguna palabra existe sola, del mismo modo que la lluvia, sin lo que la rodea, no es más que agua que cae sin ningún propósito, como una tormenta solitaria en medio del mar.</p>
-          <p class="dialogo">—La traducción consciente… —responde el aprendiz.</p>
-          <p class="dialogo">—Así es —replica el maestro—. La traducción consciente consiste en recordar que detrás de cada frase hay una intención; detrás de cada palabra, una mirada, y detrás de cada libro, un mundo único.</p>
-          <p>El traductor observa el libro, sus palabras. Ante él, se abre un puente a ese mundo. Coloca las manos frente al teclado.</p>
-          <p class="aparte">Y empieza a traducir.</p>
-
-        </div></div>
-      </div>
-    </section>
-
-    <!-- ─── Capítulo 5 · las traducciones ─── -->
-    <section class="hoja hoja--amplia" id="capitulo-5" data-rotulo="V · El camino" data-fondo="capitulo-5">
-      <div class="hoja__lienzo" aria-hidden="true"></div>
-      <div class="hoja__velo hoja__velo--pleno" aria-hidden="true"></div>
-      <div class="hoja__panel">
-        <div class="hojas"><div class="flujo">
-
-          <header class="portadilla portadilla--centro">
-            <p class="portadilla__numero">Capítulo 5</p>
-            <h2 class="portadilla__titulo">El camino</h2>
-            <p class="portadilla__subtitulo">Traducciones publicadas</p>
-          </header>
-
-          <div class="estanteria">
-
-            <div class="libro-ficha">
-              <div class="libro-ficha__portada" data-tono="rh">
-                <img src="assets/img/libros/yo-era-un-encanto.png" alt="Cubierta de Yo era un encanto, de Eve Babitz" loading="lazy">
-                <span class="libro-ficha__suplente" aria-hidden="true"><em>Yo era un encanto</em><span>Eve Babitz</span></span>
-              </div>
-              <p class="libro-ficha__titulo">Yo era un encanto</p>
-              <p class="libro-ficha__autor">Eve Babitz</p>
-              <p class="libro-ficha__sello">Random House</p>
-            </div>
-
-            <div class="libro-ficha">
-              <div class="libro-ficha__portada" data-tono="rh">
-                <img src="assets/img/libros/sex-and-rage.jpg" alt="Cubierta de Sex and Rage, de Eve Babitz" loading="lazy">
-                <span class="libro-ficha__suplente" aria-hidden="true"><em>Sex and Rage</em><span>Eve Babitz</span></span>
-              </div>
-              <p class="libro-ficha__titulo">Sex and Rage</p>
-              <p class="libro-ficha__autor">Eve Babitz</p>
-              <p class="libro-ficha__sello">Random House</p>
-            </div>
-
-            <div class="libro-ficha">
-              <div class="libro-ficha__portada" data-tono="nc">
-                <img src="assets/img/libros/las-claves-secretas-del-cosmos.png" alt="Cubierta de Las claves secretas del cosmos, de Glenn Cooper" loading="lazy">
-                <span class="libro-ficha__suplente" aria-hidden="true"><em>Las claves secretas del cosmos</em><span>Glenn Cooper</span></span>
-              </div>
-              <p class="libro-ficha__titulo">Las claves secretas del cosmos</p>
-              <p class="libro-ficha__autor">Glenn Cooper</p>
-              <p class="libro-ficha__sello">Newton Compton Editores</p>
-            </div>
-
-            <div class="libro-ficha">
-              <div class="libro-ficha__portada" data-tono="nc">
-                <img src="assets/img/libros/la-extrana-muerte-de-sir-lawrence-linwood.png" alt="Cubierta de La extraña muerte de Sir Lawrence Linwood, de Christopher Huang" loading="lazy">
-                <span class="libro-ficha__suplente" aria-hidden="true"><em>La extraña muerte de Sir Lawrence Linwood</em><span>Christopher Huang</span></span>
-              </div>
-              <p class="libro-ficha__titulo">La extraña muerte de Sir Lawrence Linwood</p>
-              <p class="libro-ficha__autor">Christopher Huang</p>
-              <p class="libro-ficha__sello">Newton Compton Editores</p>
-            </div>
-
-            <div class="libro-ficha">
-              <div class="libro-ficha__portada" data-tono="nc">
-                <img src="assets/img/libros/la-gemela-silenciosa.png" alt="Cubierta de La gemela silenciosa, de Lucinda Berry" loading="lazy">
-                <span class="libro-ficha__suplente" aria-hidden="true"><em>La gemela silenciosa</em><span>Lucinda Berry</span></span>
-              </div>
-              <p class="libro-ficha__titulo">La gemela silenciosa</p>
-              <p class="libro-ficha__autor">Lucinda Berry</p>
-              <p class="libro-ficha__sello">Newton Compton Editores</p>
-            </div>
-
-            <div class="libro-ficha">
-              <div class="libro-ficha__portada" data-tono="nc">
-                <img src="assets/img/libros/la-agencia-de-detectives-inklings.jpg" alt="Cubierta de La agencia de detectives Inklings, de John R. Kelly" loading="lazy">
-                <span class="libro-ficha__suplente" aria-hidden="true"><em>La agencia de detectives Inklings</em><span>John R. Kelly</span></span>
-              </div>
-              <p class="libro-ficha__titulo">La agencia de detectives Inklings</p>
-              <p class="libro-ficha__autor">John R. Kelly</p>
-              <p class="libro-ficha__sello">Newton Compton Editores</p>
-            </div>
-
-            <div class="libro-ficha">
-              <div class="libro-ficha__portada" data-tono="neutro">
-                <img src="assets/img/libros/jaque-mate.jpg" alt="Cubierta de Jaque mate" loading="lazy">
-                <span class="libro-ficha__suplente" aria-hidden="true"><em>Jaque mate</em><span></span></span>
-              </div>
-              <p class="libro-ficha__titulo">Jaque mate</p>
-              <p class="libro-ficha__autor"></p>
-              <p class="libro-ficha__sello"></p>
-            </div>
-
-          </div>
-
-        </div></div>
-      </div>
-    </section>
-
-    <!-- ─── Capítulo 6 · contacto ─── -->
-    <section class="hoja hoja--izquierda" id="capitulo-6" data-rotulo="VI · El mensaje en la botella" data-fondo="capitulo-6">
-      <div class="hoja__lienzo" aria-hidden="true"></div>
-      <div class="hoja__velo" aria-hidden="true"></div>
-      <div class="hoja__panel">
-        <div class="hojas"><div class="flujo">
-
-          <header class="portadilla">
-            <p class="portadilla__numero">Capítulo 6</p>
-            <h2 class="portadilla__titulo">El mensaje en la botella</h2>
-          </header>
-
-          <p>Las olas arrastran la botella hasta la orilla. El traductor se acerca a recogerla. A través del vidrio transparente puede ver un mensaje enrollado… ¿Una puerta a un nuevo mundo?</p>
-          <p class="aparte">Mándame tu mensaje en una botella a:</p>
-          <p class="botella"><a class="correo" href="#">escríbeme</a></p>
-
-        </div></div>
-      </div>
-    </section>
-
-    <!-- ─── Colofón ─── -->
-    <section class="hoja hoja--fija" id="colofon" data-rotulo="Colofón" data-fondo="capitulo-6">
-      <div class="hoja__lienzo" aria-hidden="true"></div>
-      <div class="hoja__velo hoja__velo--pleno" aria-hidden="true"></div>
-      <div class="hoja__panel hoja__panel--centro">
-        <div class="colofon">
-          <div class="ornamento" aria-hidden="true"></div>
-          <p class="colofon__nombre">Miquel Gómez Besòs</p>
-          <p class="colofon__oficio">Traducción literaria</p>
-          <p class="colofon__nota">Se acabó de componer esta página un día cualquiera, entre dos mundos.</p>
-          <button class="umbral" data-ir="frontispicio">Volver al principio</button>
-        </div>
-      </div>
-    </section>
-
-  </div>
+  <div class="libro" id="libro"></div>
 </div>
 
-<!-- ══════════ MANDOS ══════════ -->
 <button class="paso paso--atras" id="paginaAnterior" aria-label="Página anterior"><span aria-hidden="true">‹</span></button>
 <button class="paso paso--adelante" id="paginaSiguiente" aria-label="Página siguiente"><span aria-hidden="true">›</span></button>
 
 <footer class="marco marco--bajo">
   <div class="cinta" aria-hidden="true"><div class="cinta__hilo" id="cinta"></div></div>
-  <p class="folio" id="folio" role="status" aria-live="polite">1 / 1</p>
+  <p class="folio" id="folio" role="status" aria-live="polite"></p>
   <p class="pista">Pasa página con las flechas <span aria-hidden="true">← →</span></p>
 </footer>
 
@@ -346,6 +58,233 @@
   </nav>
 </div>
 
-<script src="assets/js/libro.js?v=20260912b"></script>
+<!-- ══════════════════════════════════════════════════════════════
+     La fuente: el libro entero en texto corrido. El guion reparte
+     este contenido por las páginas; sin guion, se lee tal cual.
+     ══════════════════════════════════════════════════════════════ -->
+<div class="fuente" id="fuente">
+
+  <section class="capitulo capitulo--entero" id="frontispicio" data-rotulo="Frontispicio" data-fondo="portada">
+    <div class="entero entero--portada">
+      <figure class="portada" id="portada">
+        <div class="portada__marco">
+          <img class="portada__imagen"
+               src="assets/img/portada/portada-libro.svg"
+               alt="Cubierta del libro El traductor literario. Un hombre entre dos mundos.">
+          <div class="portada__rotulo">
+            <p class="portada__titulo">El<br>traductor<br><em>literario</em></p>
+            <span class="portada__filete" aria-hidden="true"></span>
+            <p class="portada__lema">Un hombre entre dos mundos</p>
+          </div>
+        </div>
+      </figure>
+
+      <div class="entrada">
+        <h1 class="entrada__titular">¿Qué significa traducir un&nbsp;libro?</h1>
+        <p class="capitular">Una historia sobre libros, lenguas y el extraño oficio de construir puentes entre mundos.</p>
+        <p>Si buscas acercarte a la traducción literaria desde una perspectiva diferente, cruza el umbral.</p>
+        <p class="susurro">Porque todos somos el resultado de nuestra historia y elegimos, con cada decisión, nuestro futuro.</p>
+        <button class="umbral" data-ir="capitulo-1">Cruzar el umbral</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="capitulo capitulo--entero" id="umbral" data-rotulo="El umbral" data-fondo="portada">
+    <div class="entero entero--centro">
+      <p class="eslogan">La traducción literaria:<br><em>un umbral entre dos mundos</em></p>
+    </div>
+  </section>
+
+  <article class="capitulo" id="capitulo-1" data-rotulo="I · Tierra yerma" data-fondo="capitulo-1">
+    <div class="flujo">
+      <header class="portadilla">
+        <p class="portadilla__numero">Capítulo 1</p>
+        <h2 class="portadilla__titulo">Tierra yerma</h2>
+      </header>
+      <p>Un libro no es solo una historia, es un mundo. Un mundo con paisajes, aromas, sonidos y silencios. Un mundo de héroes y villanos, de emociones, de contrastes, de aventuras y de sueños que solo existen entre sus páginas.</p>
+      <p>El autor extiende la mano.</p>
+      <p>Invita al lector a cruzar el umbral y le dice:</p>
+      <p class="dialogo">—Ven. Acompáñame. Mira.</p>
+      <p>Sin embargo, en ocasiones, entre el autor y el lector, se abre una distancia inmensa.</p>
+      <p class="aparte">Un abismo.</p>
+      <p>El lector contempla ese vacío y se detiene en el borde. Al otro lado está el mundo que desea conocer y, frente a él, una frontera invisible que no sabe atravesar.</p>
+      <p>Entonces, aparece el traductor. El puente.</p>
+      <p>Ahora es el traductor quien tiende la mano.</p>
+      <p class="dialogo">—Ven —dice—. Déjame que te acompañe. Ya no estarás solo.</p>
+    </div>
+  </article>
+
+  <article class="capitulo" id="capitulo-2" data-rotulo="II · Una vida" data-fondo="capitulo-2">
+    <div class="flujo">
+      <header class="portadilla">
+        <p class="portadilla__numero">Capítulo 2</p>
+        <h2 class="portadilla__titulo">Una vida</h2>
+      </header>
+      <p>El traductor observa su vida, el tiempo transcurrido desde aquel lunes 26 de julio en la ciudad de Barcelona, su primer día de existencia, hasta ese momento.</p>
+      <p>Ya desde niño le obsesionaban las palabras. Sonidos que describían el mundo a su alrededor sin ninguna lógica aparente.</p>
+      <figure class="retrato" hidden>
+        <img data-preferida="assets/img/retrato/miquel-gomez.jpg" alt="Retrato de Miquel Gómez Besòs" loading="lazy">
+        <figcaption>Miquel Gómez Besòs</figcaption>
+      </figure>
+      <p>Todos los veranos, la familia del traductor viajaba al lugar de origen de sus padres, uno de los grandes destinos de turismo de playa del país. Allí, entre paseos, merenderos y helados de pistacho, se le empezó a despertar la curiosidad.</p>
+      <p>Observaba ciertos carteles colocados en los comercios de las zonas más transitadas: pequeñas banderas acompañadas de mensajes que no comprendía. <em lang="fr">On parle français.</em> <em lang="de">Man spricht Deutsch.</em> Aquellas combinaciones de letras no significaban nada para él y, sin embargo, lo atraían como un enigma.</p>
+      <p>Veía a aquellas personas —familias como la suya, cargadas con sombrillas y tumbonas— caminar por la playa con la piel enrojecida por el sol, hablando en lenguas desconocidas. Las escuchaba y se preguntaba qué historias ocultaban aquellos sonidos, qué mundos existían detrás de aquellas palabras que él no podía entender.</p>
+      <p class="aparte">Sin saberlo, había comenzado la búsqueda.</p>
+      <p>Cuando tuvo edad suficiente, el traductor decidió seguir el rastro de aquel misterio. Emprendió entonces un largo viaje por distintos países: Alemania, Portugal, Francia, Italia, Irlanda…, estudiando las lenguas y las culturas; un camino que ya nunca abandonaría.</p>
+      <p>Y tras años de estudio, supo lo que tenía que hacer.</p>
+    </div>
+  </article>
+
+  <article class="capitulo" id="capitulo-3" data-rotulo="III · David contra Goliat" data-fondo="capitulo-3">
+    <div class="flujo">
+      <header class="portadilla">
+        <p class="portadilla__numero">Capítulo 3</p>
+        <h2 class="portadilla__titulo">David contra Goliat</h2>
+        <p class="portadilla__subtitulo">El traductor frente a la IA</p>
+      </header>
+      <p>El traductor fija la mirada en la pantalla y, por un momento, siente como si la IA le mirara desde detrás de los píxeles.</p>
+      <p class="dialogo">—Así que crees que puedes traducir mejor que yo —dice el traductor.</p>
+      <p class="dialogo maquina">—Puedo imitar cualquier estilo —le responde la IA con tono arrogante—. Puedo escribir como Shakespeare, Cervantes, Brecht, Tolstói…</p>
+      <p class="dialogo">—Imitar no es sentir —responde el traductor calmadamente—. Mira, la traducción literaria no consiste solo en cambiar las palabras de un idioma por las de otro. Un libro no son sus palabras, sino lo que transmiten. El traductor es una página en blanco que se llena con palabras para transmitir ese mismo sentido.</p>
+      <p class="aparte">La IA guarda silencio.</p>
+      <p class="dialogo">—Tú ordenas datos, reconoces patrones y reproduces estructuras —continúa el traductor—, pero la literatura no vive solo en el significado. Vive también en las ambigüedades, en las referencias ocultas, en aquello que el autor calla, pero que el lector entiende. La melancolía, la música, la alegría.</p>
+      <p class="aparte">El cursor parpadea unos segundos.</p>
+      <p class="dialogo">—Por eso traducir es, en cierto modo, volver a escribir. El traductor interpreta matices. Tú puedes imitar un estilo y, aun así, no haber entendido nada.</p>
+    </div>
+  </article>
+
+  <article class="capitulo" id="capitulo-4" data-rotulo="IV · La traducción consciente" data-fondo="capitulo-4">
+    <div class="flujo">
+      <header class="portadilla">
+        <p class="portadilla__numero">Capítulo 4</p>
+        <h2 class="portadilla__titulo">La traducción consciente</h2>
+      </header>
+      <p>La pantalla ilumina la habitación con una luz fría y silenciosa. El único sonido es el del ventilador del portátil.</p>
+      <p class="dialogo maquina">—¿A qué esperas?</p>
+      <p>Y, sin embargo, el traductor no escribe.</p>
+      <p>Se queda mirando la pantalla, cierra los ojos y evoca, recuerda cuando todavía no era más que un aprendiz en busca de la verdad.</p>
+      <p class="dialogo">—Maestro —pregunta el traductor—, ¿qué es traducir?</p>
+      <p>El maestro deja el libro que sostiene entre las manos.</p>
+      <p class="dialogo">—Si un autor escribe <em>lluvia</em> —le dice—, ¿debes traducir la palabra o la lluvia?</p>
+      <p>El aprendiz guarda silencio.</p>
+      <p class="dialogo">—La lluvia y la palabra <em>lluvia</em> no siempre son la misma cosa, algunas lluvias son tristeza, otras nacen de la memoria, hay lluvias que anuncian un final y otras sirven de telón de fondo para un beso. Si solo traduces la palabra, quizá te olvides de lo que se oculta detrás de ella.</p>
+      <p>El traductor sonríe. Los recuerdos continúan invadiéndole la mente.</p>
+      <p class="dialogo">—Maestro, ¿cómo sé si una traducción es buena?</p>
+      <p class="dialogo">—La respuesta correcta la obtendrás si planteas la pregunta adecuada —le responde el maestro—. Cuando el lector llegue al final, ¿habrá vivido una aventura o se habrá perdido en las palabras?</p>
+      <p>El aprendiz mira al maestro, pensativo.</p>
+      <p class="dialogo">—Traducir no es escribir una palabra por otra —continúa el maestro—. Es escucharlas, entender qué dicen, saber por qué existen.</p>
+      <p>El traductor vuelve a abrir los ojos. El ordenador sigue ahí, esperándole.</p>
+      <p class="dialogo">—¿Entonces, cuál es el secreto? —le pregunta a su maestro.</p>
+      <p class="dialogo">—Traducir cada palabra como si de ella dependiera todo el libro, tomando conciencia de que ninguna palabra existe sola, del mismo modo que la lluvia, sin lo que la rodea, no es más que agua que cae sin ningún propósito, como una tormenta solitaria en medio del mar.</p>
+      <p class="dialogo">—La traducción consciente… —responde el aprendiz.</p>
+      <p class="dialogo">—Así es —replica el maestro—. La traducción consciente consiste en recordar que detrás de cada frase hay una intención; detrás de cada palabra, una mirada, y detrás de cada libro, un mundo único.</p>
+      <p>El traductor observa el libro, sus palabras. Ante él, se abre un puente a ese mundo. Coloca las manos frente al teclado.</p>
+      <p class="aparte">Y empieza a traducir.</p>
+    </div>
+  </article>
+
+  <article class="capitulo" id="capitulo-5" data-rotulo="V · El camino" data-fondo="capitulo-5">
+    <div class="flujo">
+      <header class="portadilla">
+        <p class="portadilla__numero">Capítulo 5</p>
+        <h2 class="portadilla__titulo">El camino</h2>
+        <p class="portadilla__subtitulo">Traducciones publicadas</p>
+      </header>
+
+      <div class="estanteria">
+        <div class="libro-ficha">
+          <div class="libro-ficha__portada" data-tono="rh">
+            <img src="assets/img/libros/yo-era-un-encanto.png" alt="Cubierta de Yo era un encanto, de Eve Babitz" loading="lazy">
+            <span class="libro-ficha__suplente" aria-hidden="true"><em>Yo era un encanto</em><span>Eve Babitz</span></span>
+          </div>
+          <p class="libro-ficha__titulo">Yo era un encanto</p>
+          <p class="libro-ficha__autor">Eve Babitz</p>
+          <p class="libro-ficha__sello">Random House</p>
+        </div>
+        <div class="libro-ficha">
+          <div class="libro-ficha__portada" data-tono="rh">
+            <img src="assets/img/libros/sex-and-rage.jpg" alt="Cubierta de Sex and Rage, de Eve Babitz" loading="lazy">
+            <span class="libro-ficha__suplente" aria-hidden="true"><em>Sex and Rage</em><span>Eve Babitz</span></span>
+          </div>
+          <p class="libro-ficha__titulo">Sex and Rage</p>
+          <p class="libro-ficha__autor">Eve Babitz</p>
+          <p class="libro-ficha__sello">Random House</p>
+        </div>
+        <div class="libro-ficha">
+          <div class="libro-ficha__portada" data-tono="nc">
+            <img src="assets/img/libros/las-claves-secretas-del-cosmos.png" alt="Cubierta de Las claves secretas del cosmos, de Glenn Cooper" loading="lazy">
+            <span class="libro-ficha__suplente" aria-hidden="true"><em>Las claves secretas del cosmos</em><span>Glenn Cooper</span></span>
+          </div>
+          <p class="libro-ficha__titulo">Las claves secretas del cosmos</p>
+          <p class="libro-ficha__autor">Glenn Cooper</p>
+          <p class="libro-ficha__sello">Newton Compton Editores</p>
+        </div>
+        <div class="libro-ficha">
+          <div class="libro-ficha__portada" data-tono="nc">
+            <img src="assets/img/libros/la-extrana-muerte-de-sir-lawrence-linwood.png" alt="Cubierta de La extraña muerte de Sir Lawrence Linwood, de Christopher Huang" loading="lazy">
+            <span class="libro-ficha__suplente" aria-hidden="true"><em>La extraña muerte de Sir Lawrence Linwood</em><span>Christopher Huang</span></span>
+          </div>
+          <p class="libro-ficha__titulo">La extraña muerte de Sir Lawrence Linwood</p>
+          <p class="libro-ficha__autor">Christopher Huang</p>
+          <p class="libro-ficha__sello">Newton Compton Editores</p>
+        </div>
+        <div class="libro-ficha">
+          <div class="libro-ficha__portada" data-tono="nc">
+            <img src="assets/img/libros/la-gemela-silenciosa.png" alt="Cubierta de La gemela silenciosa, de Lucinda Berry" loading="lazy">
+            <span class="libro-ficha__suplente" aria-hidden="true"><em>La gemela silenciosa</em><span>Lucinda Berry</span></span>
+          </div>
+          <p class="libro-ficha__titulo">La gemela silenciosa</p>
+          <p class="libro-ficha__autor">Lucinda Berry</p>
+          <p class="libro-ficha__sello">Newton Compton Editores</p>
+        </div>
+        <div class="libro-ficha">
+          <div class="libro-ficha__portada" data-tono="nc">
+            <img src="assets/img/libros/la-agencia-de-detectives-inklings.jpg" alt="Cubierta de La agencia de detectives Inklings, de John R. Kelly" loading="lazy">
+            <span class="libro-ficha__suplente" aria-hidden="true"><em>La agencia de detectives Inklings</em><span>John R. Kelly</span></span>
+          </div>
+          <p class="libro-ficha__titulo">La agencia de detectives Inklings</p>
+          <p class="libro-ficha__autor">John R. Kelly</p>
+          <p class="libro-ficha__sello">Newton Compton Editores</p>
+        </div>
+        <div class="libro-ficha">
+          <div class="libro-ficha__portada" data-tono="neutro">
+            <img src="assets/img/libros/jaque-mate.jpg" alt="Cubierta de Jaque mate" loading="lazy">
+            <span class="libro-ficha__suplente" aria-hidden="true"><em>Jaque mate</em><span></span></span>
+          </div>
+          <p class="libro-ficha__titulo">Jaque mate</p>
+          <p class="libro-ficha__autor"></p>
+          <p class="libro-ficha__sello"></p>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="capitulo" id="capitulo-6" data-rotulo="VI · El mensaje en la botella" data-fondo="capitulo-6">
+    <div class="flujo">
+      <header class="portadilla">
+        <p class="portadilla__numero">Capítulo 6</p>
+        <h2 class="portadilla__titulo">El mensaje en la botella</h2>
+      </header>
+      <p>Las olas arrastran la botella hasta la orilla. El traductor se acerca a recogerla. A través del vidrio transparente puede ver un mensaje enrollado… ¿Una puerta a un nuevo mundo?</p>
+      <p class="aparte">Mándame tu mensaje en una botella a:</p>
+      <p class="botella"><a class="correo" href="#">escríbeme</a></p>
+    </div>
+  </article>
+
+  <section class="capitulo capitulo--entero" id="colofon" data-rotulo="Colofón" data-fondo="capitulo-6">
+    <div class="entero entero--centro">
+      <div class="colofon">
+        <div class="ornamento" aria-hidden="true"></div>
+        <p class="colofon__nombre">Miquel Gómez Besòs</p>
+        <p class="colofon__oficio">Traducción literaria</p>
+        <p class="colofon__nota">Se acabó de componer esta página un día cualquiera, entre dos mundos.</p>
+        <button class="umbral" data-ir="frontispicio">Volver al principio</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script src="assets/js/libro.js?v=20260912c"></script>
 </body>
 </html>

@@ -4,31 +4,31 @@ Web personal d'en Miquel Gómez Besòs, traductor literari. Es llegeix **com un 
 els capítols van d'esquerra a dreta i es passa pàgina; cada capítol té la seva imatge de
 fons a tota pantalla i el text en una columna al costat.
 
-## Com es passa pàgina
+## Com es llegeix
 
-- Fletxes **←** i **→**, barra espaiadora, `Re Pàg` / `Av Pàg`, `Inici` i `Fi`
-- Les fletxes de la pantalla (als costats, i a baix al mòbil)
-- Lliscant amb el dit al mòbil
-- Roda del ratolí o *trackpad*
-- L'índex, al rètol de dalt a la dreta
+La web és un **llibre obert**: dues pàgines a la vista i el llom al mig. Cada capítol
+comença sempre a la pàgina de l'esquerra; si ocupa més d'una pàgina, la continuació va a
+la de la dreta. Si el capítol cap en una sola pàgina, la de la dreta es queda per a la
+fotografia, que corre sencera d'un costat a l'altre del plec.
+
+Es passa full amb les fletxes **←** i **→**, l'espai, `Re Pàg` / `Av Pàg`, `Inici` i `Fi`;
+amb les fletxes de la pantalla; lliscant amb el dit; amb la roda del ratolí; o saltant de
+capítol des de l'índex.
+
+**El full gira de veritat.** La pàgina de la dreta té la frontissa al llom: en passar-la,
+gira cap a l'esquerra en tres dimensions, s'enfosqueix en apartar-se de la llum i deixa
+veure el plec següent, que ja hi era a sota. El revers del full que gira és la pàgina
+esquerra del plec que ve, com en un llibre de debò. Per a enrere, el mateix a l'inrevés.
 
 El text no està tallat a mà: el navegador el reparteix en pàgines segons la mida de la
-pantalla, com un lector de llibres electrònics. En una pantalla petita el mateix capítol
-ocupa més pàgines; el comptador de baix sempre diu on ets.
+finestra. **Cap frase es queda sola:** si l'última pàgina d'un capítol quedés amb un
+parell de línies, s'estreny el text d'aquell capítol el mínim que calgui —fins a un 12 %—
+per recollir-les. Per això a una mateixa pantalla hi pot haver capítols amb la lletra una
+mica més petita que altres.
 
-**Cap frase es queda sola.** Si l'última pàgina d'un capítol quedés amb un parell de
-línies, la web estreny el text d'aquell capítol un 2, un 4, un 6 % —el mínim que calgui,
-i com a molt un 12 %— fins que tot hi cap en una pàgina menys. Per això a una mateixa
-pantalla hi pot haver capítols amb la lletra lleugerament més petita que altres.
+En pantalles de menys de 900 px (mòbils, finestres estretes) el llibre es tanca i les
+pàgines es llegeixen d'una en una, amb el mateix gir.
 
-**El full gira de veritat.** Cada pàgina és una cara en tres dimensions amb frontissa al
-cantell esquerre, com el llom d'un llibre: en passar pàgina, el full se'n va girant —amb la
-seva fotografia i tot— mentre s'enfosqueix, i a sota ja hi ha la pàgina següent esperant,
-que rep l'ombra del full en passar. Perquè el text de la pàgina que marxa no es vegi
-transparent sobre el de la que arriba, cada capítol té dues cares completes apilades: la de
-dalt gira i la de sota ja duu la pàgina següent composada. Canviar de capítol gira el full
-sencer; passar pàgina dins d'un capítol gira només la cara de sobre, i com que les dues
-cares duen la mateixa fotografia, la imatge sembla quieta i només giren les paraules.
 Amb `prefers-reduced-motion` no gira res: els canvis són instantanis.
 
 ## Contingut
@@ -48,12 +48,18 @@ Amb `prefers-reduced-motion` no gira res: els canvis són instantanis.
 ## Estructura dels fitxers
 
 ```
-index.html                 tot el text de la web
-assets/css/estilo.css      colors, tipografies i composició
-assets/js/libro.js         paginació, navegació, índex i imatges
+index.html                 tot el text del llibre, dins de <div class="fuente">
+assets/css/estilo.css      colors, tipografies i composició de les pàgines
+assets/js/libro.js         reparteix el text per les pàgines i les fa girar
 assets/img/                les imatges  →  vegeu IMATGES.md
 IMATGES.md                 on deixar cada imatge i com s'ha de dir
 ```
+
+El text viu una sola vegada a `index.html`, dins de `<div class="fuente">`. El guió el
+copia a les quatre capes que formen el llibre (pàgina esquerra, pàgina dreta, cara i
+revers del full que gira) i ensenya a cadascuna el tros que li toca. Per canviar un text,
+n'hi ha prou de tocar-lo a `index.html`. Sense JavaScript, aquesta font es llegeix tal
+qual, com un document corrent.
 
 Sense compilació ni dependències: tres fitxers de text i una carpeta d'imatges.
 
@@ -68,15 +74,16 @@ python3 -m http.server 8000
 
 - **Tipografies:** Playfair Display (títols) i EB Garamond (text), de Google Fonts.
 - **Colors:** nit `#0e0906`, llum `#f3ece1`, ambre `#d3a06a`.
-- Els capítols alternen el costat del text (senars a l'esquerra, parells a la dreta), com
-  les pàgines parelles i senars d'un llibre. El text sempre s'alinea a l'esquerra.
+- El text sempre s'alinea a l'esquerra. El marge de dins, tocant al llom, és més ample
+  que el de fora, com en un llibre imprès.
+- Els números de pàgina van a la cantonada de fora de cada pàgina.
 - Al capítol 3 la veu de la IA es compon en un gris fred, perquè es distingeixi de la del
   traductor sense dir-ho.
 - Sobre cada fons hi ha un vel degradat perquè el text es llegeixi sempre, tinguin la
   lluminositat que tinguin les fotografies.
 - Al mòbil el text passa a ocupar tota l'amplada i les fletxes baixen a la barra inferior.
-- Els girs duren 900 ms (capítol) i 720 ms (pàgina); es canvien a `GIRO_CAPITULO` i
-  `GIRO_PAGINA`, a dalt de `assets/js/libro.js`.
+- El gir dura 1.050 ms; es canvia a `GIRO`, a dalt de `assets/js/libro.js`. El llindar per
+  obrir el llibre de bat a bat és `ANCHO_LIBRO_ABIERTO`.
 
 ## Publicació
 
