@@ -358,7 +358,7 @@ a{ color: inherit; }
 
 /* ───────── Portadilla de capítulo ───────── */
 
-.portadilla{ margin: 0 0 1.6rem; break-inside: avoid; break-after: avoid; }
+.portadilla{ margin: 0 0 1.6em; break-inside: avoid; break-after: avoid; }
 .portadilla--centro{ text-align: center; }
 
 .portadilla__numero{
@@ -389,7 +389,7 @@ a{ color: inherit; }
 
 /* ───────── Párrafos ───────── */
 
-.flujo p{ margin: 0 0 1.05rem; }
+.flujo p{ margin: 0 0 1.05em; }
 
 .flujo > p:first-of-type::first-letter,
 .capitular::first-letter{

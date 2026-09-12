@@ -16,6 +16,11 @@ El text no està tallat a mà: el navegador el reparteix en pàgines segons la m
 pantalla, com un lector de llibres electrònics. En una pantalla petita el mateix capítol
 ocupa més pàgines; el comptador de baix sempre diu on ets.
 
+**Cap frase es queda sola.** Si l'última pàgina d'un capítol quedés amb un parell de
+línies, la web estreny el text d'aquell capítol un 2, un 4, un 6 % —el mínim que calgui,
+i com a molt un 12 %— fins que tot hi cap en una pàgina menys. Per això a una mateixa
+pantalla hi pot haver capítols amb la lletra lleugerament més petita que altres.
+
 **El full gira de veritat.** Cada pàgina és una cara en tres dimensions amb frontissa al
 cantell esquerre, com el llom d'un llibre: en passar pàgina, el full se'n va girant —amb la
 seva fotografia i tot— mentre s'enfosqueix, i a sota ja hi ha la pàgina següent esperant,

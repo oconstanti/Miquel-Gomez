@@ -84,6 +84,57 @@
   document.documentElement.style.setProperty("--giro-capitulo", GIRO_CAPITULO + "ms");
   document.documentElement.style.setProperty("--giro-pagina", GIRO_PAGINA + "ms");
 
+  /* ── Composició de cada capítol ─────────────────────────────── */
+
+  /* Quan a l'última pàgina d'un capítol només hi queden un parell de línies,
+     s'estreny una mica el text perquè les reculli la pàgina anterior: cap
+     frase no s'ha de quedar sola en un full. */
+  var ESCALAS = [1, .98, .96, .94, .92, .90, .88];
+  var PAGINA_MINIMA = .45;   // per sota d'això, val la pena estrènyer el text
+
+  function tantear(pliego, ancho, alto, escala) {
+    [pliego.flujo, pliego.flujoFondo].forEach(function (flujo) {
+      if (!flujo) return;
+      flujo.style.fontSize = escala === 1 ? "" : escala + "em";
+      flujo.style.width = ancho + "px";
+      flujo.style.height = alto + "px";
+      flujo.style.columnWidth = ancho + "px";
+      flujo.style.columnGap = SALTO + "px";
+    });
+
+    var paso = ancho + SALTO;
+    var extension = Math.max(pliego.flujo.scrollWidth, ancho);
+    var total = Math.max(1, Math.round((extension + SALTO) / paso));
+
+    var llenado = 1;
+    var ultimo = pliego.flujo.lastElementChild;
+    if (ultimo && alto > 0) {
+      var fondo = ultimo.getBoundingClientRect().bottom - pliego.flujo.getBoundingClientRect().top;
+      llenado = Math.min(1, Math.max(0, fondo / alto));
+    }
+
+    return { escala: escala, total: total, paso: paso, llenado: llenado };
+  }
+
+  function componer(pliego) {
+    var ventana = pliego.flujo.parentNode;
+    var ancho = ventana.clientWidth;
+    var alto = ventana.clientHeight;
+
+    var elegido = tantear(pliego, ancho, alto, 1);
+
+    if (elegido.total > 1 && elegido.llenado < PAGINA_MINIMA) {
+      for (var i = 1; i < ESCALAS.length; i++) {
+        var prueba = tantear(pliego, ancho, alto, ESCALAS[i]);
+        if (prueba.total < elegido.total) { elegido = prueba; break; }
+      }
+      if (elegido.escala === 1) tantear(pliego, ancho, alto, 1);
+    }
+
+    pliego.paso = elegido.paso;
+    pliego.total = elegido.total;
+  }
+
   /* ── Medir y repaginar ──────────────────────────────────────── */
 
   function medir() {
@@ -91,23 +142,7 @@
     paginas = [];
 
     pliegos.forEach(function (pliego, i) {
-      if (pliego.flujo) {
-        var ventana = pliego.flujo.parentNode;
-        var ancho = ventana.clientWidth;
-        var alto = ventana.clientHeight;
-
-        [pliego.flujo, pliego.flujoFondo].forEach(function (flujo) {
-          if (!flujo) return;
-          flujo.style.width = ancho + "px";
-          flujo.style.height = alto + "px";
-          flujo.style.columnWidth = ancho + "px";
-          flujo.style.columnGap = SALTO + "px";
-        });
-
-        var extension = Math.max(pliego.flujo.scrollWidth, ancho);
-        pliego.paso = ancho + SALTO;
-        pliego.total = Math.max(1, Math.round((extension + SALTO) / pliego.paso));
-      }
+      if (pliego.flujo) componer(pliego);
 
       pliego.hoja.dataset.paginas = pliego.total;
       for (var p = 0; p < pliego.total; p++) paginas.push({ hoja: i, pagina: p });
