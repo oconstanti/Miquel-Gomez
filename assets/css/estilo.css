@@ -777,10 +777,24 @@ a{ color: inherit; }
     0 0 0 1px rgba(20,12,6,.55);
 }
 
+/* El velo que da fondo al nombre y al lema, para que se lean sobre la
+   ilustración. Va debajo del rótulo; la luz y el grano, encima. */
+.tomo__tapa::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(to bottom, rgba(8,4,2,.58), rgba(8,4,2,.2) 22%, rgba(8,4,2,0) 36%),
+    linear-gradient(to top, rgba(8,4,2,.82), rgba(8,4,2,.45) 13%, rgba(8,4,2,0) 34%);
+}
+
 /* Cómo le da la luz a la tapa: el grano del papel, la claridad que entra
    por arriba a la izquierda, el brillo de la charnela, el pliegue junto al
-   lomo, la caída de luz hacia el canto de fuera y el viñeteado. */
+   lomo y la caída de luz hacia el canto de fuera. */
 .tomo__tapa::after{
+  z-index: 3;
   content: "";
   position: absolute;
   inset: 0;
@@ -791,7 +805,7 @@ a{ color: inherit; }
     linear-gradient(to right, rgba(255,244,228,.26) 0 .7%, rgba(255,244,228,0) 1.4%),
     linear-gradient(to right, rgba(0,0,0,.52) 0, rgba(0,0,0,.33) 2.4%, rgba(0,0,0,.08) 9%, rgba(0,0,0,0) 19%),
     linear-gradient(to left, rgba(0,0,0,.34), rgba(0,0,0,.08) 7%, rgba(0,0,0,0) 19%),
-    linear-gradient(to bottom, rgba(10,6,3,.5), rgba(10,6,3,0) 32%, rgba(10,6,3,0) 56%, rgba(10,6,3,.7));
+    linear-gradient(to bottom, rgba(10,6,3,.16), rgba(10,6,3,0) 24%, rgba(10,6,3,0) 68%, rgba(10,6,3,.24));
   background-size: 200px 200px, auto, auto, auto, auto, auto;
   mix-blend-mode: normal;
 }
@@ -804,10 +818,10 @@ a{ color: inherit; }
   position: absolute;
   inset: 0;
   font-size: clamp(.6rem, 1.3vw, .95rem);
-  color: #fbf3e6;
+  color: #fdf7ec;
   text-transform: uppercase;
   text-align: center;
-  text-shadow: 0 .1em .45em rgba(12,5,2,.85), 0 0 1.4em rgba(12,5,2,.6);
+  text-shadow: 0 .08em .4em rgba(8,4,1,.92), 0 0 1.3em rgba(8,4,1,.7);
 }
 .portada--acabada .portada__rotulo{ display: none; }
 @supports (font-size: 1cqw){
@@ -850,10 +864,11 @@ a{ color: inherit; }
   left: 8%; right: 8%;
   margin: 0;
   font-family: var(--display);
-  font-size: .92em;
-  letter-spacing: .2em;
-  text-indent: .2em;
-  color: #f3e4cf;
+  font-size: 1em;
+  letter-spacing: .19em;
+  text-indent: .19em;
+  color: #fffaf2;
+  text-shadow: 0 .06em .4em rgba(6,3,1,.95), 0 0 1.1em rgba(6,3,1,.8);
 }
 /* Un filete fino bajo el lema, como en las cubiertas de bolsillo */
 .portada__lema::after{
