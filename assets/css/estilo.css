@@ -67,7 +67,7 @@ a{ color: inherit; }
 /* ───────── El índice vertical, a la izquierda ───────── */
 
 @media (min-width: 1080px){
-  :root{ --riel: 14rem; }
+  :root{ --riel: 15.5rem; }
 }
 
 .riel{
@@ -77,10 +77,10 @@ a{ color: inherit; }
   z-index: 22;
   display: none;
   flex-direction: column;
-  justify-content: center;
-  padding: var(--marco-alto) 1.6rem var(--marco-bajo) clamp(1.25rem, 2.6vw, 2.6rem);
+  /* arranca a la altura del canto de arriba del libro */
+  padding: clamp(6rem, 17.5vh, 11.5rem) 1.5rem var(--marco-bajo) clamp(1.25rem, 2.4vw, 2.6rem);
   background: var(--noche);
-  border-right: 1px solid rgba(243,236,225,.09);
+  border-right: 3px solid rgba(243,236,225,.12);
   transition: background .55s ease, border-color .55s ease;
 }
 @media (min-width: 1080px){
@@ -93,13 +93,13 @@ a{ color: inherit; }
   margin: 0;
   padding: 0;
 }
-.riel__lista li + li{ margin-top: .15rem; }
+.riel__lista li + li{ margin-top: .3rem; }
 
 .riel__lista a{
   display: flex;
   align-items: baseline;
-  gap: .55rem;
-  padding: .48rem 0;
+  gap: .7rem;
+  padding: .5rem 0;
   text-decoration: none;
   color: var(--luz-suave);
   transition: color .3s ease;
@@ -108,9 +108,9 @@ a{ color: inherit; }
 
 .riel__romano{
   flex: none;
-  width: 1.6rem;
+  width: 1.9rem;
   font-family: var(--display);
-  font-size: .66rem;
+  font-size: .8rem;
   letter-spacing: .1em;
   color: var(--ambar);
   opacity: .7;
@@ -118,8 +118,8 @@ a{ color: inherit; }
 }
 .riel__nombre{
   font-family: var(--display);
-  font-size: .84rem;
-  line-height: 1.25;
+  font-size: 1.04rem;
+  line-height: 1.24;
 }
 
 /* El capítulo que se está leyendo */
@@ -139,7 +139,7 @@ a{ color: inherit; }
 /* Sobre el papel blanco */
 .en-papel .riel{
   background: var(--papel);
-  border-right-color: rgba(20,17,14,.1);
+  border-right-color: rgba(20,17,14,.14);
 }
 .en-papel .riel__lista a{ color: var(--papel-suave); }
 .en-papel .riel__lista a:hover,
