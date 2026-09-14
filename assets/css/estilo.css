@@ -446,9 +446,9 @@ a{ color: inherit; }
 
 .entero--portada{
   display: grid;
-  grid-template-columns: minmax(0, .85fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, .68fr) minmax(0, 1fr);
   align-items: start;
-  gap: clamp(2rem, 7vw, 7rem);
+  gap: clamp(2rem, 4.5vw, 4.75rem);
 }
 .entero--portada .entrada{ padding-top: .35rem; }
 .libro--sencillo .entero--portada{
@@ -481,14 +481,11 @@ a{ color: inherit; }
 .pagina--papel::after{ opacity: .06; }
 .pagina--papel .pagina__folio{ color: var(--papel-suave); }
 
-/* La curva del papel junto al lomo, apenas un gris */
-.pagina--papel .pagina__lomo{ width: 9%; }
-.libro--abierto .pagina--papel.pagina--mitad-izquierda .pagina__lomo{
-  background: linear-gradient(to right, rgba(20,17,14,0) 0%, rgba(20,17,14,.012) 55%, rgba(20,17,14,.075) 100%);
-}
-.libro--abierto .pagina--papel.pagina--mitad-derecha .pagina__lomo{
-  background: linear-gradient(to left, rgba(20,17,14,0) 0%, rgba(20,17,14,.012) 55%, rgba(20,17,14,.075) 100%);
-}
+/* La portada no es una página de libro: ni doblez en medio, ni folios.
+   Las dos mitades son del mismo blanco, así que no queda ninguna costura. */
+.pagina--papel .pagina__lomo{ display: none; }
+.pagina--papel .pagina__folio{ display: none; }
+.en-papel .folio{ visibility: hidden; }
 
 .pagina--papel .entrada__titular{
   color: var(--papel-tinta);
@@ -533,7 +530,7 @@ a{ color: inherit; }
 .tomo{
   perspective: 1700px;
   perspective-origin: 58% 50%;
-  width: min(88%, calc((100svh - 15.5rem) / 1.5));
+  width: min(72%, calc((100svh - 22rem) / 1.5));
   margin-inline: auto;
   position: relative;
 }
@@ -571,22 +568,39 @@ a{ color: inherit; }
   width: var(--grosor);
   transform-origin: left center;
   transform: translateZ(calc(var(--grosor) / 2)) rotateY(90deg);
-  background:
-    linear-gradient(to right, #0d0805 0%, #2e1b0e 22%, #5a3418 55%, #2a190c 88%, #120b06 100%);
-  box-shadow: inset 0 0 0 1px rgba(0,0,0,.55);
+  background-color: #1a0f07;
+  /* La ilustración da la vuelta por el lomo, como en una cubierta impresa,
+     y encima van las luces: la charnela que brilla, el bombeado del lomo
+     y la sombra del canto de atrás. */
+  background-image:
+    linear-gradient(to right,
+      rgba(255,238,214,.34) 0%,
+      rgba(255,238,214,.06) 3.5%,
+      rgba(0,0,0,.62) 9%,
+      rgba(0,0,0,.2) 34%,
+      rgba(0,0,0,.06) 52%,
+      rgba(0,0,0,.45) 78%,
+      rgba(0,0,0,.92) 100%),
+    var(--arte, linear-gradient(to bottom, #3a2313, #1b1008));
+  background-size: auto, 460% 100%;
+  background-position: center, left center;
+  background-repeat: no-repeat;
 }
 /* Los nervios del lomo, arriba y abajo */
+/* Las cabezadas: las telillas de arriba y abajo del lomo */
 .tomo__lomo::before,
 .tomo__lomo::after{
   content: "";
   position: absolute;
-  left: 14%; right: 14%;
-  height: 1px;
-  background: rgba(211,160,106,.4);
-  box-shadow: 0 1px 0 rgba(0,0,0,.35);
+  left: 6%; right: 6%;
+  height: 2.2%;
+  background: repeating-linear-gradient(to bottom,
+    rgba(226,196,150,.5) 0 1px,
+    rgba(60,35,18,.6) 1px 2px);
+  box-shadow: 0 0 3px rgba(0,0,0,.6);
 }
-.tomo__lomo::before{ top: 8%; }
-.tomo__lomo::after{ bottom: 8%; }
+.tomo__lomo::before{ top: 1.2%; }
+.tomo__lomo::after{ bottom: 1.2%; }
 
 /* Los cantos del bloque de hojas: papel apilado, de canto */
 .tomo__canto{
@@ -722,11 +736,14 @@ a{ color: inherit; }
   margin: 0 0 1.7rem;
   padding-bottom: 1.3rem;
   border-bottom: 1px solid rgba(243,236,225,.16);
-  font-size: .98rem;
-  line-height: 1.9;
+  font-size: .9rem;
+  line-height: 1.95;
   color: var(--luz-media);
 }
 .entrada__ficha strong{ font-weight: 500; color: var(--luz); }
+/* La ficha no se ciñe a la medida del párrafo: va a todo el ancho */
+.entrada .entrada__ficha{ max-width: none; }
+
 /* Cada dato va entero: si no cabe, baja de línea completo */
 .entrada__ficha span{ white-space: nowrap; }
 
@@ -736,7 +753,7 @@ a{ color: inherit; }
   display: inline-block;
   width: 1px;
   height: 1.15em;
-  margin: 0 1.05rem;
+  margin: 0 .75rem;
   vertical-align: -.2em;
   background: rgba(243,236,225,.28);
 }
