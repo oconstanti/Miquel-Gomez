@@ -37,11 +37,19 @@ foto quedi al costat contrari al del text, com als teus exemples.
 
 ## 2. La coberta del llibre (frontispici)
 
-| Carpeta | Nom exacte | Proporció |
-|---|---|---|
-| `assets/img/portada/` | `portada-libro.jpg` | vertical 2:3 (p. ex. 1000 × 1500 px) |
+Carpeta: `assets/img/portada/`. Vertical, 2:3.
 
-Ara hi ha un dibuix provisional (`portada-libro.svg`) que imita el de la teva maqueta.
+| Fitxer | Què fa | Estat |
+|---|---|---|
+| `portada.jpeg` | la **il·lustració** de la coberta; el títol s'hi composa a sobre | ✅ ja hi és |
+| `portada-libro.*` | una coberta **ja acabada**, amb el seu propi títol imprès | ⬜ opcional |
+
+Si algun dia hi deixes un `portada-libro.jpg` fet per un dissenyador, mana sobre l'altre i
+la web amaga el títol que composa ella. Mentrestant fa servir `portada.jpeg` i hi posa a
+sobre el nom, el títol i el lema amb la tipografia del llibre.
+
+El llibre no es mostra pla: és un volum en tres dimensions, amb llom i gruix, girat una
+mica perquè es vegi el cantell.
 
 ## 3. Les cobertes dels llibres traduïts (capítol 5)
 

@@ -14,15 +14,15 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/estilo.css?v=20260912c">
+<link rel="stylesheet" href="assets/css/estilo.css?v=20260914">
 <script>document.documentElement.className = 'con-js';</script>
 </head>
 <body>
 
 <header class="marco marco--alto">
   <span class="marco__obra">El traductor literario</span>
-  <button class="marco__rotulo" id="abrirIndice" aria-haspopup="dialog" aria-expanded="false">
-    <span id="rotuloActual">Frontispicio</span>
+  <button class="marco__rotulo" id="abrirIndice" aria-haspopup="dialog" aria-expanded="false" aria-label="Índice">
+    <span id="rotuloActual" class="solo-lectores">Frontispicio</span>
   </button>
 </header>
 
@@ -67,24 +67,33 @@
   <section class="capitulo capitulo--entero" id="frontispicio" data-rotulo="Frontispicio" data-fondo="portada">
     <div class="entero entero--portada">
       <figure class="portada" id="portada">
-        <div class="portada__marco">
-          <img class="portada__imagen"
-               src="assets/img/portada/portada-libro.svg"
-               alt="Cubierta del libro El traductor literario. Un hombre entre dos mundos.">
-          <div class="portada__rotulo">
-            <p class="portada__titulo">El<br>traductor<br><em>literario</em></p>
-            <span class="portada__filete" aria-hidden="true"></span>
-            <p class="portada__lema">Un hombre entre dos mundos</p>
+        <div class="tomo">
+          <div class="tomo__cuerpo">
+            <div class="tomo__lomo" aria-hidden="true"></div>
+            <div class="tomo__tapa">
+              <img class="portada__imagen"
+                   src="assets/img/portada/portada-libro.svg"
+                   alt="Cubierta del libro El traductor literario. Un hombre entre dos mundos.">
+              <div class="portada__rotulo">
+                <p class="portada__autor">Miquel Gómez Besòs</p>
+                <p class="portada__titulo">
+                  <span class="portada__linea portada__linea--breve">El</span>
+                  <span class="portada__linea">traductor</span>
+                  <span class="portada__linea">literario</span>
+                </p>
+                <p class="portada__lema">Un hombre entre dos mundos</p>
+              </div>
+            </div>
           </div>
         </div>
       </figure>
 
       <div class="entrada">
-        <h1 class="entrada__titular">¿Qué significa traducir un&nbsp;libro?</h1>
-        <p class="capitular">Una historia sobre libros, lenguas y el extraño oficio de construir puentes entre mundos.</p>
+        <h1 class="entrada__titular">El traductor literario</h1>
+        <p>¿Qué significa traducir un libro?<br>Una historia sobre libros, lenguas y el extraño oficio de construir puentes entre mundos.</p>
         <p>Si buscas acercarte a la traducción literaria desde una perspectiva diferente, cruza el umbral.</p>
-        <p class="susurro">Porque todos somos el resultado de nuestra historia y elegimos, con cada decisión, nuestro futuro.</p>
-        <button class="umbral" data-ir="capitulo-1">Cruzar el umbral</button>
+        <p>Porque todos somos el resultado de nuestra historia y elegimos, con cada decisión, nuestro futuro.</p>
+        <button class="umbral" data-ir="capitulo-1">Leer un fragmento</button>
       </div>
     </div>
   </section>
@@ -285,6 +294,6 @@
 
 </div>
 
-<script src="assets/js/libro.js?v=20260912c"></script>
+<script src="assets/js/libro.js?v=20260914"></script>
 </body>
 </html>

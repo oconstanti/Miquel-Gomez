@@ -96,28 +96,31 @@ a{ color: inherit; }
   color: var(--luz-suave);
 }
 
+/* Solo para quien lee con lector de pantalla */
+.solo-lectores{
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 .marco__rotulo{
-  font-family: var(--display);
-  font-style: italic;
-  font-size: .95rem;
   color: var(--luz-media);
   background: none;
   border: 0;
-  padding: .4rem 0 .4rem .75rem;
+  padding: .5rem 0 .5rem 1rem;
   cursor: pointer;
-  max-width: 60vw;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  line-height: 1;
   transition: color .3s ease;
 }
 .marco__rotulo:hover{ color: var(--ambar); }
 .marco__rotulo::after{
   content: "";
-  display: inline-block;
-  width: .85rem; height: .55rem;
-  margin-left: .6rem;
-  vertical-align: middle;
+  display: block;
+  width: 1.1rem; height: .7rem;
   background: currentColor;
   clip-path: polygon(0 0,100% 0,100% 12%,0 12%,0 44%,100% 44%,100% 56%,0 56%,0 88%,100% 88%,100% 100%,0 100%);
   opacity: .6;
@@ -383,8 +386,7 @@ a{ color: inherit; }
 
 .flujo p{ margin: 0 0 1.05em; }
 
-.flujo > p:first-of-type::first-letter,
-.capitular::first-letter{
+.flujo > p:first-of-type::first-letter{
   float: left;
   font-family: var(--display);
   font-size: 3.5em;
@@ -460,59 +462,154 @@ a{ color: inherit; }
   text-align: center;
 }
 
-/* ───────── Frontispicio ───────── */
+/* ───────── Frontispicio: el libro como objeto ───────── */
 
 .portada{ margin: 0; }
-.portada__marco{
-  position: relative;
-  overflow: hidden;
-  border-radius: 2px;
-  box-shadow: 0 40px 80px -30px rgba(0,0,0,.95), 0 0 0 1px rgba(243,236,225,.08);
-  width: min(100%, calc((100svh - 13rem) / 1.5));
+
+.tomo{
+  perspective: 1700px;
+  perspective-origin: 58% 50%;
+  width: min(88%, calc((100svh - 15.5rem) / 1.5));
   margin-inline: auto;
+  position: relative;
 }
 @supports (container-type: inline-size){
-  .portada__marco{ container-type: inline-size; }
+  .tomo{ container-type: inline-size; }
 }
-.portada__imagen{ width: 100%; }
+
+/* La sombra que el volumen deja sobre la página */
+.tomo::after{
+  content: "";
+  position: absolute;
+  left: 6%; right: 2%;
+  bottom: -2.5%;
+  height: 6%;
+  background: radial-gradient(60% 100% at 45% 50%, rgba(0,0,0,.75), transparent 72%);
+  filter: blur(10px);
+}
+
+.tomo__cuerpo{
+  position: relative;
+  transform-style: preserve-3d;
+  transform: rotateY(21deg);
+  --grosor: 26px;
+}
+@supports (width: 1cqw){
+  .tomo__cuerpo{ --grosor: 6.2cqw; }
+}
+
+/* El lomo, a la izquierda, perpendicular a la tapa */
+.tomo__lomo{
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: var(--grosor);
+  transform-origin: left center;
+  transform: translateZ(calc(var(--grosor) / 2)) rotateY(90deg);
+  background:
+    linear-gradient(to right, #0d0805 0%, #2e1b0e 22%, #5a3418 55%, #2a190c 88%, #120b06 100%);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.55);
+}
+/* Los nervios del lomo, arriba y abajo */
+.tomo__lomo::before,
+.tomo__lomo::after{
+  content: "";
+  position: absolute;
+  left: 12%; right: 12%;
+  height: 1px;
+  background: rgba(211,160,106,.35);
+}
+.tomo__lomo::before{ top: 9%; }
+.tomo__lomo::after{ bottom: 9%; }
+
+.tomo__tapa{
+  position: relative;
+  transform: translateZ(calc(var(--grosor) / 2));
+  overflow: hidden;
+  border-radius: 1px 4px 4px 1px;
+  box-shadow:
+    0 42px 70px -34px rgba(0,0,0,.95),
+    0 0 0 1px rgba(243,236,225,.09);
+}
+
+/* El pliegue del papel junto al lomo y el brillo del canto de fuera */
+.tomo__tapa::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(to right, rgba(0,0,0,.55), rgba(0,0,0,.12) 5%, rgba(0,0,0,0) 11%),
+    linear-gradient(to left, rgba(255,240,220,.14), rgba(255,240,220,0) 2.5%),
+    linear-gradient(to bottom, rgba(10,6,3,.62), rgba(10,6,3,0) 36%, rgba(10,6,3,0) 58%, rgba(10,6,3,.82));
+}
+
+.portada__imagen{ width: 100%; display: block; }
+
+/* ───────── El rótulo de la cubierta ───────── */
 
 .portada__rotulo{
-  font-size: clamp(.7rem, 1.4vw, 1rem);
   position: absolute;
-  left: 6%; right: 6%;
-  top: 7%;
+  inset: 0;
+  font-size: clamp(.6rem, 1.3vw, .95rem);
+  color: #fbf3e6;
+  text-transform: uppercase;
   text-align: center;
-  color: #fdf6ea;
-  text-shadow: 0 .12em .5em rgba(20,8,4,.75);
+  text-shadow: 0 .1em .45em rgba(12,5,2,.85), 0 0 1.4em rgba(12,5,2,.6);
 }
 .portada--acabada .portada__rotulo{ display: none; }
 @supports (font-size: 1cqw){
-  .portada__rotulo{ font-size: 4.1cqw; }
+  .portada__rotulo{ font-size: 3.6cqw; }
+}
+
+.portada__autor{
+  position: absolute;
+  top: 6.5%;
+  left: 7%; right: 7%;
+  margin: 0;
+  font-family: var(--display);
+  font-size: 1.12em;
+  letter-spacing: .2em;
+  text-indent: .2em;
 }
 
 .portada__titulo{
+  position: absolute;
+  top: 16%;
+  left: 5%; right: 5%;
   margin: 0;
   font-family: var(--display);
   font-weight: 500;
-  font-size: 3.05em;
-  line-height: .98;
-  letter-spacing: -.01em;
+  line-height: .94;
+  font-size: 3.15em;
+  letter-spacing: .012em;
 }
-.portada__titulo em{ font-style: italic; font-weight: 400; }
+.portada__linea{ display: block; text-indent: .04em; }
+.portada__linea--breve{
+  font-size: .46em;
+  letter-spacing: .22em;
+  text-indent: .24em;
+  margin-bottom: .18em;
+}
 
-.portada__filete{
-  display: block;
-  width: 38%;
-  height: 1px;
-  margin: .95em auto .8em;
-  background: rgba(253,246,234,.6);
-}
 .portada__lema{
+  position: absolute;
+  bottom: 6.5%;
+  left: 8%; right: 8%;
   margin: 0;
   font-family: var(--display);
-  font-style: italic;
-  font-size: 1.02em;
-  color: #f6e9d6;
+  font-size: .92em;
+  letter-spacing: .2em;
+  text-indent: .2em;
+  color: #f3e4cf;
+}
+/* Un filete fino bajo el lema, como en las cubiertas de bolsillo */
+.portada__lema::after{
+  content: "";
+  display: block;
+  width: 28%;
+  height: 1px;
+  margin: .95em auto 0;
+  background: rgba(251,243,230,.4);
 }
 
 .entrada__titular{
@@ -525,8 +622,15 @@ a{ color: inherit; }
   color: #fff;
   text-wrap: balance;
 }
-.entrada p{ margin: 0 0 1rem; }
-.susurro{ font-style: italic; color: var(--luz-suave); }
+/* Todo el texto de la entrada, con la misma letra y el mismo cuerpo */
+.entrada p{
+  margin: 0 0 1.1rem;
+  font-family: var(--texto);
+  font-size: 1rem;
+  font-style: normal;
+  color: var(--luz);
+  max-width: 34rem;
+}
 
 .umbral{
   display: inline-block;
@@ -724,7 +828,7 @@ a{ color: inherit; }
   /* En el móvil el número ya está en la barra de abajo */
   .pagina__folio{ display: none; }
   .libro-ficha{ width: 43%; margin: 0 .4rem 1.4rem; }
-  .portada__marco{ width: min(15rem, 58%); }
+  .tomo{ width: min(15rem, 62%); }
 }
 
 @media (max-height: 620px){

@@ -535,15 +535,23 @@
   function cadaPortada(hacer) {
     Array.prototype.forEach.call(document.querySelectorAll(".portada"), hacer);
   }
-  buscarImagen("assets/img/portada/portada-libro", function (ruta) {
-    cadaPortada(function (p) {
-      p.classList.add("portada--acabada");
-      p.querySelector(".portada__imagen").src = ruta;
-    });
-  });
-  buscarImagen("assets/img/fondos/portada", function (ruta) {
-    cadaPortada(function (p) {
-      if (!p.classList.contains("portada--acabada")) p.querySelector(".portada__imagen").src = ruta;
+  /* Por orden: una cubierta ya terminada manda sobre todo; si no, la
+     ilustración de la cubierta; y si tampoco, la del fondo del frontispicio.
+     El rango evita que una imagen de menos categoría pise a otra mejor si
+     tarda más en cargarse. */
+  var rangoPortada = 0;
+  [
+    { rango: 3, base: "assets/img/portada/portada-libro", acabada: true },
+    { rango: 2, base: "assets/img/portada/portada" },
+    { rango: 1, base: "assets/img/fondos/portada" }
+  ].forEach(function (opcion) {
+    buscarImagen(opcion.base, function (ruta) {
+      if (opcion.rango < rangoPortada) return;
+      rangoPortada = opcion.rango;
+      cadaPortada(function (p) {
+        p.classList.toggle("portada--acabada", !!opcion.acabada);
+        p.querySelector(".portada__imagen").src = ruta;
+      });
     });
   });
 
