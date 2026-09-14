@@ -684,7 +684,7 @@ a{ color: inherit; }
   transform: rotateY(var(--a)) translateZ(calc(var(--grosor) / 2));
   background-image:
     linear-gradient(rgba(0,0,0,var(--s)), rgba(0,0,0,var(--s))),
-    linear-gradient(to bottom, #40230f 0%, #2b1509 42%, #1a0c05 100%);
+    linear-gradient(to bottom, #4d2c15 0%, #38200e 44%, #221107 100%);
 }
 
 /* Las cabezadas: la telilla rayada de la cabeza y el pie del lomo. Van en
@@ -694,10 +694,10 @@ a{ color: inherit; }
   content: "";
   position: absolute;
   left: 0; right: 0;
-  height: 1.5%;
+  height: 1.1%;
   background: repeating-linear-gradient(to bottom,
-    rgba(230,203,160,.62) 0 1px,
-    rgba(58,33,15,.75) 1px 2px);
+    rgba(222,194,150,.45) 0 1px,
+    rgba(58,33,15,.7) 1px 2px);
   box-shadow: inset 0 0 0 99px rgba(0,0,0,var(--s));
 }
 .tomo__lomo i::before{ top: 1%; }
@@ -717,9 +717,9 @@ a{ color: inherit; }
   align-items: center;
   justify-content: space-between;
   /* en em, que el porcentaje se mediría contra el ancho del lomo */
-  padding: 3.2em 0;
+  padding: 1.4em 0;
   overflow: hidden;
-  font-size: calc(var(--grosor) * .32);
+  font-size: calc(var(--grosor) * .335);
 }
 /* El título, impreso a lo largo del lomo, leyéndose de arriba abajo.
    `flex: none` evita que se encojan: si se encogen, la tinta se parte en
@@ -731,18 +731,19 @@ a{ color: inherit; }
   font-family: var(--display);
   text-transform: uppercase;
   white-space: nowrap;
-  color: #faf1e2;
-  text-shadow: 0 .04em .12em rgba(0,0,0,.75);
+  color: #fffdf8;
+  /* una sombra seca, no un halo: a este tamaño el desenfoque emborrona */
+  text-shadow: 0 0 .22em rgba(0,0,0,.9), 0 .03em .06em rgba(0,0,0,.95);
 }
 .tomo__lomo-titulo{
   font-size: 1em;
   font-weight: 600;
-  letter-spacing: .13em;
+  letter-spacing: .16em;
 }
 .tomo__lomo-autor{
-  font-size: .55em;
-  letter-spacing: .18em;
-  color: #e8d6ba;
+  font-size: .48em;
+  letter-spacing: .22em;
+  color: #f7ecd9;
 }
 
 /* Los cantos del bloque de hojas: papel apilado, de canto */
