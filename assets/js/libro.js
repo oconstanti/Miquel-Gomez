@@ -38,6 +38,7 @@
       id: el.id,
       rotulo: el.getAttribute("data-rotulo"),
       fondo: el.getAttribute("data-fondo"),
+      tema: el.getAttribute("data-tema"),
       fondoRuta: null,
       entero: el.classList.contains("capitulo--entero"),
       flujo: el.querySelector(".flujo"),
@@ -252,6 +253,7 @@
 
     if (!ref) {
       capa.copias.forEach(function (c) { c.hidden = true; });
+      el.classList.remove("pagina--papel");
       el.removeAttribute("data-fondo");
       capa.lienzo.style.backgroundImage = "";
       capa.numero.textContent = "";
@@ -259,6 +261,7 @@
     }
 
     var cap = capitulos[ref.cap];
+    el.classList.toggle("pagina--papel", cap.tema === "papel");
     el.setAttribute("data-fondo", cap.fondo || "");
     capa.lienzo.style.backgroundImage = cap.fondoRuta ? "url('" + cap.fondoRuta + "')" : "";
 
@@ -308,6 +311,8 @@
     var pl = pliegos[actual];
     if (!pl) return;
     rotulo.textContent = capitulos[pl.cap].rotulo;
+    /* Los marcos se aclaran cuando el pliego es de papel blanco */
+    document.body.classList.toggle("en-papel", capitulos[pl.cap].tema === "papel");
 
     var primera = capitulos[pl.cap].primera + pl.base;
     var segunda = abierto && pagina(actual, 1) ? primera + 1 : null;

@@ -73,7 +73,13 @@ python3 -m http.server 8000
 ## Detalls de disseny
 
 - **Tipografies:** Playfair Display (títols) i EB Garamond (text), de Google Fonts.
-- **Colors:** nit `#0e0906`, llum `#f3ece1`, ambre `#d3a06a`.
+- **Colors:** nit `#0e0906`, llum `#f3ece1`, ambre `#d3a06a`. El frontispici és l'excepció:
+  va sobre paper blanc `#fdfcfa` amb tinta negra, com la fitxa d'un llibre en una llibreria.
+  Es marca amb `data-tema="papel"` al capítol; els marcs de la pantalla s'aclareixen sols
+  mentre s'hi és.
+- **La coberta** no és una imatge plana: és un volum girat, amb llom, gruix i ombra. El
+  títol s'hi composa a sobre en majúscules; si algun dia hi ha una coberta ja acabada a
+  `assets/img/portada/portada-libro.*`, la fa servir i s'estalvia de composar-hi res.
 - El text sempre s'alinea a l'esquerra. El marge de dins, tocant al llom, és més ample
   que el de fora, com en un llibre imprès.
 - Els números de pàgina van a la cantonada de fora de cada pàgina.

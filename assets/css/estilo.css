@@ -447,9 +447,10 @@ a{ color: inherit; }
 .entero--portada{
   display: grid;
   grid-template-columns: minmax(0, .85fr) minmax(0, 1fr);
-  align-items: center;
+  align-items: start;
   gap: clamp(2rem, 7vw, 7rem);
 }
+.entero--portada .entrada{ padding-top: .35rem; }
 .libro--sencillo .entero--portada{
   grid-template-columns: 1fr;
   align-content: center;
@@ -461,6 +462,69 @@ a{ color: inherit; }
   place-items: center;
   text-align: center;
 }
+
+/* ───────── El pliego de papel blanco (el frontispicio) ───────── */
+
+:root{
+  --papel:       #fdfcfa;
+  --papel-tinta: #14110e;
+  --papel-media: #3b342c;
+  --papel-suave: #8b8177;
+  --papel-rojo:  #8f2d18;
+}
+
+.pagina--papel .pagina__lienzo{
+  background-image: none !important;
+  background-color: var(--papel);
+}
+.pagina--papel .pagina__velo{ background: none; }
+.pagina--papel::after{ opacity: .06; }
+.pagina--papel .pagina__folio{ color: var(--papel-suave); }
+
+/* La curva del papel junto al lomo, apenas un gris */
+.pagina--papel .pagina__lomo{ width: 9%; }
+.libro--abierto .pagina--papel.pagina--mitad-izquierda .pagina__lomo{
+  background: linear-gradient(to right, rgba(20,17,14,0) 0%, rgba(20,17,14,.012) 55%, rgba(20,17,14,.075) 100%);
+}
+.libro--abierto .pagina--papel.pagina--mitad-derecha .pagina__lomo{
+  background: linear-gradient(to left, rgba(20,17,14,0) 0%, rgba(20,17,14,.012) 55%, rgba(20,17,14,.075) 100%);
+}
+
+.pagina--papel .entrada__titular{
+  color: var(--papel-tinta);
+  text-shadow: none;
+}
+.pagina--papel .entrada p{ color: var(--papel-media); }
+
+.pagina--papel .umbral{
+  color: var(--papel-rojo);
+  border-bottom-color: rgba(143,45,24,.4);
+}
+.pagina--papel .umbral:hover{ border-bottom-color: var(--papel-rojo); }
+
+/* La sombra del volumen, más suave sobre el blanco */
+.pagina--papel .tomo::after{
+  background: radial-gradient(60% 100% at 45% 50%, rgba(30,20,12,.45), transparent 72%);
+}
+.pagina--papel .tomo__tapa{
+  box-shadow:
+    0 34px 55px -30px rgba(30,20,12,.6),
+    0 0 0 1px rgba(20,17,14,.1);
+}
+
+/* Los marcos de la pantalla, mientras se lee el pliego blanco */
+.marco, .marco__obra, .marco__rotulo, .folio, .pista, .paso, .cinta, .cinta__hilo{
+  transition: background .55s ease, color .55s ease, border-color .55s ease;
+}
+.en-papel .marco--alto{ background: linear-gradient(to bottom, rgba(253,252,250,.92), rgba(253,252,250,0)); }
+.en-papel .marco--bajo{ background: linear-gradient(to top, rgba(253,252,250,.94), rgba(253,252,250,0)); }
+.en-papel .marco__obra,
+.en-papel .folio,
+.en-papel .pista{ color: var(--papel-suave); }
+.en-papel .marco__rotulo{ color: var(--papel-media); }
+.en-papel .paso{ color: var(--papel-tinta); }
+.en-papel .cinta{ background: rgba(20,17,14,.1); }
+.en-papel .cinta__hilo{ background: var(--papel-rojo); }
 
 /* ───────── Frontispicio: el libro como objeto ───────── */
 
@@ -615,13 +679,27 @@ a{ color: inherit; }
 .entrada__titular{
   font-family: var(--display);
   font-weight: 400;
-  font-size: clamp(1.9rem, 3.4vw, 3.4rem);
-  line-height: 1.04;
-  letter-spacing: -.015em;
-  margin: 0 0 1.4rem;
+  font-size: clamp(1.9rem, 3.2vw, 3.1rem);
+  line-height: 1.08;
+  letter-spacing: -.012em;
+  margin: 0 0 .7rem;
   color: #fff;
   text-wrap: balance;
 }
+
+.entrada__ficha{
+  margin: 0 0 1.6rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid rgba(243,236,225,.16);
+  font-size: .95rem;
+  color: var(--luz-media);
+}
+.entrada__ficha strong{ font-weight: 500; }
+.pagina--papel .entrada__ficha{
+  color: var(--papel-suave);
+  border-bottom-color: rgba(20,17,14,.12);
+}
+.pagina--papel .entrada__ficha strong{ color: var(--papel-media); }
 /* Todo el texto de la entrada, con la misma letra y el mismo cuerpo */
 .entrada p{
   margin: 0 0 1.1rem;
@@ -634,7 +712,7 @@ a{ color: inherit; }
 
 .umbral{
   display: inline-block;
-  margin-top: 1.3rem;
+  margin-top: 1.6rem;
   font-family: var(--texto);
   font-size: .68rem;
   text-transform: uppercase;
