@@ -665,54 +665,51 @@ a{ color: inherit; }
   .tomo__cuerpo{ --grosor: 12.5cqw; }
 }
 
-/* El lomo, a la izquierda, perpendicular a la tapa */
+/* El lomo, redondeado como el de un libro cosido: no es un plano, sino un
+   cilindro hecho de doce láminas, cada una con su luz. El eje del cilindro
+   pasa por el canto de la tapa, así que el lomo abomba hacia fuera. */
 .tomo__lomo{
   position: absolute;
   left: 0; top: 0; bottom: 0;
-  width: var(--grosor);
-  transform-origin: left center;
-  transform: translateZ(calc(var(--grosor) / 2)) rotateY(90deg);
+  width: 0;
+  transform-style: preserve-3d;
+  --arco: calc(var(--grosor) * .145);
+}
+
+.tomo__lomo i{
+  position: absolute;
+  top: 0; bottom: 0;
+  left: calc(var(--arco) / -2);
+  width: var(--arco);
+  transform: rotateY(var(--a)) translateZ(calc(var(--grosor) / 2));
+  background-image:
+    linear-gradient(rgba(0,0,0,var(--s)), rgba(0,0,0,var(--s))),
+    linear-gradient(to bottom, #40230f 0%, #2b1509 42%, #1a0c05 100%);
+}
+
+/* El texto va impreso sobre la curva, en la parte que más se ve */
+.tomo__lomo-texto{
+  position: absolute;
+  top: 0; bottom: 0;
+  left: calc(var(--grosor) * -.34);
+  width: calc(var(--grosor) * .68);
+  /* un pelo por delante de las láminas, para que la tinta no se pelee
+     con la superficie */
+  transform: rotateY(-67.5deg) translateZ(calc(var(--grosor) / 2 + 1.5px));
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 6% 0;
+  padding: 7% 0;
   overflow: hidden;
-  font-size: calc(var(--grosor) * .34);
-  /* Lomo de tinta plana, como el de un libro impreso: el título arriba,
-     leyéndose de arriba abajo, y el autor al pie. Encima, las luces: la
-     charnela que brilla, el bombeado del lomo y el canto de atrás en sombra. */
-  background-color: #2b1509;
-  background-image:
-    linear-gradient(to right,
-      rgba(255,238,214,.3) 0%,
-      rgba(255,238,214,.05) 3%,
-      rgba(0,0,0,.5) 9%,
-      rgba(0,0,0,.14) 32%,
-      rgba(0,0,0,0) 50%,
-      rgba(0,0,0,.32) 76%,
-      rgba(0,0,0,.8) 100%),
-    linear-gradient(to bottom, #3d200e 0%, #2b1509 45%, #1b0d05 100%);
+  font-size: calc(var(--grosor) * .32);
 }
-/* Los nervios del lomo, arriba y abajo */
-/* Las cabezadas: las telillas de arriba y abajo del lomo */
-.tomo__lomo::before,
-.tomo__lomo::after{
-  content: "";
-  position: absolute;
-  left: 6%; right: 6%;
-  height: 2.2%;
-  background: repeating-linear-gradient(to bottom,
-    rgba(226,196,150,.5) 0 1px,
-    rgba(60,35,18,.6) 1px 2px);
-  box-shadow: 0 0 3px rgba(0,0,0,.6);
-}
-.tomo__lomo::before{ top: 1.2%; }
-.tomo__lomo::after{ bottom: 1.2%; }
-
-/* El título, impreso a lo largo del lomo, leyéndose de arriba abajo */
+/* El título, impreso a lo largo del lomo, leyéndose de arriba abajo.
+   `flex: none` evita que se encojan: si se encogen, la tinta se parte en
+   columnas y se vuelve ilegible. */
 .tomo__lomo-titulo,
 .tomo__lomo-autor{
+  flex: none;
   writing-mode: vertical-rl;
   font-family: var(--display);
   text-transform: uppercase;
@@ -730,8 +727,6 @@ a{ color: inherit; }
   letter-spacing: .18em;
   color: #e8d6ba;
 }
-.portada--acabada .tomo__lomo-titulo,
-.portada--acabada .tomo__lomo-autor{ display: none; }
 
 /* Los cantos del bloque de hojas: papel apilado, de canto */
 .tomo__canto{
@@ -750,13 +745,13 @@ a{ color: inherit; }
 }
 .tomo__canto--alto{
   top: 1.1%;
-  left: 1.4%; right: 1.4%;
+  left: -1%; right: 1.4%;
   transform-origin: center top;
   transform: translateZ(calc(var(--grosor) / 2)) rotateX(-90deg);
 }
 .tomo__canto--bajo{
   bottom: 1.1%;
-  left: 1.4%; right: 1.4%;
+  left: -1%; right: 1.4%;
   transform-origin: center bottom;
   transform: translateZ(calc(var(--grosor) / 2)) rotateX(90deg);
   background:
