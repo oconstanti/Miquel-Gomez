@@ -453,8 +453,8 @@ a{ color: inherit; }
 .entero--portada .entrada{ padding-top: .35rem; }
 .libro--sencillo .entero--portada{
   grid-template-columns: 1fr;
-  align-content: center;
-  gap: 1.75rem;
+  align-content: start;
+  gap: 1.1rem;
 }
 
 .entero--centro{
@@ -541,25 +541,27 @@ a{ color: inherit; }
   .tomo{ container-type: inline-size; }
 }
 
-/* La sombra que el volumen deja sobre la página */
+/* La sombra que el volumen deja sobre la página, hacia la derecha:
+   la luz entra por el lomo */
 .tomo::after{
   content: "";
   position: absolute;
-  left: 6%; right: 2%;
-  bottom: -2.5%;
-  height: 6%;
-  background: radial-gradient(60% 100% at 45% 50%, rgba(0,0,0,.75), transparent 72%);
-  filter: blur(10px);
+  left: 12%; right: -4%;
+  bottom: -1.5%;
+  height: 7%;
+  background: radial-gradient(58% 100% at 42% 45%, rgba(0,0,0,.7), transparent 74%);
+  filter: blur(13px);
 }
 
 .tomo__cuerpo{
   position: relative;
   transform-style: preserve-3d;
-  transform: rotateY(21deg);
-  --grosor: 26px;
+  /* Un poco de picado, para que se vean los cantos de las hojas */
+  transform: rotateX(3.2deg) rotateY(19deg);
+  --grosor: 30px;
 }
 @supports (width: 1cqw){
-  .tomo__cuerpo{ --grosor: 6.2cqw; }
+  .tomo__cuerpo{ --grosor: 7.2cqw; }
 }
 
 /* El lomo, a la izquierda, perpendicular a la tapa */
@@ -578,12 +580,40 @@ a{ color: inherit; }
 .tomo__lomo::after{
   content: "";
   position: absolute;
-  left: 12%; right: 12%;
+  left: 14%; right: 14%;
   height: 1px;
-  background: rgba(211,160,106,.35);
+  background: rgba(211,160,106,.4);
+  box-shadow: 0 1px 0 rgba(0,0,0,.35);
 }
-.tomo__lomo::before{ top: 9%; }
-.tomo__lomo::after{ bottom: 9%; }
+.tomo__lomo::before{ top: 8%; }
+.tomo__lomo::after{ bottom: 8%; }
+
+/* Los cantos del bloque de hojas: papel apilado, de canto */
+.tomo__canto{
+  position: absolute;
+  left: 0; right: 0;
+  height: var(--grosor);
+  background:
+    repeating-linear-gradient(to right,
+      rgba(70,52,32,.28) 0 1px,
+      rgba(255,255,255,0) 1px 3px),
+    linear-gradient(to bottom, #f2e8d6 0%, #d8c8a8 52%, #a58f6c 100%);
+}
+.tomo__canto--alto{
+  top: 0;
+  transform-origin: center top;
+  transform: translateZ(calc(var(--grosor) / 2)) rotateX(-90deg);
+}
+.tomo__canto--bajo{
+  bottom: 0;
+  transform-origin: center bottom;
+  transform: translateZ(calc(var(--grosor) / 2)) rotateX(90deg);
+  background:
+    repeating-linear-gradient(to right,
+      rgba(70,52,32,.3) 0 1px,
+      rgba(255,255,255,0) 1px 3px),
+    linear-gradient(to top, #cbbb9c 0%, #9c8767 55%, #6d5c43 100%);
+}
 
 .tomo__tapa{
   position: relative;
@@ -595,15 +625,16 @@ a{ color: inherit; }
     0 0 0 1px rgba(243,236,225,.09);
 }
 
-/* El pliegue del papel junto al lomo y el brillo del canto de fuera */
+/* El pliegue del papel junto al lomo, el brillo de la charnela y el canto de fuera */
 .tomo__tapa::after{
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
   background:
-    linear-gradient(to right, rgba(0,0,0,.55), rgba(0,0,0,.12) 5%, rgba(0,0,0,0) 11%),
-    linear-gradient(to left, rgba(255,240,220,.14), rgba(255,240,220,0) 2.5%),
+    linear-gradient(to right, rgba(255,244,228,.3) 0 .8%, rgba(255,244,228,0) 1.2%),
+    linear-gradient(to right, rgba(0,0,0,.6) 0, rgba(0,0,0,.5) 1.6%, rgba(0,0,0,.1) 6%, rgba(0,0,0,0) 12%),
+    linear-gradient(to left, rgba(255,240,220,.16), rgba(255,240,220,0) 2.5%),
     linear-gradient(to bottom, rgba(10,6,3,.62), rgba(10,6,3,0) 36%, rgba(10,6,3,0) 58%, rgba(10,6,3,.82));
 }
 
@@ -679,8 +710,8 @@ a{ color: inherit; }
 .entrada__titular{
   font-family: var(--display);
   font-weight: 400;
-  font-size: clamp(1.9rem, 3.2vw, 3.1rem);
-  line-height: 1.08;
+  font-size: clamp(2rem, 3.4vw, 3.4rem);
+  line-height: 1.06;
   letter-spacing: -.012em;
   margin: 0 0 .7rem;
   color: #fff;
@@ -688,35 +719,51 @@ a{ color: inherit; }
 }
 
 .entrada__ficha{
-  margin: 0 0 1.6rem;
-  padding-bottom: 1.2rem;
+  margin: 0 0 1.7rem;
+  padding-bottom: 1.3rem;
   border-bottom: 1px solid rgba(243,236,225,.16);
-  font-size: .95rem;
+  font-size: .98rem;
+  line-height: 1.9;
   color: var(--luz-media);
 }
-.entrada__ficha strong{ font-weight: 500; }
+.entrada__ficha strong{ font-weight: 500; color: var(--luz); }
+/* Cada dato va entero: si no cabe, baja de línea completo */
+.entrada__ficha span{ white-space: nowrap; }
+
+/* La barrita que separa edición, autor y formato */
+.entrada__ficha span:not(:last-child)::after{
+  content: "";
+  display: inline-block;
+  width: 1px;
+  height: 1.15em;
+  margin: 0 1.05rem;
+  vertical-align: -.2em;
+  background: rgba(243,236,225,.28);
+}
 .pagina--papel .entrada__ficha{
   color: var(--papel-suave);
   border-bottom-color: rgba(20,17,14,.12);
 }
+.pagina--papel .entrada__ficha span:not(:last-child)::after{ background: rgba(20,17,14,.22); }
 .pagina--papel .entrada__ficha strong{ color: var(--papel-media); }
 /* Todo el texto de la entrada, con la misma letra y el mismo cuerpo */
 .entrada p{
-  margin: 0 0 1.1rem;
+  margin: 0 0 1.15rem;
   font-family: var(--texto);
-  font-size: 1rem;
+  font-size: clamp(1.1rem, .5vw + .96rem, 1.34rem);
+  line-height: 1.58;
   font-style: normal;
   color: var(--luz);
-  max-width: 34rem;
+  max-width: 36rem;
 }
 
 .umbral{
   display: inline-block;
   margin-top: 1.6rem;
   font-family: var(--texto);
-  font-size: .68rem;
+  font-size: .74rem;
   text-transform: uppercase;
-  letter-spacing: .26em;
+  letter-spacing: .24em;
   color: var(--ambar);
   background: none;
   border: 0;
@@ -906,7 +953,16 @@ a{ color: inherit; }
   /* En el móvil el número ya está en la barra de abajo */
   .pagina__folio{ display: none; }
   .libro-ficha{ width: 43%; margin: 0 .4rem 1.4rem; }
-  .tomo{ width: min(15rem, 62%); }
+  .tomo{ width: min(11.5rem, 46%); }
+  .entrada p{ font-size: clamp(1rem, 3.3vw, 1.12rem); margin-bottom: .9rem; }
+  .entrada__titular{ font-size: clamp(1.65rem, 5.6vw, 2.1rem); }
+  .entrada__ficha{
+    font-size: .9rem;
+    margin-bottom: 1.1rem;
+    padding-bottom: .9rem;
+  }
+  .entrada__ficha span:not(:last-child)::after{ margin: 0 .8rem; }
+  .umbral{ margin-top: 1.1rem; }
 }
 
 @media (max-height: 620px){
