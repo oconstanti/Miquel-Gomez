@@ -14,19 +14,31 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/estilo.css?v=20260914q">
+<link rel="stylesheet" href="assets/css/estilo.css?v=20260914s">
 <script>document.documentElement.className = 'con-js';</script>
 </head>
 <body>
 
 <header class="marco marco--alto">
-  <span class="marco__obra">El traductor literario</span>
   <button class="marco__rotulo" id="abrirIndice" aria-haspopup="dialog" aria-expanded="false" aria-label="Índice">
     <span id="rotuloActual" class="solo-lectores">Frontispicio</span>
   </button>
 </header>
 
 <!-- El libro abierto: las páginas las compone el guion a partir de la fuente -->
+<nav class="riel" id="riel" aria-label="Índice del libro">
+  <ol class="riel__lista">
+    <li><a href="#frontispicio"><span class="riel__romano">·</span><span class="riel__nombre">Portada</span></a></li>
+    <li><a href="#capitulo-1"><span class="riel__romano">I</span><span class="riel__nombre">Tierra yerma</span></a></li>
+    <li><a href="#capitulo-2"><span class="riel__romano">II</span><span class="riel__nombre">Una vida</span></a></li>
+    <li><a href="#capitulo-3"><span class="riel__romano">III</span><span class="riel__nombre">David contra Goliat</span></a></li>
+    <li><a href="#capitulo-4"><span class="riel__romano">IV</span><span class="riel__nombre">La traducción consciente</span></a></li>
+    <li><a href="#capitulo-5"><span class="riel__romano">V</span><span class="riel__nombre">El camino</span></a></li>
+    <li><a href="#capitulo-6"><span class="riel__romano">VI</span><span class="riel__nombre">El mensaje en la botella</span></a></li>
+    <li><a href="#colofon"><span class="riel__romano">·</span><span class="riel__nombre">Colofón</span></a></li>
+  </ol>
+</nav>
+
 <div class="escenario" id="escenario">
   <div class="libro" id="libro"></div>
 </div>
@@ -69,7 +81,10 @@
       <figure class="portada" id="portada">
         <div class="tomo">
           <div class="tomo__cuerpo">
-            <div class="tomo__lomo" aria-hidden="true"></div>
+            <div class="tomo__lomo" aria-hidden="true">
+              <span class="tomo__lomo-titulo">El traductor literario</span>
+              <span class="tomo__lomo-autor">Miquel Gómez Besòs</span>
+            </div>
             <div class="tomo__canto tomo__canto--alto" aria-hidden="true"></div>
             <div class="tomo__canto tomo__canto--bajo" aria-hidden="true"></div>
             <div class="tomo__tapa">
@@ -301,6 +316,6 @@
 
 </div>
 
-<script src="assets/js/libro.js?v=20260914q"></script>
+<script src="assets/js/libro.js?v=20260914s"></script>
 </body>
 </html>

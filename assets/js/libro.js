@@ -314,6 +314,13 @@
     /* Los marcos se aclaran cuando el pliego es de papel blanco */
     document.body.classList.toggle("en-papel", capitulos[pl.cap].tema === "papel");
 
+    /* El índice marca el capítulo que se está leyendo */
+    var aqui = "#" + capitulos[pl.cap].id;
+    Array.prototype.forEach.call(riel.querySelectorAll("a"), function (enlace) {
+      if (enlace.getAttribute("href") === aqui) enlace.setAttribute("aria-current", "true");
+      else enlace.removeAttribute("aria-current");
+    });
+
     var primera = capitulos[pl.cap].primera + pl.base;
     var segunda = abierto && pagina(actual, 1) ? primera + 1 : null;
     var ultima = capitulos[capitulos.length - 1];
@@ -448,6 +455,15 @@
   libro.addEventListener("click", function (e) {
     var boton = e.target.closest("[data-ir]");
     if (boton) irACapitulo(boton.getAttribute("data-ir"));
+  });
+
+  /* El índice de la izquierda */
+  var riel = document.getElementById("riel");
+  riel.addEventListener("click", function (e) {
+    var enlace = e.target.closest("a");
+    if (!enlace) return;
+    e.preventDefault();
+    irACapitulo(enlace.getAttribute("href").slice(1));
   });
 
   escenario.addEventListener("scroll", function () {

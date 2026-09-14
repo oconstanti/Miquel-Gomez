@@ -16,6 +16,7 @@
   --texto:   "EB Garamond", Georgia, "Times New Roman", serif;
 
   --margen:     clamp(1.25rem, 4vw, 4.5rem);
+  --riel:       0px;
   --marco-alto: 3.25rem;
   --marco-bajo: 3.75rem;
 
@@ -63,11 +64,94 @@ a{ color: inherit; }
 }
 .sin-js .fuente .capitulo{ margin-bottom: 4rem; }
 
+/* ───────── El índice vertical, a la izquierda ───────── */
+
+@media (min-width: 1080px){
+  :root{ --riel: 14rem; }
+}
+
+.riel{
+  position: fixed;
+  left: 0; top: 0; bottom: 0;
+  width: var(--riel);
+  z-index: 22;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--marco-alto) 1.6rem var(--marco-bajo) clamp(1.25rem, 2.6vw, 2.6rem);
+  background: var(--noche);
+  border-right: 1px solid rgba(243,236,225,.09);
+  transition: background .55s ease, border-color .55s ease;
+}
+@media (min-width: 1080px){
+  .riel{ display: flex; }
+  .marco__rotulo{ display: none; }
+}
+
+.riel__lista{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.riel__lista li + li{ margin-top: .15rem; }
+
+.riel__lista a{
+  display: flex;
+  align-items: baseline;
+  gap: .55rem;
+  padding: .48rem 0;
+  text-decoration: none;
+  color: var(--luz-suave);
+  transition: color .3s ease;
+}
+.riel__lista a:hover{ color: var(--luz); }
+
+.riel__romano{
+  flex: none;
+  width: 1.6rem;
+  font-family: var(--display);
+  font-size: .66rem;
+  letter-spacing: .1em;
+  color: var(--ambar);
+  opacity: .7;
+  transition: opacity .3s ease;
+}
+.riel__nombre{
+  font-family: var(--display);
+  font-size: .84rem;
+  line-height: 1.25;
+}
+
+/* El capítulo que se está leyendo */
+.riel__lista a[aria-current]{ color: var(--luz); }
+.riel__lista a[aria-current] .riel__romano{ opacity: 1; }
+.riel__lista a[aria-current] .riel__nombre{
+  position: relative;
+}
+.riel__lista a[aria-current] .riel__nombre::after{
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -.28em;
+  height: 1px;
+  background: var(--ambar);
+}
+
+/* Sobre el papel blanco */
+.en-papel .riel{
+  background: var(--papel);
+  border-right-color: rgba(20,17,14,.1);
+}
+.en-papel .riel__lista a{ color: var(--papel-suave); }
+.en-papel .riel__lista a:hover,
+.en-papel .riel__lista a[aria-current]{ color: var(--papel-tinta); }
+.en-papel .riel__romano{ color: var(--papel-rojo); }
+.en-papel .riel__lista a[aria-current] .riel__nombre::after{ background: var(--papel-rojo); }
+
 /* ───────── Marcos ───────── */
 
 .marco{
   position: fixed;
-  left: 0; right: 0;
+  left: var(--riel); right: 0;
   z-index: 20;
   display: flex;
   align-items: center;
@@ -79,7 +163,7 @@ a{ color: inherit; }
 .marco--alto{
   top: 0;
   height: var(--marco-alto);
-  justify-content: space-between;
+  justify-content: flex-end;
   background: linear-gradient(to bottom, rgba(8,5,3,.75), rgba(8,5,3,0));
 }
 .marco--bajo{
@@ -181,7 +265,7 @@ a{ color: inherit; }
   transition: opacity .3s ease, transform .3s ease;
 }
 .paso:hover{ opacity: .85; }
-.paso--atras{ left: .4rem; }
+.paso--atras{ left: calc(var(--riel) + .4rem); }
 .paso--adelante{ right: .4rem; }
 .paso--atras:hover{ transform: translate(-3px, -50%); }
 .paso--adelante:hover{ transform: translate(3px, -50%); }
@@ -191,7 +275,8 @@ a{ color: inherit; }
 
 .escenario{
   position: fixed;
-  inset: 0;
+  top: 0; right: 0; bottom: 0;
+  left: var(--riel);
   overflow: hidden;
 }
 
@@ -535,7 +620,7 @@ a{ color: inherit; }
 .tomo{
   perspective: 1700px;
   perspective-origin: 58% 50%;
-  width: min(72%, calc((100svh - 22rem) / 1.5));
+  width: min(80%, calc((100svh - 17.5rem) / 1.5));
   margin-inline: auto;
   position: relative;
 }
@@ -559,11 +644,11 @@ a{ color: inherit; }
   position: relative;
   transform-style: preserve-3d;
   /* Un poco de picado, para que se vean los cantos de las hojas */
-  transform: rotateX(3.2deg) rotateY(19deg);
-  --grosor: 30px;
+  transform: rotateX(3deg) rotateY(27deg);
+  --grosor: 40px;
 }
 @supports (width: 1cqw){
-  .tomo__cuerpo{ --grosor: 7.2cqw; }
+  .tomo__cuerpo{ --grosor: 10.5cqw; }
 }
 
 /* El lomo, a la izquierda, perpendicular a la tapa */
@@ -573,6 +658,13 @@ a{ color: inherit; }
   width: var(--grosor);
   transform-origin: left center;
   transform: translateZ(calc(var(--grosor) / 2)) rotateY(90deg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.2em;
+  overflow: hidden;
+  font-size: calc(var(--grosor) * .3);
   background-color: #1a0f07;
   /* La ilustración da la vuelta por el lomo, como en una cubierta impresa,
      y encima van las luces: la charnela que brilla, el bombeado del lomo
@@ -606,6 +698,29 @@ a{ color: inherit; }
 }
 .tomo__lomo::before{ top: 1.2%; }
 .tomo__lomo::after{ bottom: 1.2%; }
+
+/* El título, impreso a lo largo del lomo, de arriba abajo */
+.tomo__lomo-titulo,
+.tomo__lomo-autor{
+  writing-mode: vertical-rl;
+  font-family: var(--display);
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #f6ead6;
+  text-shadow: 0 0 .35em rgba(0,0,0,.9), 0 .05em .15em rgba(0,0,0,.8);
+}
+.tomo__lomo-titulo{
+  font-size: 1em;
+  font-weight: 500;
+  letter-spacing: .1em;
+}
+.tomo__lomo-autor{
+  font-size: .74em;
+  letter-spacing: .14em;
+  color: #e2cfb4;
+}
+.portada--acabada .tomo__lomo-titulo,
+.portada--acabada .tomo__lomo-autor{ display: none; }
 
 /* Los cantos del bloque de hojas: papel apilado, de canto */
 .tomo__canto{
