@@ -447,8 +447,13 @@ a{ color: inherit; }
 .entero--portada{
   display: grid;
   grid-template-columns: minmax(0, .68fr) minmax(0, 1fr);
+  /* el bloque entero, centrado en la página; dentro, el título a la altura
+     del canto de arriba del libro */
+  align-content: center;
   align-items: start;
-  gap: clamp(2rem, 4.5vw, 4.75rem);
+  gap: clamp(2rem, 3.4vw, 3.6rem);
+  max-width: 68rem;
+  margin-inline: auto;
 }
 .entero--portada .entrada{ padding-top: .35rem; }
 .libro--sencillo .entero--portada{
@@ -495,7 +500,7 @@ a{ color: inherit; }
 
 .pagina--papel .umbral{
   color: var(--papel-rojo);
-  border-bottom-color: rgba(143,45,24,.4);
+  border-bottom-color: rgba(143,45,24,.45);
 }
 .pagina--papel .umbral:hover{ border-bottom-color: var(--papel-rojo); }
 
@@ -736,7 +741,7 @@ a{ color: inherit; }
   margin: 0 0 1.7rem;
   padding-bottom: 1.3rem;
   border-bottom: 1px solid rgba(243,236,225,.16);
-  font-size: .9rem;
+  font-size: .88rem;
   line-height: 1.95;
   color: var(--luz-media);
 }
@@ -753,7 +758,7 @@ a{ color: inherit; }
   display: inline-block;
   width: 1px;
   height: 1.15em;
-  margin: 0 .75rem;
+  margin: 0 .7rem;
   vertical-align: -.2em;
   background: rgba(243,236,225,.28);
 }
@@ -778,18 +783,19 @@ a{ color: inherit; }
   display: inline-block;
   margin-top: 1.6rem;
   font-family: var(--texto);
-  font-size: .74rem;
+  font-size: .95rem;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: .24em;
+  letter-spacing: .17em;
   color: var(--ambar);
   background: none;
   border: 0;
-  border-bottom: 1px solid rgba(211,160,106,.4);
-  padding: 0 0 .45rem;
+  border-bottom: 1.5px solid rgba(211,160,106,.45);
+  padding: 0 0 .5rem;
   cursor: pointer;
   transition: border-color .3s ease, letter-spacing .3s ease;
 }
-.umbral:hover{ border-bottom-color: var(--ambar); letter-spacing: .32em; }
+.umbral:hover{ border-bottom-color: var(--ambar); letter-spacing: .22em; }
 
 .eslogan{
   margin: 0;
