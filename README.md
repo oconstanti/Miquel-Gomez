@@ -43,7 +43,7 @@ Amb `prefers-reduced-motion` no gira res: els canvis són instantanis.
 | IV | La traducción consciente | El diàleg amb el mestre |
 | V | El camino | Les traduccions publicades |
 | VI | El mensaje en la botella | Contacte |
-| — | Colofón | Signatura final |
+| — | Contraportada | Signatura final |
 
 ## Estructura dels fitxers
 
