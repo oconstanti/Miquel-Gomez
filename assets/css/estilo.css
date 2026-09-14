@@ -646,11 +646,11 @@ a{ color: inherit; }
   position: relative;
   transform-style: preserve-3d;
   /* Un poco de picado, para que se vean los cantos de las hojas */
-  transform: rotateX(3deg) rotateY(27deg);
-  --grosor: 40px;
+  transform: rotateX(3deg) rotateY(31deg);
+  --grosor: 46px;
 }
 @supports (width: 1cqw){
-  .tomo__cuerpo{ --grosor: 10.5cqw; }
+  .tomo__cuerpo{ --grosor: 12.5cqw; }
 }
 
 /* El lomo, a la izquierda, perpendicular a la tapa */
@@ -663,27 +663,24 @@ a{ color: inherit; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 2.2em;
+  justify-content: space-between;
+  padding: 6% 0;
   overflow: hidden;
-  font-size: calc(var(--grosor) * .3);
-  background-color: #1a0f07;
-  /* La ilustración da la vuelta por el lomo, como en una cubierta impresa,
-     y encima van las luces: la charnela que brilla, el bombeado del lomo
-     y la sombra del canto de atrás. */
+  font-size: calc(var(--grosor) * .34);
+  /* Lomo de tinta plana, como el de un libro impreso: el título arriba,
+     leyéndose de arriba abajo, y el autor al pie. Encima, las luces: la
+     charnela que brilla, el bombeado del lomo y el canto de atrás en sombra. */
+  background-color: #2b1509;
   background-image:
     linear-gradient(to right,
-      rgba(255,238,214,.34) 0%,
-      rgba(255,238,214,.06) 3.5%,
-      rgba(0,0,0,.62) 9%,
-      rgba(0,0,0,.2) 34%,
-      rgba(0,0,0,.06) 52%,
-      rgba(0,0,0,.45) 78%,
-      rgba(0,0,0,.92) 100%),
-    var(--arte, linear-gradient(to bottom, #3a2313, #1b1008));
-  background-size: auto, 460% 100%;
-  background-position: center, left center;
-  background-repeat: no-repeat;
+      rgba(255,238,214,.3) 0%,
+      rgba(255,238,214,.05) 3%,
+      rgba(0,0,0,.5) 9%,
+      rgba(0,0,0,.14) 32%,
+      rgba(0,0,0,0) 50%,
+      rgba(0,0,0,.32) 76%,
+      rgba(0,0,0,.8) 100%),
+    linear-gradient(to bottom, #3d200e 0%, #2b1509 45%, #1b0d05 100%);
 }
 /* Los nervios del lomo, arriba y abajo */
 /* Las cabezadas: las telillas de arriba y abajo del lomo */
@@ -701,25 +698,25 @@ a{ color: inherit; }
 .tomo__lomo::before{ top: 1.2%; }
 .tomo__lomo::after{ bottom: 1.2%; }
 
-/* El título, impreso a lo largo del lomo, de arriba abajo */
+/* El título, impreso a lo largo del lomo, leyéndose de arriba abajo */
 .tomo__lomo-titulo,
 .tomo__lomo-autor{
   writing-mode: vertical-rl;
   font-family: var(--display);
   text-transform: uppercase;
   white-space: nowrap;
-  color: #f6ead6;
-  text-shadow: 0 0 .35em rgba(0,0,0,.9), 0 .05em .15em rgba(0,0,0,.8);
+  color: #faf1e2;
+  text-shadow: 0 .04em .12em rgba(0,0,0,.75);
 }
 .tomo__lomo-titulo{
   font-size: 1em;
-  font-weight: 500;
-  letter-spacing: .1em;
+  font-weight: 600;
+  letter-spacing: .13em;
 }
 .tomo__lomo-autor{
-  font-size: .74em;
-  letter-spacing: .14em;
-  color: #e2cfb4;
+  font-size: .55em;
+  letter-spacing: .18em;
+  color: #e8d6ba;
 }
 .portada--acabada .tomo__lomo-titulo,
 .portada--acabada .tomo__lomo-autor{ display: none; }
