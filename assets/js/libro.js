@@ -572,8 +572,10 @@
       cadaPortada(function (p) {
         p.classList.toggle("portada--acabada", !!opcion.acabada);
         p.querySelector(".portada__imagen").src = ruta;
-        /* la ilustración da la vuelta por el lomo */
-        p.style.setProperty("--arte", "url('" + ruta + "')");
+        /* La ilustración da la vuelta por el lomo. La ruta va absoluta: dentro
+           de una variable, una relativa se resolvería contra la hoja de
+           estilo y no contra el documento. */
+        p.style.setProperty("--arte", "url('" + new URL(ruta, location.href).href + "')");
       });
     });
   });
