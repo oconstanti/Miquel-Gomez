@@ -691,7 +691,7 @@ a{ color: inherit; }
       rgba(0,0,0,0) 0 4.4%, rgba(222,188,134,.85) 4.4% 5%, rgba(0,0,0,0) 5%,
       rgba(0,0,0,0) 94.7%, rgba(222,188,134,.85) 94.7% 95.3%, rgba(0,0,0,0) 95.3%),
     linear-gradient(rgba(0,0,0,var(--s)), rgba(0,0,0,var(--s))),
-    linear-gradient(rgba(12,6,2,.2), rgba(12,6,2,.2)),
+    linear-gradient(rgba(12,6,2,.56), rgba(12,6,2,.56)),
     var(--arte, linear-gradient(to bottom, #4d2c15 0%, #38200e 44%, #221107 100%));
   /* Cada lámina enseña su trozo de la ilustración, y las ocho que se ven
      desde este ángulo se reparten el dibujo entero: así el lomo recoge el
@@ -721,19 +721,19 @@ a{ color: inherit; }
 .tomo__lomo-texto{
   position: absolute;
   top: 0; bottom: 0;
-  left: calc(var(--grosor) * -.4);
-  width: calc(var(--grosor) * .8);
-  /* un pelo por delante de las láminas, para que la tinta no se pelee
-     con la superficie */
-  transform: rotateY(-84deg) translateZ(calc(var(--grosor) / 2 + 1.5px));
+  left: calc(var(--grosor) * -.33);
+  width: calc(var(--grosor) * .66);
+  /* pegado a la superficie: solo medio píxel por delante, lo justo para no
+     pelearse con las láminas */
+  transform: rotateY(-80deg) translateZ(calc(var(--grosor) / 2 + .5px));
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   /* en em, que el porcentaje se mediría contra el ancho del lomo */
-  padding: 1.4em 0;
+  padding: 1.2em 0;
   overflow: hidden;
-  font-size: calc(var(--grosor) * .335);
+  font-size: calc(var(--grosor) * .34);
 }
 /* El título, impreso a lo largo del lomo, leyéndose de arriba abajo.
    `flex: none` evita que se encojan: si se encogen, la tinta se parte en
@@ -755,12 +755,13 @@ a{ color: inherit; }
 }
 .tomo__lomo-titulo{
   font-size: 1em;
-  font-weight: 600;
-  letter-spacing: .16em;
+  font-weight: 700;
+  letter-spacing: .15em;
 }
 .tomo__lomo-autor{
-  font-size: .48em;
-  letter-spacing: .22em;
+  font-size: .56em;
+  font-weight: 600;
+  letter-spacing: .18em;
   color: #f7ecd9;
 }
 
