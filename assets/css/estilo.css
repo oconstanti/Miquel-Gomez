@@ -725,7 +725,7 @@ a{ color: inherit; }
   width: calc(var(--grosor) * .66);
   /* pegado a la superficie: solo medio píxel por delante, lo justo para no
      pelearse con las láminas */
-  transform: rotateY(-80deg) translateZ(calc(var(--grosor) / 2 + .5px));
+  transform: rotateY(-68deg) translateZ(calc(var(--grosor) / 2 + .5px));
   display: flex;
   flex-direction: column;
   align-items: center;
