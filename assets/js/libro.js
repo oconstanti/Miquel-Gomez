@@ -572,6 +572,8 @@
       cadaPortada(function (p) {
         p.classList.toggle("portada--acabada", !!opcion.acabada);
         p.querySelector(".portada__imagen").src = ruta;
+        /* la ilustración da la vuelta por el lomo */
+        p.style.setProperty("--arte", "url('" + ruta + "')");
       });
     });
   });

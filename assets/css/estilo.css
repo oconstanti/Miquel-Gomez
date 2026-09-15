@@ -682,9 +682,20 @@ a{ color: inherit; }
   left: calc(var(--arco) / -2);
   width: var(--arco);
   transform: rotateY(var(--a)) translateZ(calc(var(--grosor) / 2));
+  background-color: #2a1509;
+  /* La ilustración da la vuelta por el lomo, como en una sobrecubierta
+     impresa. Encima: los filetes dorados, la sombra de cada lámina y un
+     velo que oscurece el conjunto para que la tinta blanca se lea. */
   background-image:
+    linear-gradient(to bottom,
+      rgba(0,0,0,0) 0 4.4%, rgba(222,188,134,.85) 4.4% 5%, rgba(0,0,0,0) 5%,
+      rgba(0,0,0,0) 94.7%, rgba(222,188,134,.85) 94.7% 95.3%, rgba(0,0,0,0) 95.3%),
     linear-gradient(rgba(0,0,0,var(--s)), rgba(0,0,0,var(--s))),
-    linear-gradient(to bottom, #4d2c15 0%, #38200e 44%, #221107 100%);
+    linear-gradient(rgba(12,6,2,.38), rgba(12,6,2,.38)),
+    var(--arte, linear-gradient(to bottom, #4d2c15 0%, #38200e 44%, #221107 100%));
+  background-size: auto, auto, auto, 118% 100%;
+  background-position: center, center, center, left center;
+  background-repeat: no-repeat;
 }
 
 /* Las cabezadas: la telilla rayada de la cabeza y el pie del lomo. Van en
@@ -732,8 +743,12 @@ a{ color: inherit; }
   text-transform: uppercase;
   white-space: nowrap;
   color: #fffdf8;
-  /* una sombra seca, no un halo: a este tamaño el desenfoque emborrona */
-  text-shadow: 0 0 .22em rgba(0,0,0,.9), 0 .03em .06em rgba(0,0,0,.95);
+  /* sombra seca y corta: a este tamaño el desenfoque emborrona en vez de
+     separar la letra del fondo */
+  text-shadow:
+    0 0 .18em rgba(0,0,0,.95),
+    0 0 .5em rgba(0,0,0,.75),
+    0 .03em .07em rgba(0,0,0,1);
 }
 .tomo__lomo-titulo{
   font-size: 1em;
