@@ -688,8 +688,8 @@ a{ color: inherit; }
      velo que oscurece el conjunto para que la tinta blanca se lea. */
   background-image:
     linear-gradient(to bottom,
-      rgba(0,0,0,0) 0 4.4%, rgba(222,188,134,.85) 4.4% 5%, rgba(0,0,0,0) 5%,
-      rgba(0,0,0,0) 94.7%, rgba(222,188,134,.85) 94.7% 95.3%, rgba(0,0,0,0) 95.3%),
+      rgba(0,0,0,0) 0 2.9%, rgba(222,188,134,.85) 2.9% 3.45%, rgba(0,0,0,0) 3.45%,
+      rgba(0,0,0,0) 96.3%, rgba(222,188,134,.85) 96.3% 96.85%, rgba(0,0,0,0) 96.85%),
     linear-gradient(rgba(0,0,0,var(--s)), rgba(0,0,0,var(--s))),
     linear-gradient(rgba(12,6,2,.56), rgba(12,6,2,.56)),
     var(--arte, linear-gradient(to bottom, #4d2c15 0%, #38200e 44%, #221107 100%));
@@ -714,8 +714,8 @@ a{ color: inherit; }
     rgba(58,33,15,.7) 1px 2px);
   box-shadow: inset 0 0 0 99px rgba(0,0,0,var(--s));
 }
-.tomo__lomo i::before{ top: 1%; }
-.tomo__lomo i::after{ bottom: 1%; }
+.tomo__lomo i::before{ top: .7%; }
+.tomo__lomo i::after{ bottom: .7%; }
 
 /* El texto va impreso sobre la curva, en la parte que más se ve */
 .tomo__lomo-texto{
@@ -731,9 +731,10 @@ a{ color: inherit; }
   align-items: center;
   justify-content: space-between;
   /* en em, que el porcentaje se mediría contra el ancho del lomo */
-  padding: 1.2em 0;
+  /* el margen deja los filetes libres arriba y abajo */
+  padding: 2em 0;
   overflow: hidden;
-  font-size: calc(var(--grosor) * .34);
+  font-size: calc(var(--grosor) * .36);
 }
 /* El título, impreso a lo largo del lomo, leyéndose de arriba abajo.
    `flex: none` evita que se encojan: si se encogen, la tinta se parte en
@@ -756,12 +757,12 @@ a{ color: inherit; }
 .tomo__lomo-titulo{
   font-size: 1em;
   font-weight: 700;
-  letter-spacing: .15em;
+  letter-spacing: .07em;
 }
 .tomo__lomo-autor{
-  font-size: .56em;
-  font-weight: 600;
-  letter-spacing: .18em;
+  font-size: .66em;
+  font-weight: 700;
+  letter-spacing: .1em;
   color: #f7ecd9;
 }
 
