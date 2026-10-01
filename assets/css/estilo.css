@@ -364,6 +364,7 @@ a{ color: inherit; }
 /* Una fotografia pot demanar un punt més de vel que la resta */
 [data-fondo="capitulo-1"]{ --mas-velo: .16; }
 [data-fondo="capitulo-3"]{ --mas-velo: .15; }
+[data-fondo="capitulo-4"]{ --mas-velo: .2; }
 /* En la página en blanco se ve más la imagen */
 .pagina--vacia .pagina__velo{
   background:
