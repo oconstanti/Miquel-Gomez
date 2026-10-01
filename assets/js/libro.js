@@ -144,6 +144,25 @@
     return { paso: paso, total: Math.max(1, Math.round((extension + SALTO) / paso)) };
   }
 
+  /* Una vez se sabe en cuántas páginas cae un capítulo, el texto se reparte
+     a partes iguales entre ellas. Sin esto, el navegador llena la primera
+     hasta el borde y deja en la segunda lo que sobre, que a veces es una
+     palabra suelta; y como el reparto depende del alto de la ventana, el
+     mismo capítulo se veía de una manera en cada ordenador. */
+  function repartir(nodo, ancho, total) {
+    if (total <= 1) {
+      nodo.style.width = ancho + "px";
+      nodo.style.columnWidth = ancho + "px";
+      nodo.style.columnCount = "";
+      nodo.style.columnFill = "";
+      return;
+    }
+    nodo.style.width = (total * ancho + (total - 1) * SALTO) + "px";
+    nodo.style.columnWidth = "auto";
+    nodo.style.columnCount = total;
+    nodo.style.columnFill = "balance";
+  }
+
   /* El cuerpo de letra de un capítulo, y con él todo lo que lo acompaña:
      la portadilla y, en el capítulo 5, las cubiertas de la estantería. */
   function aplicar_ajuste(nodo, escala) {
@@ -196,16 +215,25 @@
 
     cap.paso = medida.paso;
     cap.total = medida.total;
+
+    /* Repartido en columnas iguales, el texto no debería pedir más páginas
+       de las contadas; si alguna figura indivisible lo estorbase, se deja
+       el llenado de siempre. */
+    repartir(copia, ancho, cap.total);
+    if (Math.max(copia.scrollWidth, ancho) > cap.total * ancho + (cap.total - 1) * SALTO + 1) {
+      repartir(copia, ancho, 1);
+      medir_capitulo(copia, ancho, alto);
+    }
+    var reparto = copia.style.columnCount;
     copia.hidden = estabaOculta;
 
     /* La misma medida, a las cuatro capas */
     capas.forEach(function (capa) {
       var otra = capa.copias[indice];
-      otra.style.width = ancho + "px";
       otra.style.height = alto + "px";
-      otra.style.columnWidth = ancho + "px";
       otra.style.columnGap = SALTO + "px";
       aplicar_ajuste(otra, ajuste);
+      repartir(otra, ancho, reparto ? cap.total : 1);
     });
   }
 
