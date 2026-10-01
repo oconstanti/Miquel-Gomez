@@ -39,8 +39,8 @@ body{
   background: var(--noche);
   color: var(--luz);
   font-family: var(--texto);
-  font-size: clamp(1.1rem, .42vw + 1.02rem, 1.3rem);
-  line-height: 1.6;
+  font-size: clamp(1.22rem, .5vw + 1.12rem, 1.48rem);
+  line-height: 1.58;
   font-feature-settings: "liga" 1, "onum" 1;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;

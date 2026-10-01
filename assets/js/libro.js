@@ -44,7 +44,6 @@
       flujo: el.querySelector(".flujo"),
       cuerpo: el.querySelector(".entero"),
       total: 1,
-      escala: 1,
       paso: 0,
       primera: 0
     });
@@ -132,11 +131,7 @@
 
   /* ── Paginación ─────────────────────────────────────────────── */
 
-  var ESCALAS = [1, .98, .96, .94, .92, .90, .88];
-  var PAGINA_MINIMA = .45;
-
-  function tantear(cap, copia, ancho, alto, escala) {
-    copia.style.fontSize = escala === 1 ? "" : escala + "em";
+  function medir_capitulo(copia, ancho, alto) {
     copia.style.width = ancho + "px";
     copia.style.height = alto + "px";
     copia.style.columnWidth = ancho + "px";
@@ -144,19 +139,12 @@
 
     var paso = ancho + SALTO;
     var extension = Math.max(copia.scrollWidth, ancho);
-    var total = Math.max(1, Math.round((extension + SALTO) / paso));
-
-    var llenado = 1;
-    var ultimo = copia.lastElementChild;
-    if (ultimo && alto > 0) {
-      var fin = ultimo.getBoundingClientRect().bottom - copia.getBoundingClientRect().top;
-      llenado = Math.min(1, Math.max(0, fin / alto));
-    }
-    return { escala: escala, total: total, paso: paso, llenado: llenado };
+    return { paso: paso, total: Math.max(1, Math.round((extension + SALTO) / paso)) };
   }
 
-  /* Mide un capítulo sobre una de las copias y, si en la última página solo
-     quedaran un par de líneas, estrecha un poco el texto para recogerlas. */
+  /* Reparte un capítulo en páginas. El texto no se encoge nunca para ahorrar
+     una página: vale más la letra grande, y que el capítulo siga en la
+     página de al lado si hace falta. */
   function componer(cap, indice) {
     if (cap.entero) {
       cap.total = abierto ? 2 : 1;
@@ -170,25 +158,15 @@
 
     var ancho = cara.ventana.clientWidth;
     var alto = cara.ventana.clientHeight;
+    var medida = medir_capitulo(copia, ancho, alto);
 
-    var elegido = tantear(cap, copia, ancho, alto, 1);
-    if (elegido.total > 1 && elegido.llenado < PAGINA_MINIMA) {
-      for (var i = 1; i < ESCALAS.length; i++) {
-        var prueba = tantear(cap, copia, ancho, alto, ESCALAS[i]);
-        if (prueba.total < elegido.total) { elegido = prueba; break; }
-      }
-      if (elegido.escala === 1) tantear(cap, copia, ancho, alto, 1);
-    }
-
-    cap.escala = elegido.escala;
-    cap.paso = elegido.paso;
-    cap.total = elegido.total;
+    cap.paso = medida.paso;
+    cap.total = medida.total;
     copia.hidden = estabaOculta;
 
     /* La misma medida, a las cuatro capas */
     capas.forEach(function (capa) {
       var otra = capa.copias[indice];
-      otra.style.fontSize = cap.escala === 1 ? "" : cap.escala + "em";
       otra.style.width = ancho + "px";
       otra.style.height = alto + "px";
       otra.style.columnWidth = ancho + "px";
