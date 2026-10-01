@@ -228,7 +228,7 @@ a{ color: inherit; }
 .folio{
   margin: 0;
   font-family: var(--display);
-  font-size: .8rem;
+  font-size: .98rem;
   letter-spacing: .06em;
   color: var(--luz-media);
   font-variant-numeric: oldstyle-nums;
@@ -238,11 +238,11 @@ a{ color: inherit; }
   position: absolute;
   right: var(--margen);
   margin: 0;
-  font-size: .6rem;
+  font-size: .74rem;
   text-transform: uppercase;
-  letter-spacing: .22em;
+  letter-spacing: .2em;
   color: var(--luz-suave);
-  opacity: .5;
+  opacity: .6;
 }
 
 /* ───────── Botones de paso ───────── */
@@ -417,7 +417,7 @@ a{ color: inherit; }
   bottom: 2.6rem;
   z-index: 4;
   font-family: var(--display);
-  font-size: .78rem;
+  font-size: .96rem;
   color: var(--luz-suave);
   font-variant-numeric: oldstyle-nums;
 }
