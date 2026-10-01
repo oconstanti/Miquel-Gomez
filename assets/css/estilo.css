@@ -998,17 +998,6 @@ a{ color: inherit; }
 }
 .umbral:hover{ border-bottom-color: var(--ambar); letter-spacing: .22em; }
 
-.eslogan{
-  margin: 0;
-  max-width: 26ch;
-  font-family: var(--display);
-  font-size: clamp(1.6rem, 3.4vw, 3rem);
-  line-height: 1.3;
-  color: var(--luz);
-  text-shadow: 0 2px 30px rgba(0,0,0,.6);
-}
-.eslogan em{ color: var(--ambar); }
-
 /* ───────── Estantería (capítulo 5) ───────── */
 
 .estanteria{ text-align: center; }

@@ -36,7 +36,6 @@ Amb `prefers-reduced-motion` no gira res: els canvis són instantanis.
 | Capítol | Títol | Què hi ha |
 |---|---|---|
 | — | Frontispicio | Coberta i entrada («¿Qué significa traducir un libro?») |
-| — | El umbral | L'eslògan, a tota pantalla |
 | I | Tierra yerma | El pont entre l'autor i el lector |
 | II | Una vida | La biografia, en tercera persona |
 | III | David contra Goliat | El traductor davant de la IA |
