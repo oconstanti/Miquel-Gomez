@@ -15,6 +15,8 @@
   var EASE = "cubic-bezier(.38,.03,.2,1)";
   var SALTO = 48;                    // separación entre columnas al paginar
   var ANCHO_LIBRO_ABIERTO = 900;     // por debajo de esto se lee de una en una
+  var LIMITE_PAGINAS = 2;            // un capítulo no pasa de un pliego
+  var AJUSTE_MINIMO = .62;           // y la letra nunca baja de aquí
 
   var escenario = document.getElementById("escenario");
   var libro     = document.getElementById("libro");
@@ -142,9 +144,24 @@
     return { paso: paso, total: Math.max(1, Math.round((extension + SALTO) / paso)) };
   }
 
-  /* Reparte un capítulo en páginas. El texto no se encoge nunca para ahorrar
-     una página: vale más la letra grande, y que el capítulo siga en la
-     página de al lado si hace falta. */
+  /* El cuerpo de letra de un capítulo, y con él todo lo que lo acompaña:
+     la portadilla y, en el capítulo 5, las cubiertas de la estantería. */
+  function aplicar_ajuste(nodo, escala) {
+    if (escala === 1) {
+      nodo.style.fontSize = "";
+      nodo.style.removeProperty("--ajuste");
+    } else {
+      nodo.style.fontSize = (escala * 100) + "%";
+      nodo.style.setProperty("--ajuste", escala);
+    }
+  }
+
+  /* Reparte un capítulo en páginas.
+
+     Ningún capítulo pasa de dos páginas: con el libro abierto, el pliego
+     que se ve de una vez. Casi todos caben de sobra con la letra tal cual;
+     al que no, y solo a ese, se le baja el cuerpo lo justo para que entre,
+     nunca por debajo de AJUSTE_MINIMO. Los demás no se tocan. */
   function componer(cap, indice) {
     if (cap.entero) {
       cap.total = abierto ? 2 : 1;
@@ -158,7 +175,24 @@
 
     var ancho = cara.ventana.clientWidth;
     var alto = cara.ventana.clientHeight;
+
+    aplicar_ajuste(copia, 1);
     var medida = medir_capitulo(copia, ancho, alto);
+    var ajuste = 1;
+
+    if (medida.total > LIMITE_PAGINAS) {
+      /* El cuerpo más grande que todavía cabe en el pliego. */
+      var cabe = AJUSTE_MINIMO, falta = 1;
+      for (var n = 0; n < 7; n++) {
+        var medio = (cabe + falta) / 2;
+        aplicar_ajuste(copia, medio);
+        if (medir_capitulo(copia, ancho, alto).total <= LIMITE_PAGINAS) cabe = medio;
+        else falta = medio;
+      }
+      ajuste = cabe;
+      aplicar_ajuste(copia, ajuste);
+      medida = medir_capitulo(copia, ancho, alto);
+    }
 
     cap.paso = medida.paso;
     cap.total = medida.total;
@@ -171,6 +205,7 @@
       otra.style.height = alto + "px";
       otra.style.columnWidth = ancho + "px";
       otra.style.columnGap = SALTO + "px";
+      aplicar_ajuste(otra, ajuste);
     });
   }
 
