@@ -478,7 +478,7 @@ a{ color: inherit; }
   font-family: var(--display);
   font-style: italic;
   font-size: calc(clamp(.95rem, 3.6cqw, 1.2rem) * var(--ajuste, 1));
-  color: var(--ambar);
+  color: var(--luz);
 }
 
 /* ───────── Párrafos ───────── */
