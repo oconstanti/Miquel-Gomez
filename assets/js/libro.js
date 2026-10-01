@@ -41,6 +41,7 @@
       rotulo: el.getAttribute("data-rotulo"),
       fondo: el.getAttribute("data-fondo"),
       tema: el.getAttribute("data-tema"),
+      libre: el.getAttribute("data-paginas") === "libres",
       fondoRuta: null,
       entero: el.classList.contains("capitulo--entero"),
       flujo: el.querySelector(".flujo"),
@@ -195,11 +196,12 @@
     var ancho = cara.ventana.clientWidth;
     var alto = cara.ventana.clientHeight;
 
+    copia.style.setProperty("--pagina-alto", alto + "px");
     aplicar_ajuste(copia, 1);
     var medida = medir_capitulo(copia, ancho, alto);
     var ajuste = 1;
 
-    if (medida.total > LIMITE_PAGINAS) {
+    if (!cap.libre && medida.total > LIMITE_PAGINAS) {
       /* El cuerpo más grande que todavía cabe en el pliego. */
       var cabe = AJUSTE_MINIMO, falta = 1;
       for (var n = 0; n < 7; n++) {
@@ -219,7 +221,7 @@
     /* Repartido en columnas iguales, el texto no debería pedir más páginas
        de las contadas; si alguna figura indivisible lo estorbase, se deja
        el llenado de siempre. */
-    repartir(copia, ancho, cap.total);
+    repartir(copia, ancho, cap.libre ? 1 : cap.total);
     if (Math.max(copia.scrollWidth, ancho) > cap.total * ancho + (cap.total - 1) * SALTO + 1) {
       repartir(copia, ancho, 1);
       medir_capitulo(copia, ancho, alto);
@@ -232,6 +234,7 @@
       var otra = capa.copias[indice];
       otra.style.height = alto + "px";
       otra.style.columnGap = SALTO + "px";
+      otra.style.setProperty("--pagina-alto", alto + "px");
       aplicar_ajuste(otra, ajuste);
       repartir(otra, ancho, reparto ? cap.total : 1);
     });
@@ -295,6 +298,7 @@
     if (!ref) {
       capa.copias.forEach(function (c) { c.hidden = true; });
       el.classList.remove("pagina--papel");
+      el.classList.remove("pagina--portada");
       el.removeAttribute("data-fondo");
       capa.lienzo.style.backgroundImage = "";
       capa.numero.textContent = "";
@@ -303,6 +307,9 @@
 
     var cap = capitulos[ref.cap];
     el.classList.toggle("pagina--papel", cap.tema === "papel");
+    /* La portada no es una página de libro: ni doblez en medio, ni folio.
+       Un capítulo sobre papel blanco sí lo es, y los conserva. */
+    el.classList.toggle("pagina--portada", cap.tema === "papel" && cap.entero);
     el.setAttribute("data-fondo", cap.fondo || "");
     capa.lienzo.style.backgroundImage = cap.fondoRuta ? "url('" + cap.fondoRuta + "')" : "";
 
@@ -354,6 +361,10 @@
     rotulo.textContent = capitulos[pl.cap].rotulo;
     /* Los marcos se aclaran cuando el pliego es de papel blanco */
     document.body.classList.toggle("en-papel", capitulos[pl.cap].tema === "papel");
+    document.body.classList.toggle(
+      "en-portada",
+      capitulos[pl.cap].tema === "papel" && capitulos[pl.cap].entero
+    );
 
     /* El índice marca el capítulo que se está leyendo */
     var aqui = "#" + capitulos[pl.cap].id;

@@ -97,6 +97,5 @@ carpeta arrel), Netlify o Vercel arrossegant-hi la carpeta.
 
 ## Pendents
 
-- Falta el fons del capítol 5 (`assets/img/fondos/capitulo-5.*`).
 - Tres cobertes de llibre que falten i les dades de *Jaque mate* (autor i editorial).
 - Confirmar el correu de contacte: al document hi consta `durkapulo@gmail.com`.

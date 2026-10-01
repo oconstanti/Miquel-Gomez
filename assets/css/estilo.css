@@ -588,9 +588,32 @@ a{ color: inherit; }
 
 /* La portada no es una página de libro: ni doblez en medio, ni folios.
    Las dos mitades son del mismo blanco, así que no queda ninguna costura. */
-.pagina--papel .pagina__lomo{ display: none; }
-.pagina--papel .pagina__folio{ display: none; }
-.en-papel .folio{ visibility: hidden; }
+.pagina--portada .pagina__lomo{ display: none; }
+.pagina--portada .pagina__folio{ display: none; }
+.en-portada .folio{ visibility: hidden; }
+
+/* Sobre el blanco, el doblez del lomo tiene que ser mucho más suave */
+.libro--abierto .pagina--papel.pagina--mitad-izquierda .pagina__lomo{
+  background: linear-gradient(to right, rgba(40,30,20,0), rgba(40,30,20,.17));
+}
+.libro--abierto .pagina--papel.pagina--mitad-derecha .pagina__lomo{
+  background: linear-gradient(to left, rgba(40,30,20,0), rgba(40,30,20,.17));
+}
+
+/* ── Un capítulo impreso sobre papel blanco ── */
+
+.pagina--papel .flujo{ text-shadow: none; color: var(--papel-tinta); }
+.pagina--papel .flujo > p:first-of-type::first-letter{ color: var(--papel-tinta); }
+.pagina--papel .portadilla__numero{ color: var(--papel-suave); }
+.pagina--papel .portadilla__titulo{ color: var(--papel-tinta); text-shadow: none; }
+.pagina--papel .portadilla__subtitulo{ color: var(--papel-media); }
+.pagina--papel .libro-ficha__titulo{ color: var(--papel-tinta); }
+.pagina--papel .libro-ficha__autor{ color: var(--papel-media); }
+.pagina--papel .libro-ficha__sello{ color: var(--papel-suave); }
+.pagina--papel .libro-ficha__portada{
+  background: #e9e3da;
+  box-shadow: 0 20px 34px -20px rgba(30,20,12,.5), 0 0 0 1px rgba(20,17,14,.1);
+}
 
 .pagina--papel .entrada__titular{
   color: var(--papel-tinta);
@@ -1022,9 +1045,13 @@ a{ color: inherit; }
   display: inline-block;
   vertical-align: top;
   break-inside: avoid;
-  width: min(calc(11rem * var(--ajuste, 1)), 43%);
-  margin: 0 calc(.8rem * var(--ajuste, 1)) calc(1.9rem * var(--ajuste, 1));
+  width: 44%;
+  margin: 0 1.8% 1rem;
   text-align: center;
+  /* Dos libros por página. Cada ficha reserva algo más de la mitad del alto
+     de la página, así que una segunda fila nunca cabe al lado de la primera
+     y pasa de hoja sola. (break-after no sirve: estas cajas son en línea.) */
+  min-height: calc(var(--pagina-alto, 0px) * .54);
 }
 .libro-ficha__portada{
   position: relative;

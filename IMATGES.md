@@ -19,8 +19,10 @@ Carpeta: `assets/img/fondos/`. Apaïsades, 16:9 o més amples.
 | Capítol 2 · Una vida | `capitulo-2.jpeg` | ✅ ja hi és |
 | Capítol 3 · David contra Goliat | `capitulo-3.jpeg` | ✅ ja hi és |
 | Capítol 4 · La traducción consciente | `capitulo-4.jpeg` | ✅ ja hi és |
-| Capítol 5 · El camino | `capitulo-5` | ⬜ **falta** |
 | Capítol 6 · El mensaje en la botella | `capitulo-6.jpeg` | ✅ ja hi és |
+
+El capítol 5 (*El camino*) no porta fotografia: va imprès sobre paper blanc, com la
+portada, perquè les cobertes dels llibres es vegin damunt d'un fons net.
 
 L'extensió és igual: la pàgina prova `.jpg`, `.jpeg`, `.png` i `.webp`, així que el fitxer
 es pot deixar tal com surti de l'ordinador.
@@ -28,8 +30,6 @@ es pot deixar tal com surti de l'ordinador.
 `portada.jpeg` fa dues feines alhora: és la il·lustració de la coberta del llibre (amb el
 títol composat a sobre amb la tipografia de la web) i, desenfocada i fosca, el fons del
 frontispici.
-
-Mentre falti `capitulo-5`, aquell capítol ensenya un degradat fosc en el to que li toca.
 
 **Com han d'estar composades:** el text ocupa mig costat de la pantalla (capítols senars a
 l'esquerra, parells a la dreta) i el fons es veu sencer. Va bé que el motiu principal de la
