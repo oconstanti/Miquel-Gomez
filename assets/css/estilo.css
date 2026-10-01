@@ -231,6 +231,7 @@ a{ color: inherit; }
   font-size: .98rem;
   letter-spacing: .06em;
   color: var(--luz-media);
+  text-shadow: 0 1px 3px rgba(6,3,1,.9), 0 0 10px rgba(6,3,1,.6);
   font-variant-numeric: oldstyle-nums;
 }
 
@@ -241,8 +242,8 @@ a{ color: inherit; }
   font-size: .74rem;
   text-transform: uppercase;
   letter-spacing: .2em;
-  color: var(--luz-suave);
-  opacity: .6;
+  color: var(--luz-media);
+  text-shadow: 0 1px 3px rgba(6,3,1,.9), 0 0 10px rgba(6,3,1,.6);
 }
 
 /* ───────── Botones de paso ───────── */
@@ -418,7 +419,8 @@ a{ color: inherit; }
   z-index: 4;
   font-family: var(--display);
   font-size: .96rem;
-  color: var(--luz-suave);
+  color: var(--luz-media);
+  text-shadow: 0 1px 3px rgba(6,3,1,.9), 0 0 10px rgba(6,3,1,.6);
   font-variant-numeric: oldstyle-nums;
 }
 .pagina--mitad-izquierda .pagina__folio{ left: var(--exterior); }
