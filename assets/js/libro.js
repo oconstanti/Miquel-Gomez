@@ -199,6 +199,14 @@
     copia.style.setProperty("--pagina-alto", alto + "px");
     aplicar_ajuste(copia, 1);
     var medida = medir_capitulo(copia, ancho, alto);
+
+    /* Lo que ocupa la portadilla arriba de la primera página. Las páginas
+       siguientes se guardan ese mismo hueco, y así las cubiertas quedan a
+       la misma altura en todas. */
+    var cab = copia.querySelector(".portadilla");
+    var cabecera = cab
+      ? cab.offsetHeight + parseFloat(getComputedStyle(cab).marginBottom || 0)
+      : 0;
     var ajuste = 1;
 
     if (!cap.libre && medida.total > LIMITE_PAGINAS) {
@@ -221,6 +229,7 @@
     /* Repartido en columnas iguales, el texto no debería pedir más páginas
        de las contadas; si alguna figura indivisible lo estorbase, se deja
        el llenado de siempre. */
+    copia.style.setProperty("--cabecera-alto", cabecera + "px");
     repartir(copia, ancho, cap.libre ? 1 : cap.total);
     if (Math.max(copia.scrollWidth, ancho) > cap.total * ancho + (cap.total - 1) * SALTO + 1) {
       repartir(copia, ancho, 1);
@@ -235,6 +244,7 @@
       otra.style.height = alto + "px";
       otra.style.columnGap = SALTO + "px";
       otra.style.setProperty("--pagina-alto", alto + "px");
+      otra.style.setProperty("--cabecera-alto", cabecera + "px");
       aplicar_ajuste(otra, ajuste);
       repartir(otra, ancho, reparto ? cap.total : 1);
     });

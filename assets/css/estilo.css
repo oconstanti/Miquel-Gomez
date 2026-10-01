@@ -1041,17 +1041,30 @@ a{ color: inherit; }
 
 .estanteria{ text-align: center; }
 
+/* Dos libros por página, centrados y a la misma altura en todas.
+
+   Cada ficha ocupa la página entera de alto menos lo que se lleva la
+   portadilla, y centra dentro lo suyo. En la primera página ese hueco lo
+   llena la portadilla; en las demás se deja en blanco, y así las cubiertas
+   quedan alineadas de una página a otra. Como una ficha sola ya llena el
+   alto útil, una segunda fila no cabe nunca y pasa de hoja sola —
+   break-after no sirve, porque estas cajas son en línea. */
 .libro-ficha{
-  display: inline-block;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
   vertical-align: top;
   break-inside: avoid;
-  width: 44%;
-  margin: 0 1.8% 1rem;
+  width: 36%;
+  margin: 0 3%;
   text-align: center;
-  /* Dos libros por página. Cada ficha reserva algo más de la mitad del alto
-     de la página, así que una segunda fila nunca cabe al lado de la primera
-     y pasa de hoja sola. (break-after no sirve: estas cajas son en línea.) */
-  min-height: calc(var(--pagina-alto, 0px) * .54);
+  min-height: calc(var(--pagina-alto, 0px) - var(--cabecera-alto, 0px) - 2px);
+}
+.libro-ficha > *{ flex: none; }
+/* A partir de la tercera, la ficha se guarda arriba el hueco de la portadilla */
+.estanteria .libro-ficha:nth-of-type(n+3){
+  padding-top: var(--cabecera-alto, 0px);
+  min-height: calc(var(--pagina-alto, 0px) - 2px);
 }
 .libro-ficha__portada{
   position: relative;
@@ -1060,8 +1073,11 @@ a{ color: inherit; }
   background: #1a120b;
   box-shadow: 0 26px 45px -22px rgba(0,0,0,.95), 0 0 0 1px rgba(243,236,225,.07);
 }
+/* Fuera del flujo: así la cubierta no estira la caja a su propia
+   proporción y todas las fichas quedan exactamente igual de altas. */
 .libro-ficha__portada img{
-  position: relative;
+  position: absolute;
+  inset: 0;
   z-index: 1;
   width: 100%; height: 100%;
   object-fit: cover;
@@ -1090,7 +1106,15 @@ a{ color: inherit; }
 .libro-ficha__suplente em{ font-family: var(--display); font-size: calc(.95rem * var(--ajuste, 1)); line-height: 1.25; }
 .libro-ficha__suplente span{ font-size: calc(.55rem * var(--ajuste, 1)); text-transform: uppercase; letter-spacing: .18em; opacity: .75; }
 
-.libro-ficha__titulo{ margin: 0; font-family: var(--display); font-size: calc(.94rem * var(--ajuste, 1)); line-height: 1.28; }
+/* Dos líneas siempre, aunque el título ocupe una: así todos los pies miden
+   lo mismo y las cubiertas quedan a la misma altura. */
+.libro-ficha__titulo{
+  margin: 0;
+  font-family: var(--display);
+  font-size: calc(.94rem * var(--ajuste, 1));
+  line-height: 1.28;
+  min-height: 2.56em;
+}
 .libro-ficha__autor{ margin: .2rem 0 0; font-style: italic; font-size: calc(.85rem * var(--ajuste, 1)); color: var(--luz-media); }
 .libro-ficha__sello{ margin: .3rem 0 0; font-size: calc(.54rem * var(--ajuste, 1)); text-transform: uppercase; letter-spacing: .18em; color: var(--luz-suave); }
 .libro-ficha__autor:empty, .libro-ficha__sello:empty{ display: none; }
@@ -1208,7 +1232,7 @@ a{ color: inherit; }
   .pista{ display: none; }
   /* En el móvil el número ya está en la barra de abajo */
   .pagina__folio{ display: none; }
-  .libro-ficha{ width: 43%; margin: 0 .4rem 1.4rem; }
+  .libro-ficha{ width: 42%; margin: 0 2.5%; }
   .tomo{ width: min(11.5rem, 46%); }
   .entrada p{ font-size: clamp(1rem, 3.3vw, 1.12rem); margin-bottom: .9rem; }
   .entrada__titular{ font-size: clamp(1.65rem, 5.6vw, 2.1rem); }
