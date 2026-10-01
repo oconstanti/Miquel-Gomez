@@ -1059,6 +1059,9 @@ a{ color: inherit; }
   margin: 0 3%;
   text-align: center;
   min-height: calc(var(--pagina-alto, 0px) - var(--cabecera-alto, 0px) - 2px);
+  /* Un poco de aire reservado abajo: así el centrado deja los libros algo
+     más arriba de la mitad, que es donde se miran. */
+  padding-bottom: calc(var(--pagina-alto, 0px) * .12);
 }
 .libro-ficha > *{ flex: none; }
 /* A partir de la tercera, la ficha se guarda arriba el hueco de la portadilla */
