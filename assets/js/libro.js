@@ -17,6 +17,9 @@
   var ANCHO_LIBRO_ABIERTO = 900;     // por debajo de esto se lee de una en una
   var LIMITE_PAGINAS = 2;            // un capítulo no pasa de un pliego
   var AJUSTE_MINIMO = .62;           // y la letra nunca baja de aquí
+  var AJUSTE_MAXIMO = 1.3;           // ni sube de aquí
+  var MINIMO_ULTIMA = .3;            // la última página, al menos así de llena
+  var PASO_CRECER = .03;             // a qué saltos se prueba a subir el cuerpo
 
   var escenario = document.getElementById("escenario");
   var libro     = document.getElementById("libro");
@@ -145,23 +148,14 @@
     return { paso: paso, total: Math.max(1, Math.round((extension + SALTO) / paso)) };
   }
 
-  /* Una vez se sabe en cuántas páginas cae un capítulo, el texto se reparte
-     a partes iguales entre ellas. Sin esto, el navegador llena la primera
-     hasta el borde y deja en la segunda lo que sobre, que a veces es una
-     palabra suelta; y como el reparto depende del alto de la ventana, el
-     mismo capítulo se veía de una manera en cada ordenador. */
-  function repartir(nodo, ancho, total) {
-    if (total <= 1) {
-      nodo.style.width = ancho + "px";
-      nodo.style.columnWidth = ancho + "px";
-      nodo.style.columnCount = "";
-      nodo.style.columnFill = "";
-      return;
-    }
-    nodo.style.width = (total * ancho + (total - 1) * SALTO) + "px";
-    nodo.style.columnWidth = "auto";
-    nodo.style.columnCount = total;
-    nodo.style.columnFill = "balance";
+  /* Hasta dónde llega el texto en la última página, en píxeles. Es lo que
+     se ve de ella: si sale una línea suelta, aquí sale un número pequeño. */
+  function llenado_final(copia, alto) {
+    var ultimo = copia.lastElementChild;
+    if (!ultimo) return alto;
+    var cajas = ultimo.getClientRects();
+    if (!cajas.length) return alto;
+    return cajas[cajas.length - 1].bottom - copia.getBoundingClientRect().top;
   }
 
   /* El cuerpo de letra de un capítulo, y con él todo lo que lo acompaña:
@@ -178,10 +172,21 @@
 
   /* Reparte un capítulo en páginas.
 
-     Ningún capítulo pasa de dos páginas: con el libro abierto, el pliego
-     que se ve de una vez. Casi todos caben de sobra con la letra tal cual;
-     al que no, y solo a ese, se le baja el cuerpo lo justo para que entre,
-     nunca por debajo de AJUSTE_MINIMO. Los demás no se tocan. */
+     La primera se llena hasta abajo y a la siguiente pasa lo que sobre, que
+     es como cae el texto en un libro. Dos correcciones, y solo cuando hacen
+     falta:
+
+     — Si el capítulo no cabe en dos páginas, se le baja el cuerpo lo justo
+       para que entre, nunca por debajo de AJUSTE_MINIMO.
+     — Si cabe pero a la segunda página le toca un resto ridículo —una línea
+       suelta—, se le sube el cuerpo hasta que esa página lleve algo de
+       texto, sin pasar de AJUSTE_MAXIMO ni de las dos páginas. Subirlo, y
+       no bajarlo, deja la primera página igual de llena.
+
+     Lo que cabe en una página depende del alto de la ventana, así que el
+     corte no cae en el mismo sitio en todos los ordenadores; lo que sí es
+     igual en todos es que la primera va llena y la segunda nunca se queda
+     en una palabra. */
   function componer(cap, indice) {
     if (cap.entero) {
       cap.total = abierto ? 2 : 1;
@@ -223,30 +228,37 @@
       medida = medir_capitulo(copia, ancho, alto);
     }
 
+    /* El resto que le toca a la última página, si es que hay más de una */
+    if (!cap.libre && medida.total === LIMITE_PAGINAS &&
+        llenado_final(copia, alto) < alto * MINIMO_ULTIMA) {
+      for (var e = ajuste + PASO_CRECER; e <= AJUSTE_MAXIMO + 1e-9; e += PASO_CRECER) {
+        aplicar_ajuste(copia, e);
+        var prueba = medir_capitulo(copia, ancho, alto);
+        if (prueba.total > LIMITE_PAGINAS) break;
+        ajuste = e;
+        medida = prueba;
+        if (llenado_final(copia, alto) >= alto * MINIMO_ULTIMA) break;
+      }
+      aplicar_ajuste(copia, ajuste);
+      medida = medir_capitulo(copia, ancho, alto);
+    }
+
     cap.paso = medida.paso;
     cap.total = medida.total;
 
-    /* Repartido en columnas iguales, el texto no debería pedir más páginas
-       de las contadas; si alguna figura indivisible lo estorbase, se deja
-       el llenado de siempre. */
     copia.style.setProperty("--cabecera-alto", cabecera + "px");
-    repartir(copia, ancho, cap.libre ? 1 : cap.total);
-    if (Math.max(copia.scrollWidth, ancho) > cap.total * ancho + (cap.total - 1) * SALTO + 1) {
-      repartir(copia, ancho, 1);
-      medir_capitulo(copia, ancho, alto);
-    }
-    var reparto = copia.style.columnCount;
     copia.hidden = estabaOculta;
 
     /* La misma medida, a las cuatro capas */
     capas.forEach(function (capa) {
       var otra = capa.copias[indice];
+      otra.style.width = ancho + "px";
       otra.style.height = alto + "px";
+      otra.style.columnWidth = ancho + "px";
       otra.style.columnGap = SALTO + "px";
       otra.style.setProperty("--pagina-alto", alto + "px");
       otra.style.setProperty("--cabecera-alto", cabecera + "px");
       aplicar_ajuste(otra, ajuste);
-      repartir(otra, ancho, reparto ? cap.total : 1);
     });
   }
 
