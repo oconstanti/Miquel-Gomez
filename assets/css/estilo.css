@@ -39,8 +39,8 @@ body{
   background: var(--noche);
   color: var(--luz);
   font-family: var(--texto);
-  font-size: clamp(1rem, .34vw + .94rem, 1.12rem);
-  line-height: 1.62;
+  font-size: clamp(1.1rem, .42vw + 1.02rem, 1.3rem);
+  line-height: 1.6;
   font-feature-settings: "liga" 1, "onum" 1;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -471,7 +471,14 @@ a{ color: inherit; }
 
 /* ───────── Párrafos ───────── */
 
-.flujo p{ margin: 0 0 1.05em; }
+/* Com en un llibre imprès: els paràgrafs van seguits, sense línia en blanc,
+   i el que els separa és el sagnat de la primera línia. El primer de cada
+   capítol no se sagna, que és la norma. */
+.flujo > p{
+  margin: 0;
+  text-indent: 1.35em;
+}
+.flujo > p:first-of-type{ text-indent: 0; }
 
 .flujo > p:first-of-type::first-letter{
   float: left;
@@ -484,12 +491,6 @@ a{ color: inherit; }
 
 .maquina{ color: var(--frio); letter-spacing: .012em; }
 
-.aparte{
-  font-family: var(--display);
-  font-style: italic;
-  font-size: 1.12em;
-  color: var(--luz-media);
-}
 
 .retrato{
   break-inside: avoid;
