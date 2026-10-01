@@ -621,7 +621,10 @@ a{ color: inherit; }
 .en-papel .marco--bajo{ background: linear-gradient(to top, rgba(253,252,250,.94), rgba(253,252,250,0)); }
 .en-papel .marco__obra,
 .en-papel .folio,
-.en-papel .pista{ color: var(--papel-suave); }
+.en-papel .pista{
+  color: var(--papel-media);
+  text-shadow: none;
+}
 .en-papel .marco__rotulo{ color: var(--papel-media); }
 .en-papel .paso{ color: var(--papel-tinta); }
 .en-papel .cinta{ background: rgba(20,17,14,.1); }
