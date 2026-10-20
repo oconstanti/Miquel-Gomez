@@ -1167,17 +1167,95 @@ a{ color: inherit; }
 }
 .pergamino .botella a:hover{ border-bottom-color: #8a4419; }
 
-.ornamento{
-  width: 4.5rem;
-  height: 1rem;
-  margin: 0 auto 1.8rem;
-  background: no-repeat center/contain
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 72 12'%3E%3Cg fill='none' stroke='%23d3a06a' stroke-width='1'%3E%3Cpath d='M0 6h26M46 6h26'/%3E%3Cpath d='M36 1.5 40.5 6 36 10.5 31.5 6z'/%3E%3C/g%3E%3C/svg%3E");
-  opacity: .8;
+/* ───────── Contraportada: el mismo libro, visto por detrás ───────── */
+
+/* El texto a la izquierda y el libro a la derecha, al revés que en la portada */
+.entero--contraportada{ grid-template-columns: minmax(0, 1fr) minmax(0, .68fr); }
+.libro--sencillo .entero--contraportada{ grid-template-columns: 1fr; }
+.libro--sencillo .contraportada{ order: -1; }
+.contraportada{ margin: 0; }
+
+/* Girado hacia el otro lado y en espejo: el lomo queda a la derecha. Lo
+   que va impreso se vuelve a dar la vuelta para que se lea. */
+.tomo--dorso{ perspective-origin: 42% 50%; }
+.tomo--dorso .tomo__cuerpo{ transform: rotateX(3deg) rotateY(-31deg) scaleX(-1); }
+.tomo--dorso .tomo__lomo-texto{
+  transform: rotateY(-68deg) translateZ(calc(var(--grosor) / 2 + .5px)) scaleX(-1);
 }
-.colofon__nombre{ margin: 0; font-family: var(--display); font-size: 1.5rem; }
-.colofon__oficio{ margin: .5rem 0 0; font-size: .64rem; text-transform: uppercase; letter-spacing: .28em; color: var(--luz-suave); }
-.colofon__nota{ margin: 2rem auto 0; max-width: 26rem; font-style: italic; font-size: .9rem; color: var(--luz-media); }
+.tomo--dorso::before{ left: 15%; right: 9%; }
+.tomo--dorso::after{ left: -13%; right: 10%; }
+
+/* La ilustración sigue por detrás, pero apagada, de fondo para el texto */
+.contraportada__imagen{
+  width: 100%;
+  display: block;
+  filter: brightness(.42) saturate(.8) blur(1.5px);
+  transform: scale(1.04);
+}
+.contraportada__rotulo{
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  transform: scaleX(-1);
+  padding: 13% 12% 0;
+  font-size: clamp(.55rem, 1.1vw, .85rem);
+  color: #f6ecdc;
+  text-align: center;
+  text-shadow: 0 .05em .4em rgba(6,3,1,.9);
+}
+@supports (font-size: 1cqw){
+  .contraportada__rotulo{ font-size: 3.4cqw; }
+}
+.contraportada__cita{
+  margin: 0;
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 1.35em;
+  line-height: 1.32;
+}
+.contraportada__cita::after{
+  content: "";
+  display: block;
+  width: 22%;
+  height: 1px;
+  margin: 1.4em auto;
+  background: rgba(246,236,220,.45);
+}
+.contraportada__resumen{
+  margin: 0;
+  font-family: var(--texto);
+  font-size: 1.05em;
+  line-height: 1.5;
+  color: rgba(246,236,220,.88);
+}
+.contraportada__autor{
+  position: absolute;
+  left: 9%;
+  bottom: 7.5%;
+  margin: 0;
+  font-family: var(--display);
+  font-size: .8em;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+}
+/* El código de barras, abajo a la derecha */
+.contraportada__codigo{
+  position: absolute;
+  right: 8%;
+  bottom: 5.5%;
+  width: 24%;
+  aspect-ratio: 1.6;
+  background:
+    linear-gradient(#fbf7ef, #fbf7ef) bottom / 100% 22% no-repeat,
+    repeating-linear-gradient(to right,
+      #111 0 1px, #fbf7ef 1px 2px, #111 2px 4px, #fbf7ef 4px 5px,
+      #111 5px 6px, #fbf7ef 6px 8px, #111 8px 9px, #fbf7ef 9px 11px)
+    #fbf7ef;
+  border: .35em solid #fbf7ef;
+  border-bottom-width: .2em;
+  border-radius: 1px;
+  box-shadow: 0 0 0 1px rgba(0,0,0,.25);
+}
 
 /* ───────── Índice ───────── */
 
