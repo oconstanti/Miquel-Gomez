@@ -409,6 +409,8 @@ a{ color: inherit; }
   background: linear-gradient(to left, rgba(0,0,0,0), rgba(0,0,0,.5));
 }
 .libro--sencillo .pagina__lomo{ display: none; }
+/* El capítulo 6 es una sola foto de lado a lado: sin el doblez del medio */
+[data-fondo="capitulo-6"] .pagina__lomo{ display: none; }
 
 /* La sombra que gana la hoja al girarse de cara a la luz */
 .pagina__sombra{
@@ -1209,28 +1211,51 @@ a{ color: inherit; }
 .libro--sencillo .contraportada{ order: -1; }
 .contraportada{ margin: 0; }
 
-/* Girado hacia el otro lado y en espejo: el lomo queda a la derecha. Lo
-   que va impreso se vuelve a dar la vuelta para que se lea. */
-.tomo--dorso{ perspective-origin: 42% 50%; }
-.tomo--dorso .tomo__cuerpo{ transform: rotateX(3deg) rotateY(-31deg) scaleX(-1); }
-.tomo--dorso .tomo__lomo-texto{
-  transform: rotateY(-68deg) translateZ(calc(var(--grosor) / 2 + .5px)) scaleX(-1);
+/* Visto por detrás y girado igual que en la portada: lo que asoma por el
+   lado es el canto de las hojas, no el lomo. La charnela de la tapa queda
+   ahora a la derecha. */
+.tomo__hojas{
+  position: absolute;
+  top: 1.9%; bottom: 1.9%;
+  left: .6%;
+  width: var(--grosor);
+  transform-origin: left center;
+  transform: translateZ(calc(var(--grosor) / 2)) rotateY(90deg);
+  background:
+    /* la tapa que sobresale da sombra arriba y abajo */
+    linear-gradient(to bottom, rgba(0,0,0,.42), rgba(0,0,0,0) 3%, rgba(0,0,0,0) 97%, rgba(0,0,0,.42)),
+    /* el canto, un poco cóncavo: más luz en el medio */
+    linear-gradient(to right, rgba(0,0,0,.28), rgba(255,255,255,0) 30%, rgba(255,255,255,0) 70%, rgba(0,0,0,.34)),
+    repeating-linear-gradient(to right,
+      rgba(70,52,32,.26) 0 1px,
+      rgba(255,255,255,0) 1px 3px),
+    linear-gradient(to right, #d8c8a8, #f2e8d6 45%, #e4d6bb 75%, #b9a582);
 }
-.tomo--dorso::before{ left: 15%; right: 9%; }
-.tomo--dorso::after{ left: -13%; right: 10%; }
+.tomo--dorso .tomo__canto{ left: .6%; right: 1%; }
+.tomo--dorso .tomo__canto--alto{
+  background:
+    linear-gradient(to bottom, rgba(0,0,0,.38), rgba(0,0,0,0) 32%),
+    repeating-linear-gradient(to right, rgba(70,52,32,.28) 0 1px, rgba(255,255,255,0) 1px 3px),
+    linear-gradient(to bottom, #f2e8d6 0%, #d8c8a8 52%, #a58f6c 100%);
+}
+.tomo--dorso .tomo__tapa{ border-radius: 8px 2px 2px 8px; }
+.tomo--dorso .tomo__tapa::after{ transform: scaleX(-1); }
+/* Sombra arriba, donde va el texto, para que se lea sobre la ilustración */
+.tomo--dorso .tomo__tapa::before{
+  background:
+    linear-gradient(to bottom, rgba(8,4,2,.74), rgba(8,4,2,.55) 30%, rgba(8,4,2,.12) 52%, rgba(8,4,2,0) 62%),
+    linear-gradient(to top, rgba(6,3,1,.85), rgba(6,3,1,.5) 11%, rgba(6,3,1,0) 26%);
+}
 
-/* La ilustración sigue por detrás, pero apagada, de fondo para el texto */
+/* La ilustración de la portada, continuada hacia la izquierda */
 .contraportada__imagen{
   width: 100%;
   display: block;
-  filter: brightness(.42) saturate(.8) blur(1.5px);
-  transform: scale(1.04);
 }
 .contraportada__rotulo{
   position: absolute;
   inset: 0;
   z-index: 4;
-  transform: scaleX(-1);
   padding: 13% 12% 0;
   font-size: clamp(.55rem, 1.1vw, .85rem);
   color: #f6ecdc;
