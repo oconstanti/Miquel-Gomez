@@ -1225,35 +1225,23 @@ a{ color: inherit; }
   .tomo--dorso .tomo__cuerpo{ --grosor: 21cqw; }
 }
 
-/* La otra tapa, la de la portada, al fondo */
-.tomo__contratapa{
+/* Las dos tapas, cada una con su grueso: varias láminas con la misma forma
+   (puntas redondeadas incluidas) apiladas a lo largo del cartón, así el
+   canto sigue la curva de las esquinas como en un cartoné de verdad. */
+.tomo__capa{
   position: absolute;
   inset: 0;
   border-radius: 10px;
-  transform: translateZ(calc(var(--grosor) / -2 + var(--carton)));
+  background: #1f130b;
+  box-shadow: inset 0 0 0 1px rgba(255,228,195,.07);
+}
+.tomo__capa--lejos{
+  transform: translateZ(calc(var(--grosor) / -2 + var(--carton) * var(--k)));
   background: linear-gradient(to right, #1a0f08, #241509 30%, #160c06);
 }
-/* La sombra cae también bajo el canto de las hojas, que asoma a la izquierda */
-.tomo--dorso::before{ left: -12%; right: 6%; }
-.tomo--dorso::after{ left: -20%; right: 0; }
-/* El grueso de cada tapa, visto de canto */
-/* Con las puntas redondeadas, el canto del cartón empieza y acaba donde
-   la curva deja de ser recta */
-.tomo__borde{
-  position: absolute;
-  top: 7px; bottom: 7px;
-  border-radius: 2px;
-  left: 0;
-  width: var(--carton);
-  transform-origin: left center;
-  /* el cartón va forrado con el mismo papel de la tapa, doblado por el
-     canto: oscuro, con un brillo fino donde dobla */
-  background:
-    linear-gradient(to right, rgba(255,230,200,.16), rgba(255,230,200,0) 30%, rgba(255,230,200,0) 70%, rgba(0,0,0,.4)),
-    linear-gradient(to bottom, #2b1a0f, #22140b 50%, #170d07);
+.tomo__capa--cerca{
+  transform: translateZ(calc(var(--grosor) / 2 - var(--carton) * var(--k)));
 }
-.tomo__borde--cerca{ transform: translateZ(calc(var(--grosor) / 2)) rotateY(90deg); }
-.tomo__borde--lejos{ transform: translateZ(calc(var(--grosor) / -2 + var(--carton))) rotateY(90deg); }
 
 /* El canto de las hojas: cada línea es una hoja. Más oscuro junto a las
    tapas, que le hacen sombra, y un poco hundido en el medio. */
