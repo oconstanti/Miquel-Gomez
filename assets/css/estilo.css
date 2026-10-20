@@ -1114,12 +1114,12 @@ a{ color: inherit; }
 .libro-ficha__titulo{
   margin: 0;
   font-family: var(--display);
-  font-size: calc(.94rem * var(--ajuste, 1));
+  font-size: calc(1.35rem * var(--ajuste, 1));
   line-height: 1.28;
   min-height: 2.56em;
 }
-.libro-ficha__autor{ margin: .2rem 0 0; font-style: italic; font-size: calc(.85rem * var(--ajuste, 1)); color: var(--luz-media); }
-.libro-ficha__sello{ margin: .3rem 0 0; font-size: calc(.54rem * var(--ajuste, 1)); text-transform: uppercase; letter-spacing: .18em; color: var(--luz-suave); }
+.libro-ficha__autor{ margin: .2rem 0 0; font-style: italic; font-size: calc(1.22rem * var(--ajuste, 1)); color: var(--luz-media); }
+.libro-ficha__sello{ margin: .3rem 0 0; font-size: calc(.78rem * var(--ajuste, 1)); text-transform: uppercase; letter-spacing: .18em; color: var(--luz-suave); }
 .libro-ficha__autor:empty, .libro-ficha__sello:empty{ display: none; }
 
 /* ───────── Botella y colofón ───────── */
