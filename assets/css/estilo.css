@@ -1176,13 +1176,19 @@ a{ color: inherit; }
 }
 .pergamino__texto p{ margin: 0 0 .55em; line-height: 1.28; }
 .pergamino .botella{ margin-top: .3em; }
+/* Subrayado a mano alzada: un trazo de tinta que ondula un poco, empieza
+   y acaba más fino y no llega del todo recto al final. */
 .pergamino .botella a{
   font-family: var(--mano);
   font-size: 1.1em;
   color: #6e3412;
-  border-bottom-color: rgba(110,52,18,.35);
+  border-bottom: 0;
+  padding-bottom: .35em;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 12' preserveAspectRatio='none'%3E%3Cpath d='M3 8.4C24 7 40 7.9 62 7.1s37-1.7 58-1.1 31 1.6 52 .9 38-2 59-1.7 34 .2 52-1.6c4-.4 8-.9 13-1.1l.4 1c-5 .4-9 1-13 1.5-18 2-32 2.2-52 2.3s-37 1.3-58 1.9-31-.6-52-.8-37 1.5-58 1.7S27 8.9 4 9.6z' fill='%236e3412' fill-opacity='.72'/%3E%3C/svg%3E")
+    left bottom / 100% .36em no-repeat;
+  transition: opacity .3s ease;
 }
-.pergamino .botella a:hover{ border-bottom-color: #6e3412; }
+.pergamino .botella a:hover{ opacity: .8; }
 
 /* La foto, tal cual y sin velo. En el móvil va la vertical; con el libro
    abierto, la misma foto alargada hacia la izquierda (capitulo-6-ancha),
