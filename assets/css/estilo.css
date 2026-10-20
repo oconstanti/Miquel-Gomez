@@ -1044,7 +1044,9 @@ a{ color: inherit; }
 /* Dos libros por página, centrados y a la misma altura en todas.
 
    Cada ficha ocupa la página entera de alto menos lo que se lleva la
-   portadilla, y centra dentro lo suyo. En la primera página ese hueco lo
+   portadilla, y coloca la cubierta a una distancia fija de arriba: así
+   todas quedan a la misma altura aunque los títulos ocupen más o menos
+   líneas. En la primera página ese hueco lo
    llena la portadilla; en las demás se deja en blanco, y así las cubiertas
    quedan alineadas de una página a otra. Como una ficha sola ya llena el
    alto útil, una segunda fila no cabe nunca y pasa de hoja sola —
@@ -1052,21 +1054,19 @@ a{ color: inherit; }
 .libro-ficha{
   display: inline-flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   vertical-align: top;
   break-inside: avoid;
   width: 36%;
   margin: 0 3%;
   text-align: center;
   min-height: calc(var(--pagina-alto, 0px) - var(--cabecera-alto, 0px) - 2px);
-  /* Un poco de aire reservado abajo: así el centrado deja los libros algo
-     más arriba de la mitad, que es donde se miran. */
-  padding-bottom: calc(var(--pagina-alto, 0px) * .12);
+  padding-top: calc(var(--pagina-alto, 0px) * .14);
 }
 .libro-ficha > *{ flex: none; }
 /* A partir de la tercera, la ficha se guarda arriba el hueco de la portadilla */
 .estanteria .libro-ficha:nth-of-type(n+3){
-  padding-top: var(--cabecera-alto, 0px);
+  padding-top: calc(var(--cabecera-alto, 0px) + var(--pagina-alto, 0px) * .14);
   min-height: calc(var(--pagina-alto, 0px) - 2px);
 }
 .libro-ficha__portada{
