@@ -1153,7 +1153,7 @@ a{ color: inherit; }
   color: #2e2116;
   text-shadow: none;
 }
-.pergamino .portadilla{ margin: 0; text-align: center; }
+.pergamino .portadilla{ margin: 0; text-align: left; }
 .pergamino .portadilla__numero{ color: #7a5634; }
 .pergamino .portadilla__titulo{ color: #2a1b0f; text-shadow: none; }
 
@@ -1174,37 +1174,12 @@ a{ color: inherit; }
 }
 .pergamino .botella a:hover{ border-bottom-color: #6e3412; }
 
-/* Con el libro abierto, el pergamino va en la página de la izquierda y la
-   de la derecha queda para la foto. */
-.orilla{ display: none; }
-.libro--abierto .orilla{ display: block; height: calc(var(--pagina-alto, 100%) - 2px); break-before: column; }
-
-/* La foto del capítulo 6 es vertical: con el libro abierto ocupa solo la
-   página de la derecha, tal cual; en la de la izquierda, la misma foto
-   desenfocada, de fondo para el pergamino. Las dos capas toman la imagen
-   que el guion pone en el lienzo (`inherit`), y el lienzo no la pinta. */
+/* La foto ocupa todo el pliego, tal cual, sin velo. Con el libro abierto
+   el pergamino va encima, en la página de la derecha, y la de la
+   izquierda deja ver la botella. */
 [data-fondo="capitulo-6"] .pagina__velo{ background: none; }
-.libro--abierto [data-fondo="capitulo-6"] .pagina__lienzo{
-  background-size: 0 0;
-  background-color: #120d09;
-  overflow: hidden;
-}
-.libro--abierto [data-fondo="capitulo-6"] .pagina__lienzo::before,
-.libro--abierto [data-fondo="capitulo-6"] .pagina__lienzo::after{
-  content: "";
-  position: absolute;
-  top: 0; bottom: 0;
-  width: 50%;
-  background-image: inherit;
-  background-size: cover;
-  background-position: center;
-}
-.libro--abierto [data-fondo="capitulo-6"] .pagina__lienzo::before{
-  left: 0;
-  filter: blur(22px) brightness(.7);
-  transform: scale(1.1);
-}
-.libro--abierto [data-fondo="capitulo-6"] .pagina__lienzo::after{ right: 0; }
+.orilla{ display: none; }
+.libro--abierto .orilla{ display: block; height: calc(var(--pagina-alto, 100%) - 2px); break-after: column; }
 
 /* ───────── Contraportada: el mismo libro, visto por detrás ───────── */
 
