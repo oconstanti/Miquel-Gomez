@@ -328,7 +328,8 @@
      el vídeo no está listo se ve la foto fija que hay debajo. */
   function rutaVideo(nombre) {
     var ancho = libro.classList.contains("libro--abierto");
-    return "assets/video/" + nombre + (ancho ? "-ancha" : "") + ".mp4";
+    var webm = document.createElement("video").canPlayType('video/webm; codecs="vp9"');
+    return "assets/video/" + nombre + (ancho ? "-ancha" : "") + (webm ? ".webm" : ".mp4");
   }
   function reloj(v) {
     return v.duration ? (performance.now() / 1000) % v.duration : 0;
