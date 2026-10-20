@@ -1061,12 +1061,12 @@ a{ color: inherit; }
   margin: 0 3%;
   text-align: center;
   min-height: calc(var(--pagina-alto, 0px) - var(--cabecera-alto, 0px) - 2px);
-  padding-top: calc(var(--pagina-alto, 0px) * .14);
+  padding-top: calc(var(--pagina-alto, 0px) * .05);
 }
 .libro-ficha > *{ flex: none; }
 /* A partir de la tercera, la ficha se guarda arriba el hueco de la portadilla */
 .estanteria .libro-ficha:nth-of-type(n+3){
-  padding-top: calc(var(--cabecera-alto, 0px) + var(--pagina-alto, 0px) * .14);
+  padding-top: calc(var(--cabecera-alto, 0px) + var(--pagina-alto, 0px) * .05);
   min-height: calc(var(--pagina-alto, 0px) - 2px);
 }
 .libro-ficha__portada{
