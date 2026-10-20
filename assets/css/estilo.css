@@ -1217,8 +1217,12 @@ a{ color: inherit; }
    abajo y por delante; a cada lado del bloque de hojas se ve el grueso de
    cada tapa. La charnela de la tapa queda ahora a la derecha. */
 .tomo--dorso .tomo__cuerpo{
-  --carton: calc(var(--grosor) * .085);
+  --grosor: 76px;
+  --carton: calc(var(--grosor) * .06);
   transform: rotateX(3deg) rotateY(42deg);
+}
+@supports (width: 1cqw){
+  .tomo--dorso .tomo__cuerpo{ --grosor: 21cqw; }
 }
 
 /* La otra tapa, la de la portada, al fondo */
