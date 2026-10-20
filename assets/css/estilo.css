@@ -1198,7 +1198,7 @@ a{ color: inherit; }
    pergamino va encima, en la izquierda. */
 [data-fondo="capitulo-6"] .pagina__velo{ background: none; }
 .libro--abierto [data-fondo="capitulo-6"] .pagina__lienzo{
-  background-image: url("../img/fondos/capitulo-6-ancha.jpeg") !important;
+  background-image: url("../img/fondos/capitulo-6-ancha.jpeg?v=2") !important;
 }
 .orilla{ display: none; }
 .libro--abierto .orilla{ display: block; height: calc(var(--pagina-alto, 100%) - 2px); break-before: column; }
