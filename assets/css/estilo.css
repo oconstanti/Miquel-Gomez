@@ -14,6 +14,7 @@
 
   --display: "Playfair Display", "Iowan Old Style", Georgia, serif;
   --texto:   "EB Garamond", Georgia, "Times New Roman", serif;
+  --mano:    "Caveat", "Segoe Print", "Bradley Hand", cursive;
 
   --margen:     clamp(1.25rem, 4vw, 4.5rem);
   --riel:       0px;
@@ -487,14 +488,13 @@ a{ color: inherit; }
 /* Com en un llibre imprès: els paràgrafs van seguits, sense línia en blanc,
    i el que els separa és el sagnat de la primera línia. El primer de cada
    capítol no se sagna, que és la norma. */
-.flujo > p, .pergamino > p{
+.flujo > p{
   margin: 0;
   text-indent: 1.35em;
 }
-.flujo > p:first-of-type, .pergamino > p:first-of-type{ text-indent: 0; }
+.flujo > p:first-of-type{ text-indent: 0; }
 
-.flujo > p:first-of-type::first-letter,
-.pergamino > p:first-of-type::first-letter{
+.flujo > p:first-of-type::first-letter{
   float: left;
   font-family: var(--display);
   font-size: 3.5em;
@@ -1138,8 +1138,9 @@ a{ color: inherit; }
 }
 .botella a:hover{ border-bottom-color: var(--ambar); }
 
-/* El mensaje del capítulo 6: un pergamino con los bordes quemados, de
-   arriba abajo de la página, con el título dentro. */
+/* El mensaje del capítulo 6: una hoja de pergamino de arriba abajo de la
+   página. Arriba, el número y el título; más abajo, el mensaje escrito a
+   mano. */
 .pergamino{
   break-inside: avoid;
   position: relative;
@@ -1147,23 +1148,42 @@ a{ color: inherit; }
   height: calc(var(--pagina-alto, 100%) - 2px);
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 3em 2.4em;
+  padding: 3.2em 2.6em 3em;
   background: url("../img/pergamino.webp") center / 100% 100% no-repeat;
   color: #2e2116;
   text-shadow: none;
 }
-
-.pergamino .portadilla{ margin-bottom: 1.2em; text-align: center; }
+.pergamino .portadilla{ margin: 0; text-align: center; }
 .pergamino .portadilla__numero{ color: #7a5634; }
 .pergamino .portadilla__titulo{ color: #2a1b0f; text-shadow: none; }
 
-/* Con el libro abierto, la página de la izquierda queda libre para la
-   botella del fondo y el pergamino va en la de la derecha. */
+.pergamino__texto{
+  margin-block: auto;
+  padding-top: 1.2em;
+  font-family: var(--mano);
+  font-size: max(1.3em, 5.2cqw);
+  color: #3b2614;
+}
+.pergamino__texto p{ margin: 0 0 .55em; line-height: 1.28; }
+.pergamino .botella{ margin-top: .3em; }
+.pergamino .botella a{
+  font-family: var(--mano);
+  font-size: 1.1em;
+  color: #6e3412;
+  border-bottom-color: rgba(110,52,18,.35);
+}
+.pergamino .botella a:hover{ border-bottom-color: #6e3412; }
+
+/* Con el libro abierto, el pergamino va en la página de la izquierda y la
+   de la derecha queda para la foto. */
+.orilla{ display: none; }
+.libro--abierto .orilla{ display: block; height: calc(var(--pagina-alto, 100%) - 2px); break-before: column; }
+
 /* La foto del capítulo 6 es vertical: con el libro abierto ocupa solo la
-   página de la izquierda; en la de la derecha, la misma foto desenfocada y
-   oscurecida, de fondo para el pergamino. Las dos capas toman la imagen
+   página de la derecha, tal cual; en la de la izquierda, la misma foto
+   desenfocada, de fondo para el pergamino. Las dos capas toman la imagen
    que el guion pone en el lienzo (`inherit`), y el lienzo no la pinta. */
+[data-fondo="capitulo-6"] .pagina__velo{ background: none; }
 .libro--abierto [data-fondo="capitulo-6"] .pagina__lienzo{
   background-size: 0 0;
   background-color: #120d09;
@@ -1179,20 +1199,12 @@ a{ color: inherit; }
   background-size: cover;
   background-position: center;
 }
-.libro--abierto [data-fondo="capitulo-6"] .pagina__lienzo::before{ left: 0; }
-.libro--abierto [data-fondo="capitulo-6"] .pagina__lienzo::after{
-  right: 0;
-  filter: blur(22px) brightness(.45);
+.libro--abierto [data-fondo="capitulo-6"] .pagina__lienzo::before{
+  left: 0;
+  filter: blur(22px) brightness(.7);
   transform: scale(1.1);
 }
-.orilla{ display: none; }
-.libro--abierto .orilla{ display: block; height: calc(var(--pagina-alto, 100%) - 2px); break-after: column; }
-.pergamino > p:first-of-type::first-letter{ color: #4a2a14; }
-.pergamino .botella a{
-  color: #8a4419;
-  border-bottom-color: rgba(138,68,25,.4);
-}
-.pergamino .botella a:hover{ border-bottom-color: #8a4419; }
+.libro--abierto [data-fondo="capitulo-6"] .pagina__lienzo::after{ right: 0; }
 
 /* ───────── Contraportada: el mismo libro, visto por detrás ───────── */
 
