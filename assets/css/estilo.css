@@ -1174,12 +1174,16 @@ a{ color: inherit; }
 }
 .pergamino .botella a:hover{ border-bottom-color: #6e3412; }
 
-/* La foto ocupa todo el pliego, tal cual, sin velo. Con el libro abierto
-   el pergamino va encima, en la página de la derecha, y la de la
-   izquierda deja ver la botella. */
+/* La foto, tal cual y sin velo. En el móvil va la vertical; con el libro
+   abierto, la misma foto alargada hacia la izquierda (capitulo-6-ancha),
+   para que llene el pliego con la botella en la página derecha. El
+   pergamino va encima, en la izquierda. */
 [data-fondo="capitulo-6"] .pagina__velo{ background: none; }
+.libro--abierto [data-fondo="capitulo-6"] .pagina__lienzo{
+  background-image: url("../img/fondos/capitulo-6-ancha.jpeg") !important;
+}
 .orilla{ display: none; }
-.libro--abierto .orilla{ display: block; height: calc(var(--pagina-alto, 100%) - 2px); break-after: column; }
+.libro--abierto .orilla{ display: block; height: calc(var(--pagina-alto, 100%) - 2px); break-before: column; }
 
 /* ───────── Contraportada: el mismo libro, visto por detrás ───────── */
 

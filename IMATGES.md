@@ -20,6 +20,7 @@ Carpeta: `assets/img/fondos/`. Apaïsades, 16:9 o més amples.
 | Capítol 3 · David contra Goliat | `capitulo-3.jpeg` | ✅ ja hi és |
 | Capítol 4 · La traducción consciente | `capitulo-4.jpeg` | ✅ ja hi és |
 | Capítol 6 · El mensaje en la botella | `capitulo-6.jpeg` | ✅ ja hi és |
+| Capítol 6 · versió ampla per a ordinador (generada a partir de l'anterior) | `capitulo-6-ancha.jpeg` | ✅ ja hi és |
 
 El capítol 5 (*El camino*) no porta fotografia: va imprès sobre paper blanc, com la
 portada, perquè les cobertes dels llibres es vegin damunt d'un fons net.
