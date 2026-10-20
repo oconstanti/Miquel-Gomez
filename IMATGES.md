@@ -64,6 +64,7 @@ Carpeta: `assets/img/libros/`. Verticals, 2:3.
 | La gemela silenciosa | `la-gemela-silenciosa.png` | ✅ ja hi és |
 | La agencia de detectives Inklings | `la-agencia-de-detectives-inklings.jpg` | ⬜ falta |
 | Jaque mate | `jaque-mate.jpg` | ⬜ falta |
+| Public Access Afterworld | `public-access-afterworld.jpg` | ⬜ falta |
 
 Mentre en falti alguna, al seu lloc surt una coberta composta amb el títol i l'autor.
 
