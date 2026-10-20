@@ -1160,6 +1160,31 @@ a{ color: inherit; }
 
 /* Con el libro abierto, la página de la izquierda queda libre para la
    botella del fondo y el pergamino va en la de la derecha. */
+/* La foto del capítulo 6 es vertical: con el libro abierto ocupa solo la
+   página de la izquierda; en la de la derecha, la misma foto desenfocada y
+   oscurecida, de fondo para el pergamino. Las dos capas toman la imagen
+   que el guion pone en el lienzo (`inherit`), y el lienzo no la pinta. */
+.libro--abierto [data-fondo="capitulo-6"] .pagina__lienzo{
+  background-size: 0 0;
+  background-color: #120d09;
+  overflow: hidden;
+}
+.libro--abierto [data-fondo="capitulo-6"] .pagina__lienzo::before,
+.libro--abierto [data-fondo="capitulo-6"] .pagina__lienzo::after{
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 50%;
+  background-image: inherit;
+  background-size: cover;
+  background-position: center;
+}
+.libro--abierto [data-fondo="capitulo-6"] .pagina__lienzo::before{ left: 0; }
+.libro--abierto [data-fondo="capitulo-6"] .pagina__lienzo::after{
+  right: 0;
+  filter: blur(22px) brightness(.45);
+  transform: scale(1.1);
+}
 .orilla{ display: none; }
 .libro--abierto .orilla{ display: block; height: calc(var(--pagina-alto, 100%) - 2px); break-after: column; }
 .pergamino > p:first-of-type::first-letter{ color: #4a2a14; }
