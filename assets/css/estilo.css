@@ -1219,7 +1219,7 @@ a{ color: inherit; }
 .tomo--dorso .tomo__cuerpo{
   --grosor: 76px;
   --carton: calc(var(--grosor) * .06);
-  transform: rotateX(3deg) rotateY(42deg);
+  transform: rotateX(3deg) rotateY(31deg);
 }
 @supports (width: 1cqw){
   .tomo--dorso .tomo__cuerpo{ --grosor: 21cqw; }
