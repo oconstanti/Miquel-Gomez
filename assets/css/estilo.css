@@ -1229,10 +1229,13 @@ a{ color: inherit; }
 .tomo__contratapa{
   position: absolute;
   inset: 0;
-  border-radius: 8px 2px 2px 8px;
+  border-radius: 2px;
   transform: translateZ(calc(var(--grosor) / -2 + var(--carton)));
-  background: linear-gradient(to right, #2a170b, #3a2213 30%, #2a170b);
+  background: linear-gradient(to right, #1a0f08, #241509 30%, #160c06);
 }
+/* La sombra cae también bajo el canto de las hojas, que asoma a la izquierda */
+.tomo--dorso::before{ left: -12%; right: 6%; }
+.tomo--dorso::after{ left: -20%; right: 0; }
 /* El grueso de cada tapa, visto de canto */
 .tomo__borde{
   position: absolute;
@@ -1240,10 +1243,11 @@ a{ color: inherit; }
   left: 0;
   width: var(--carton);
   transform-origin: left center;
-  border-radius: 3px;
+  /* el cartón va forrado con el mismo papel de la tapa, doblado por el
+     canto: oscuro, con un brillo fino donde dobla */
   background:
-    linear-gradient(to bottom, rgba(255,225,190,.18), rgba(0,0,0,0) 2%, rgba(0,0,0,0) 98%, rgba(255,225,190,.14)),
-    linear-gradient(to right, #4a2c17, #6b4226 50%, #3b2210);
+    linear-gradient(to right, rgba(255,230,200,.16), rgba(255,230,200,0) 30%, rgba(255,230,200,0) 70%, rgba(0,0,0,.4)),
+    linear-gradient(to bottom, #2b1a0f, #22140b 50%, #170d07);
 }
 .tomo__borde--cerca{ transform: translateZ(calc(var(--grosor) / 2)) rotateY(90deg); }
 .tomo__borde--lejos{ transform: translateZ(calc(var(--grosor) / -2 + var(--carton))) rotateY(90deg); }
@@ -1252,7 +1256,7 @@ a{ color: inherit; }
    tapas, que le hacen sombra, y un poco hundido en el medio. */
 .tomo__hojas{
   position: absolute;
-  top: 1.6%; bottom: 1.6%;
+  top: 1.1%; bottom: 1.1%;
   left: 1.3%;
   width: calc(var(--grosor) - var(--carton) * 2);
   transform-origin: left center;
@@ -1276,7 +1280,7 @@ a{ color: inherit; }
 .tomo--dorso .tomo__canto{ display: none; }
 .tomo--dorso .tomo__canto--alto{ top: 1.6%; transform: translateZ(calc(var(--grosor) / 2 - var(--carton))) rotateX(-90deg); }
 .tomo--dorso .tomo__canto--bajo{ bottom: 1.6%; transform: translateZ(calc(var(--grosor) / 2 - var(--carton))) rotateX(90deg); }
-.tomo--dorso .tomo__tapa{ border-radius: 8px 2px 2px 8px; }
+.tomo--dorso .tomo__tapa{ border-radius: 2px; }
 .tomo--dorso .tomo__tapa::after{ transform: scaleX(-1); }
 /* Sombra arriba, donde va el texto, para que se lea sobre la ilustración */
 .tomo--dorso .tomo__tapa::before{
