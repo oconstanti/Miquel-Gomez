@@ -487,13 +487,14 @@ a{ color: inherit; }
 /* Com en un llibre imprès: els paràgrafs van seguits, sense línia en blanc,
    i el que els separa és el sagnat de la primera línia. El primer de cada
    capítol no se sagna, que és la norma. */
-.flujo > p{
+.flujo > p, .pergamino > p{
   margin: 0;
   text-indent: 1.35em;
 }
-.flujo > p:first-of-type{ text-indent: 0; }
+.flujo > p:first-of-type, .pergamino > p:first-of-type{ text-indent: 0; }
 
-.flujo > p:first-of-type::first-letter{
+.flujo > p:first-of-type::first-letter,
+.pergamino > p:first-of-type::first-letter{
   float: left;
   font-family: var(--display);
   font-size: 3.5em;
@@ -1136,6 +1137,25 @@ a{ color: inherit; }
   transition: border-color .3s ease;
 }
 .botella a:hover{ border-bottom-color: var(--ambar); }
+
+/* El mensaje del capítulo 6, escrito en un pergamino de bordes quemados */
+.pergamino{
+  break-inside: avoid;
+  position: relative;
+  padding: 2.4em 2.6em 2.5em;
+  margin: 0 -.6em;
+  background: url("../img/pergamino.webp") center / 100% 100% no-repeat;
+  filter: drop-shadow(0 .5em 1.1em rgba(0,0,0,.55));
+  transform: rotate(-.6deg);
+  color: #2e2116;
+  text-shadow: none;
+}
+.pergamino > p:first-of-type::first-letter{ color: #4a2a14; }
+.pergamino .botella a{
+  color: #8a4419;
+  border-bottom-color: rgba(138,68,25,.4);
+}
+.pergamino .botella a:hover{ border-bottom-color: #8a4419; }
 
 .ornamento{
   width: 4.5rem;
