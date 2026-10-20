@@ -20,6 +20,7 @@ Carpeta: `assets/img/fondos/`. Apaïsades, 16:9 o més amples.
 | Capítol 3 · David contra Goliat | `capitulo-3.jpeg` | ✅ ja hi és |
 | Capítol 4 · La traducción consciente | `capitulo-4.jpeg` | ✅ ja hi és |
 | Capítol 6 · El mensaje en la botella | `capitulo-6.jpeg` | ✅ ja hi és |
+| Capítol 6 · versió ampla per a ordinador (generada a partir de l'anterior) | `capitulo-6-ancha.jpeg` | ✅ ja hi és |
 
 El capítol 5 (*El camino*) no porta fotografia: va imprès sobre paper blanc, com la
 portada, perquè les cobertes dels llibres es vegin damunt d'un fons net.
@@ -64,6 +65,7 @@ Carpeta: `assets/img/libros/`. Verticals, 2:3.
 | La gemela silenciosa | `la-gemela-silenciosa.png` | ✅ ja hi és |
 | La agencia de detectives Inklings | `la-agencia-de-detectives-inklings.jpg` | ⬜ falta |
 | Jaque mate | `jaque-mate.jpg` | ⬜ falta |
+| Public Access Afterworld | `public-access-afterworld.jpg` | ⬜ falta |
 
 Mentre en falti alguna, al seu lloc surt una coberta composta amb el títol i l'autor.
 

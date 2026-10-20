@@ -43,6 +43,7 @@
       id: el.id,
       rotulo: el.getAttribute("data-rotulo"),
       fondo: el.getAttribute("data-fondo"),
+      video: el.getAttribute("data-video"),
       tema: el.getAttribute("data-tema"),
       libre: el.getAttribute("data-paginas") === "libres",
       fondoRuta: null,
@@ -64,6 +65,19 @@
     var lienzo = document.createElement("div");
     lienzo.className = "pagina__lienzo";
     pagina.appendChild(lienzo);
+
+    /* El fondo animado, para los capítulos que lo tienen */
+    var video = document.createElement("video");
+    video.className = "pagina__video";
+    video.muted = true;
+    video.loop = true;
+    video.playsInline = true;
+    video.setAttribute("muted", "");
+    video.setAttribute("playsinline", "");
+    video.setAttribute("aria-hidden", "true");
+    video.preload = "auto";
+    video.hidden = true;
+    lienzo.appendChild(video);
 
     var velo = document.createElement("div");
     velo.className = "pagina__velo";
@@ -104,7 +118,7 @@
     });
 
     return {
-      el: pagina, lienzo: lienzo, velo: velo, ventana: ventana,
+      el: pagina, lienzo: lienzo, video: video, velo: velo, ventana: ventana,
       sombra: sombra, numero: numero, copias: copias, mitad: null, señal: null
     };
   }
@@ -307,6 +321,47 @@
     return { cap: pl.cap, pag: p };
   }
 
+  /* Los fondos en vídeo. Con el libro abierto va la versión ancha, que
+     cubre el pliego; en el móvil, la vertical. Todas las capas siguen el
+     mismo reloj, para que las dos mitades del pliego (y la hoja que gira)
+     enseñen siempre el mismo instante y no se note la costura. Mientras
+     el vídeo no está listo se ve la foto fija que hay debajo. */
+  function rutaVideo(nombre) {
+    var ancho = libro.classList.contains("libro--abierto");
+    var webm = document.createElement("video").canPlayType('video/webm; codecs="vp9"');
+    return "assets/video/" + nombre + (ancho ? "-ancha" : "") + (webm ? ".webm" : ".mp4");
+  }
+  function reloj(v) {
+    return v.duration ? (performance.now() / 1000) % v.duration : 0;
+  }
+  function ponerVideo(capa, nombre) {
+    var v = capa.video;
+    if (!nombre || quieto) {
+      v.pause();
+      v.hidden = true;
+      return;
+    }
+    var ruta = rutaVideo(nombre);
+    if (v.getAttribute("src") !== ruta) {
+      v.setAttribute("src", ruta);
+      v.addEventListener("loadedmetadata", function () { v.currentTime = reloj(v); }, { once: true });
+    }
+    /* No se enseña hasta que tiene imagen: si falta el archivo, queda la foto */
+    if (v.readyState >= 2) v.hidden = false;
+    else v.addEventListener("loadeddata", function () { if (v.getAttribute("src")) v.hidden = false; }, { once: true });
+    if (v.readyState >= 1) v.currentTime = reloj(v);
+    var p = v.play();
+    if (p && p.catch) p.catch(function () {});
+  }
+  setInterval(function () {
+    capas.forEach(function (capa) {
+      var v = capa.video;
+      if (v.hidden || v.paused || !v.duration) return;
+      var desfase = Math.abs(v.currentTime - reloj(v));
+      if (desfase > .12 && desfase < v.duration - .12) v.currentTime = reloj(v);
+    });
+  }, 1000);
+
   function pintar(capa, ref, mitad) {
     var el = capa.el;
     el.classList.toggle("pagina--mitad-izquierda", mitad === "izquierda");
@@ -323,6 +378,7 @@
       el.classList.remove("pagina--portada");
       el.removeAttribute("data-fondo");
       capa.lienzo.style.backgroundImage = "";
+      ponerVideo(capa, null);
       capa.numero.textContent = "";
       return;
     }
@@ -334,6 +390,7 @@
     el.classList.toggle("pagina--portada", cap.tema === "papel" && cap.entero);
     el.setAttribute("data-fondo", cap.fondo || "");
     capa.lienzo.style.backgroundImage = cap.fondoRuta ? "url('" + cap.fondoRuta + "')" : "";
+    ponerVideo(capa, cap.video);
 
     capa.copias.forEach(function (c, i) { c.hidden = vacia || i !== ref.cap; });
     capa.numero.textContent = vacia ? "" : cap.primera + ref.pag;
@@ -589,7 +646,7 @@
 
   /* ── Imágenes ───────────────────────────────────────────────── */
 
-  var EXTENSIONES = [".jpg", ".jpeg", ".png", ".webp", ".JPG", ".JPEG", ".PNG"];
+  var EXTENSIONES = [".jpg", ".jpeg", ".png", ".webp", ".gif", ".JPG", ".JPEG", ".PNG"];
   var buscadas = {};
 
   /* Busca un archivo probando las extensiones habituales, para que dé igual
@@ -617,9 +674,20 @@
 
   function sinExtension(ruta) { return ruta.replace(/\.[a-z0-9]+$/i, ""); }
 
+  /* Si el fondo tiene versión animada (nombre-animado.gif), se pone en
+     cuanto termina de cargarse; mientras tanto, la foto fija. Quien pide
+     menos movimiento se queda con la foto. */
   capitulos.forEach(function (cap) {
     if (!cap.fondo) return;
+    var animado = false;
     buscarImagen("assets/img/fondos/" + cap.fondo, function (ruta) {
+      if (animado) return;
+      cap.fondoRuta = ruta;
+      asentar(actual, true);
+    });
+    if (quieto) return;
+    buscarImagen("assets/img/fondos/" + cap.fondo + "-animado", function (ruta) {
+      animado = true;
       cap.fondoRuta = ruta;
       asentar(actual, true);
     });

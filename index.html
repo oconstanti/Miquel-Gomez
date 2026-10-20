@@ -13,7 +13,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23140d09'/%3E%3Cpath d='M7 6h8.4v20H7z' fill='%23c98b5c'/%3E%3Cpath d='M16.6 6H25v20h-8.4z' fill='%23f0e6d8'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Caveat:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/estilo.css?v=20261002f">
 <script>document.documentElement.className = 'con-js';</script>
 </head>
@@ -286,13 +286,22 @@
           <p class="libro-ficha__sello">Newton Compton Editores</p>
         </div>
         <div class="libro-ficha">
-          <div class="libro-ficha__portada" data-tono="neutro">
-            <img src="assets/img/libros/jaque-mate.jpg" alt="Cubierta de Jaque mate" loading="lazy">
-            <span class="libro-ficha__suplente" aria-hidden="true"><em>Jaque mate</em><span></span></span>
+          <div class="libro-ficha__portada" data-tono="rh">
+            <img src="assets/img/libros/jaque-mate.jpg" alt="Cubierta de Jaque mate, de Ben Mezrich" loading="lazy">
+            <span class="libro-ficha__suplente" aria-hidden="true"><em>Jaque mate</em><span>Ben Mezrich</span></span>
           </div>
           <p class="libro-ficha__titulo">Jaque mate</p>
-          <p class="libro-ficha__autor"></p>
-          <p class="libro-ficha__sello"></p>
+          <p class="libro-ficha__autor">Ben Mezrich</p>
+          <p class="libro-ficha__sello">Random House</p>
+        </div>
+        <div class="libro-ficha">
+          <div class="libro-ficha__portada" data-tono="rh">
+            <img src="assets/img/libros/public-access-afterworld.jpg" alt="Cubierta de Public Access Afterworld, de Jane Schoenbrun" loading="lazy">
+            <span class="libro-ficha__suplente" aria-hidden="true"><em>Public Access Afterworld</em><span>Jane Schoenbrun</span></span>
+          </div>
+          <p class="libro-ficha__titulo">Public Access Afterworld</p>
+          <p class="libro-ficha__autor">Jane Schoenbrun</p>
+          <p class="libro-ficha__sello">Random House</p>
         </div>
       </div>
     </div>
@@ -300,25 +309,61 @@
 
   <article class="capitulo" id="capitulo-6" data-rotulo="VI · El mensaje en la botella" data-fondo="capitulo-6">
     <div class="flujo">
-      <header class="portadilla">
-        <p class="portadilla__numero">Capítulo 6</p>
-        <h2 class="portadilla__titulo">El mensaje en la botella</h2>
-      </header>
-      <p>Las olas arrastran la botella hasta la orilla. El traductor se acerca a recogerla. A través del vidrio transparente puede ver un mensaje enrollado… ¿Una puerta a un nuevo mundo?</p>
-      <p>Mándame tu mensaje en una botella a:</p>
-      <p class="botella"><a class="correo" href="#">escríbeme</a></p>
+      <div class="pergamino">
+        <header class="portadilla">
+          <p class="portadilla__numero">Capítulo 6</p>
+          <h2 class="portadilla__titulo">El mensaje en la botella</h2>
+        </header>
+        <div class="pergamino__texto">
+          <p>Las olas arrastran la botella hasta la orilla. El traductor se acerca a recogerla. A través del vidrio transparente puede ver un mensaje enrollado… ¿Una puerta a un nuevo mundo?</p>
+          <p>Mándame tu mensaje en una botella a:</p>
+          <p class="botella"><a class="correo" href="#">escríbeme</a></p>
+        </div>
+      </div>
+      <div class="orilla" aria-hidden="true"></div>
     </div>
   </article>
 
-  <section class="capitulo capitulo--entero" id="colofon" data-rotulo="Contraportada" data-fondo="capitulo-6">
-    <div class="entero entero--centro">
-      <div class="colofon">
-        <div class="ornamento" aria-hidden="true"></div>
-        <p class="colofon__nombre">Miquel Gómez Besòs</p>
-        <p class="colofon__oficio">Traducción literaria</p>
-        <p class="colofon__nota">Se acabó de componer esta página un día cualquiera, entre dos mundos.</p>
+  <section class="capitulo capitulo--entero" id="colofon" data-rotulo="Contraportada" data-tema="papel">
+    <div class="entero entero--portada entero--contraportada">
+      <div class="entrada">
+        <h2 class="entrada__titular">Miquel Gómez Besòs</h2>
+        <p class="entrada__ficha">
+          <span>Traducción <strong>literaria</strong></span>
+        </p>
+        <p>Se acabó de componer esta página un día cualquiera, entre dos mundos.</p>
         <button class="umbral" data-ir="frontispicio">Volver al principio</button>
       </div>
+
+      <figure class="contraportada" aria-label="Contracubierta del libro El traductor literario">
+        <div class="tomo tomo--dorso">
+          <div class="tomo__cuerpo">
+            <div class="tomo__capa tomo__capa--lejos" style="--k:0" aria-hidden="true"></div>
+            <div class="tomo__capa tomo__capa--lejos" style="--k:.2" aria-hidden="true"></div>
+            <div class="tomo__capa tomo__capa--lejos" style="--k:.4" aria-hidden="true"></div>
+            <div class="tomo__capa tomo__capa--lejos" style="--k:.6" aria-hidden="true"></div>
+            <div class="tomo__capa tomo__capa--lejos" style="--k:.8" aria-hidden="true"></div>
+            <div class="tomo__capa tomo__capa--lejos" style="--k:1" aria-hidden="true"></div>
+            <div class="tomo__hojas" aria-hidden="true"></div>
+            <div class="tomo__capa tomo__capa--cerca" style="--k:.2" aria-hidden="true"></div>
+            <div class="tomo__capa tomo__capa--cerca" style="--k:.4" aria-hidden="true"></div>
+            <div class="tomo__capa tomo__capa--cerca" style="--k:.6" aria-hidden="true"></div>
+            <div class="tomo__capa tomo__capa--cerca" style="--k:.8" aria-hidden="true"></div>
+            <div class="tomo__capa tomo__capa--cerca" style="--k:1" aria-hidden="true"></div>
+            <div class="tomo__canto tomo__canto--alto" aria-hidden="true"></div>
+            <div class="tomo__canto tomo__canto--bajo" aria-hidden="true"></div>
+            <div class="tomo__tapa">
+              <img class="contraportada__imagen" src="assets/img/portada/contraportada.jpeg" alt="">
+              <div class="contraportada__rotulo">
+                <p class="contraportada__cita">«Porque todos somos el resultado de nuestra historia y elegimos, con cada decisión, nuestro futuro.»</p>
+                <p class="contraportada__resumen">¿Qué significa traducir un libro? Una historia sobre libros, lenguas y el extraño oficio de construir puentes entre mundos.</p>
+                <p class="contraportada__autor">Miquel Gómez Besòs</p>
+                <span class="contraportada__codigo" aria-hidden="true"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </figure>
     </div>
   </section>
 
