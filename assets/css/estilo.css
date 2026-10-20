@@ -1229,7 +1229,7 @@ a{ color: inherit; }
 .tomo__contratapa{
   position: absolute;
   inset: 0;
-  border-radius: 2px;
+  border-radius: 10px;
   transform: translateZ(calc(var(--grosor) / -2 + var(--carton)));
   background: linear-gradient(to right, #1a0f08, #241509 30%, #160c06);
 }
@@ -1237,9 +1237,12 @@ a{ color: inherit; }
 .tomo--dorso::before{ left: -12%; right: 6%; }
 .tomo--dorso::after{ left: -20%; right: 0; }
 /* El grueso de cada tapa, visto de canto */
+/* Con las puntas redondeadas, el canto del cartón empieza y acaba donde
+   la curva deja de ser recta */
 .tomo__borde{
   position: absolute;
-  top: 0; bottom: 0;
+  top: 7px; bottom: 7px;
+  border-radius: 2px;
   left: 0;
   width: var(--carton);
   transform-origin: left center;
@@ -1280,7 +1283,7 @@ a{ color: inherit; }
 .tomo--dorso .tomo__canto{ display: none; }
 .tomo--dorso .tomo__canto--alto{ top: 1.6%; transform: translateZ(calc(var(--grosor) / 2 - var(--carton))) rotateX(-90deg); }
 .tomo--dorso .tomo__canto--bajo{ bottom: 1.6%; transform: translateZ(calc(var(--grosor) / 2 - var(--carton))) rotateX(90deg); }
-.tomo--dorso .tomo__tapa{ border-radius: 2px; }
+.tomo--dorso .tomo__tapa{ border-radius: 10px; }
 .tomo--dorso .tomo__tapa::after{ transform: scaleX(-1); }
 /* Sombra arriba, donde va el texto, para que se lea sobre la ilustración */
 .tomo--dorso .tomo__tapa::before{
