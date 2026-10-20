@@ -589,7 +589,7 @@
 
   /* ── Imágenes ───────────────────────────────────────────────── */
 
-  var EXTENSIONES = [".jpg", ".jpeg", ".png", ".webp", ".JPG", ".JPEG", ".PNG"];
+  var EXTENSIONES = [".jpg", ".jpeg", ".png", ".webp", ".gif", ".JPG", ".JPEG", ".PNG"];
   var buscadas = {};
 
   /* Busca un archivo probando las extensiones habituales, para que dé igual
@@ -617,9 +617,20 @@
 
   function sinExtension(ruta) { return ruta.replace(/\.[a-z0-9]+$/i, ""); }
 
+  /* Si el fondo tiene versión animada (nombre-animado.gif), se pone en
+     cuanto termina de cargarse; mientras tanto, la foto fija. Quien pide
+     menos movimiento se queda con la foto. */
   capitulos.forEach(function (cap) {
     if (!cap.fondo) return;
+    var animado = false;
     buscarImagen("assets/img/fondos/" + cap.fondo, function (ruta) {
+      if (animado) return;
+      cap.fondoRuta = ruta;
+      asentar(actual, true);
+    });
+    if (quieto) return;
+    buscarImagen("assets/img/fondos/" + cap.fondo + "-animado", function (ruta) {
+      animado = true;
       cap.fondoRuta = ruta;
       asentar(actual, true);
     });
