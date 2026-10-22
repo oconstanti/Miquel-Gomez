@@ -66,16 +66,10 @@
     lienzo.className = "pagina__lienzo";
     pagina.appendChild(lienzo);
 
-    /* El fondo animado, para los capítulos que lo tienen */
-    var video = document.createElement("video");
+    /* El fondo animado, para los capítulos que lo tienen: aquí se calca
+       el fotograma del vídeo, que es uno solo para todas las capas */
+    var video = document.createElement("canvas");
     video.className = "pagina__video";
-    video.muted = true;
-    video.loop = true;
-    video.playsInline = true;
-    video.setAttribute("muted", "");
-    video.setAttribute("playsinline", "");
-    video.setAttribute("aria-hidden", "true");
-    video.preload = "auto";
     video.hidden = true;
     lienzo.appendChild(video);
 
@@ -118,7 +112,7 @@
     });
 
     return {
-      el: pagina, lienzo: lienzo, video: video, velo: velo, ventana: ventana,
+      el: pagina, lienzo: lienzo, video: video, fuente: null, calcado: null, velo: velo, ventana: ventana,
       sombra: sombra, numero: numero, copias: copias, mitad: null, señal: null
     };
   }
@@ -322,45 +316,105 @@
   }
 
   /* Los fondos en vídeo. Con el libro abierto va la versión ancha, que
-     cubre el pliego; en el móvil, la vertical. Todas las capas siguen el
-     mismo reloj, para que las dos mitades del pliego (y la hoja que gira)
-     enseñen siempre el mismo instante y no se note la costura. Mientras
-     el vídeo no está listo se ve la foto fija que hay debajo. */
+     cubre el pliego; en el móvil, la vertical. Mientras el vídeo no está
+     listo se ve la foto fija que hay debajo. */
   function rutaVideo(nombre) {
     var ancho = libro.classList.contains("libro--abierto");
     var webm = document.createElement("video").canPlayType('video/webm; codecs="vp9"');
     return "assets/video/" + nombre + (ancho ? "-ancha" : "") + (webm ? ".webm" : ".mp4");
   }
-  function reloj(v) {
-    return v.duration ? (performance.now() / 1000) % v.duration : 0;
+  /* Un solo vídeo por archivo, aunque lo enseñen varias capas: cada una
+     calca en su lienzo el mismo fotograma, y así las dos mitades del
+     pliego (y la hoja que gira) no pueden ir nunca a destiempo. */
+  var peliculas = {};
+
+  function pelicula(ruta) {
+    var v = peliculas[ruta];
+    if (v) return v;
+    v = peliculas[ruta] = document.createElement("video");
+    v.className = "pelicula";
+    v.muted = true;
+    v.loop = true;
+    v.playsInline = true;
+    v.setAttribute("muted", "");
+    v.setAttribute("playsinline", "");
+    v.setAttribute("aria-hidden", "true");
+    v.preload = "auto";
+    v.src = ruta;
+    document.body.appendChild(v);
+    return v;
   }
+
   function ponerVideo(capa, nombre) {
-    var v = capa.video;
     if (!nombre || quieto) {
-      v.pause();
-      v.hidden = true;
+      capa.fuente = null;
+      capa.video.hidden = true;
       return;
     }
-    var ruta = rutaVideo(nombre);
-    if (v.getAttribute("src") !== ruta) {
-      v.setAttribute("src", ruta);
-      v.addEventListener("loadedmetadata", function () { v.currentTime = reloj(v); }, { once: true });
+    var fuente = pelicula(rutaVideo(nombre));
+    if (capa.fuente !== fuente) {
+      capa.fuente = fuente;
+      capa.calcado = null;
+      /* Hasta el primer fotograma, se ve la foto fija de debajo */
+      capa.video.classList.remove("pagina__video--vivo");
     }
-    /* No se enseña hasta que tiene imagen: si falta el archivo, queda la foto */
-    if (v.readyState >= 2) v.hidden = false;
-    else v.addEventListener("loadeddata", function () { if (v.getAttribute("src")) v.hidden = false; }, { once: true });
-    if (v.readyState >= 1) v.currentTime = reloj(v);
-    var p = v.play();
-    if (p && p.catch) p.catch(function () {});
+    capa.video.hidden = false;
+    rodar();
   }
-  setInterval(function () {
+
+  /* El lienzo no necesita más píxeles que el propio vídeo: el navegador
+     lo estira igual que haría con la foto. */
+  function calcar(capa) {
+    var lienzo = capa.video, v = capa.fuente;
+    var ancho = lienzo.clientWidth, alto = lienzo.clientHeight;
+    if (!ancho || !alto || v.readyState < 2 || !v.videoWidth) return;
+
+    var escala = Math.max(ancho / v.videoWidth, alto / v.videoHeight);
+    var reduce = Math.min(1, 1 / escala);
+    var w = Math.round(ancho * reduce), h = Math.round(alto * reduce);
+    if (lienzo.width !== w || lienzo.height !== h) {
+      lienzo.width = w;
+      lienzo.height = h;
+      capa.calcado = null;
+    }
+    if (capa.calcado === v.currentTime) return;
+    capa.calcado = v.currentTime;
+
+    var sw = ancho / escala, sh = alto / escala;
+    lienzo.getContext("2d").drawImage(v,
+      (v.videoWidth - sw) / 2, (v.videoHeight - sh) / 2, sw, sh, 0, 0, w, h);
+    lienzo.classList.add("pagina__video--vivo");
+  }
+
+  var rodando = false;
+
+  function rodar() {
+    if (rodando || document.hidden) return;
+    rodando = true;
+    requestAnimationFrame(fotograma);
+  }
+
+  /* Solo corren los vídeos que se están viendo */
+  function fotograma() {
+    var enJuego = [];
     capas.forEach(function (capa) {
-      var v = capa.video;
-      if (v.hidden || v.paused || !v.duration) return;
-      var desfase = Math.abs(v.currentTime - reloj(v));
-      if (desfase > .12 && desfase < v.duration - .12) v.currentTime = reloj(v);
+      if (!capa.fuente || capa.video.hidden) return;
+      if (enJuego.indexOf(capa.fuente) < 0) enJuego.push(capa.fuente);
+      calcar(capa);
     });
-  }, 1000);
+    Object.keys(peliculas).forEach(function (ruta) {
+      var v = peliculas[ruta];
+      if (enJuego.indexOf(v) < 0) { if (!v.paused) v.pause(); }
+      else if (v.paused) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+    });
+    if (!enJuego.length || document.hidden) { rodando = false; return; }
+    requestAnimationFrame(fotograma);
+  }
+
+  document.addEventListener("visibilitychange", function () {
+    if (!document.hidden) { rodar(); return; }
+    Object.keys(peliculas).forEach(function (ruta) { peliculas[ruta].pause(); });
+  });
 
   function pintar(capa, ref, mitad) {
     var el = capa.el;

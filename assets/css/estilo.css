@@ -340,16 +340,27 @@ a{ color: inherit; }
 .libro--abierto .pagina--mitad-izquierda .pagina__lienzo{ left: 0; }
 .libro--abierto .pagina--mitad-derecha   .pagina__lienzo{ left: -100%; }
 .libro--sencillo .pagina__lienzo{ width: 100%; left: 0; }
-/* El fondo en vídeo encaja igual que la foto que tapa */
+/* El fondo en vídeo, calcado encima de la foto que tapa; entra fundido */
 .pagina__video{
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center;
+  display: block;
+  opacity: 0;
+  transition: opacity 1s ease;
 }
 .pagina__video[hidden]{ display: none; }
+.pagina__video--vivo{ opacity: 1; }
+/* El vídeo de donde se calca: tiene que estar en la página para que los
+   navegadores lo reproduzcan, pero no se ve */
+.pelicula{
+  position: fixed;
+  left: 0; top: 0;
+  width: 1px; height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
 
 /* Fondos provisionales, en el tono de la fotografía que va en cada capítulo */
 [data-fondo="portada"]    .pagina__lienzo{ background-image: radial-gradient(120% 90% at 30% 35%, #6d3a1f 0%, #2c170e 55%, #0c0705 100%); }
@@ -1198,7 +1209,7 @@ a{ color: inherit; }
    pergamino va encima, en la izquierda. */
 [data-fondo="capitulo-6"] .pagina__velo{ background: none; }
 .libro--abierto [data-fondo="capitulo-6"] .pagina__lienzo{
-  background-image: url("../img/fondos/capitulo-6-ancha.jpeg?v=3") !important;
+  background-image: url("../img/fondos/capitulo-6-ancha.jpeg?v=4") !important;
 }
 .orilla{ display: none; }
 .libro--abierto .orilla{ display: block; height: calc(var(--pagina-alto, 100%) - 2px); break-before: column; }

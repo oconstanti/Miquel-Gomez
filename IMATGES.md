@@ -22,6 +22,12 @@ Carpeta: `assets/img/fondos/`. Apaïsades, 16:9 o més amples.
 | Capítol 6 · El mensaje en la botella | `capitulo-6.jpeg` | ✅ ja hi és |
 | Capítol 6 · versió ampla per a ordinador (generada a partir de l'anterior) | `capitulo-6-ancha.jpeg` | ✅ ja hi és |
 
+**El capítol 6 es mou:** el fons és un vídeo en bucle (les onades i la botella), a
+`assets/video/`: `capitulo-6.webm/.mp4` per al mòbil i `capitulo-6-ancha.webm/.mp4` per al
+llibre obert. Les dues fotos de dalt són el primer fotograma d'aquest vídeo: es veuen
+mentre carrega i són l'única cosa que es veu si el visitant té demanat reduir el moviment.
+El vídeo està girat de costat perquè la botella quedi a la pàgina dreta, fora del pergamí.
+
 El capítol 5 (*El camino*) no porta fotografia: va imprès sobre paper blanc, com la
 portada, perquè les cobertes dels llibres es vegin damunt d'un fons net.
 
