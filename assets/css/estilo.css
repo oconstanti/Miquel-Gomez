@@ -1172,7 +1172,7 @@ a{ color: inherit; }
   display: flex;
   flex-direction: column;
   padding: 3.2em 2.6em 3em;
-  background: url("../img/pergamino.webp") center / 100% 100% no-repeat;
+  background: url("../img/pergamino.webp?v=2") center / 100% 100% no-repeat;
   color: #2e2116;
   text-shadow: none;
 }
