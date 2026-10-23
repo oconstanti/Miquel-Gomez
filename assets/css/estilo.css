@@ -14,7 +14,7 @@
 
   --display: "Playfair Display", "Iowan Old Style", Georgia, serif;
   --texto:   "EB Garamond", Georgia, "Times New Roman", serif;
-  --mano:    "Edu TAS Beginner", "Segoe Print", "Bradley Hand", cursive;
+  --mano:    "Marck Script", "Segoe Print", "Bradley Hand", cursive;
 
   --margen:     clamp(1.25rem, 4vw, 4.5rem);
   --riel:       0px;
@@ -1181,15 +1181,14 @@ a{ color: inherit; }
 .pergamino .portadilla__numero{
   font-family: var(--mano);
   font-style: normal;
-  font-weight: 500;
   color: #4a3019;
 }
 .pergamino .portadilla__titulo{
   font-family: var(--mano);
-  font-weight: 500;
   font-size: calc(clamp(1.7rem, 8.4cqw, 2.9rem) * var(--ajuste, 1));
   line-height: 1.12;
   letter-spacing: 0;
+  word-spacing: -.1em;
   color: #24160b;
   text-shadow: none;
 }
@@ -1198,11 +1197,11 @@ a{ color: inherit; }
   margin-block: auto;
   padding-top: 1.2em;
   font-family: var(--mano);
-  font-weight: 500;
   font-size: max(1.02em, 4.1cqw);
+  word-spacing: -.12em;
   color: #2e1d0f;
 }
-.pergamino__texto p{ margin: 0 0 .7em; line-height: 1.55; }
+.pergamino__texto p{ margin: 0 0 .7em; line-height: 1.55; text-wrap: pretty; }
 .pergamino .botella{ margin-top: .3em; }
 /* Subrayado a mano alzada, como un trazo de pluma: entra a la izquierda
    casi sin tocar el papel y va cargando tinta hasta acabar grueso. */
