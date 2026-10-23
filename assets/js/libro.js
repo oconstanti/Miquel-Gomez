@@ -318,10 +318,11 @@
   /* Los fondos en vídeo. Con el libro abierto va la versión ancha, que
      cubre el pliego; en el móvil, la vertical. Mientras el vídeo no está
      listo se ve la foto fija que hay debajo. */
+  var VERSION_VIDEO = 2;   // súbela al cambiar un vídeo, para saltarse la caché
   function rutaVideo(nombre) {
     var ancho = libro.classList.contains("libro--abierto");
     var webm = document.createElement("video").canPlayType('video/webm; codecs="vp9"');
-    return "assets/video/" + nombre + (ancho ? "-ancha" : "") + (webm ? ".webm" : ".mp4");
+    return "assets/video/" + nombre + (ancho ? "-ancha" : "") + (webm ? ".webm" : ".mp4") + "?v=" + VERSION_VIDEO;
   }
   /* Un solo vídeo por archivo, aunque lo enseñen varias capas: cada una
      calca en su lienzo el mismo fotograma, y así las dos mitades del
